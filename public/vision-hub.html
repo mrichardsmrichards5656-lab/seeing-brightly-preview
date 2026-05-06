@@ -3344,169 +3344,245 @@ function renderCondition(key) {
   // Merge Welsh data if Welsh mode is active
   const d = (_isWelsh && base.cy) ? Object.assign({}, base, base.cy) : base;
   const tc = {gene:"gene",stem:"stem",trial:"trial",drug:"drug",tech:"tech"};
-  return `
-  <div class="cond-hero">
-    <button class="back-btn" onclick="showPage('home')" aria-label="Back to conditions list">${_isWelsh ? '← Pob Cyflwr' : '← All Conditions'}</button>
-    <span class="cond-hero-eyebrow">${_isWelsh ? 'Canllaw Cyflyrau\'r Llygad' : 'Eye Condition Guide'}</span>
-    <h1>${d.name}</h1>
-    <p style="font-size:0.75rem;color:var(--text2);margin-bottom:16px">Last reviewed: <time datetime="2026-05">May 2026</time> &nbsp;·&nbsp; <button onclick="showPage('disclaimer')" style="background:none;border:none;color:var(--text2);font-family:var(--font);font-size:inherit;cursor:pointer;text-decoration:underline;padding:0">How we write our content</button></p>
-  </div>
-  <div class="cond-page-inner">
-
-    <div class="acc-item" id="acc-about-${key}">
-      <button class="acc-btn" onclick="toggleAcc('about','${key}')" aria-expanded="false">
-        <span class="acc-left"><span class="acc-num">1</span><span class="acc-label">What is ${d.name}?</span></span>
-        <span class="acc-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="acc-body">
-        <h2 class="sr" id="about-heading-${key}">About ${d.name}</h2>
-        <div class="ic"><p>${d.what}</p></div>
-        <div class="ic"><span class="ic-icon" aria-hidden="true">👁️</span><h3>How It Affects Vision</h3><p>${d.howAffects}</p></div>
-        <div class="ic"><h3>Diagnosis</h3><p>${d.diagnosis}</p></div>
-        <div class="ic"><h3>Who It Affects</h3><p>${d.whoAffects}</p></div>
-      </div>
-    </div>
-
-    <div class="acc-item" id="acc-research-${key}">
-      <button class="acc-btn" onclick="toggleAcc('research','${key}')" aria-expanded="false">
-        <span class="acc-left"><span class="acc-num">2</span><span class="acc-label">Latest Research &amp; Clinical Trials</span></span>
-        <span class="acc-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="acc-body">
-        ${_isWelsh && d.cy && d.cy.researchSummary ? `<div class="wb" style="border-left:4px solid #00b140;margin-bottom:16px"><strong>🏴󠁧󠁢󠁷󠁬󠁳󠁥󠁳󠁿 Crynodeb Ymchwil:</strong> ${d.cy.researchSummary}</div>` : ''}
-        ${d.research.map(r=>`
-        <div class="rc">
-          <span class="rtag ${tc[r.tag]||'trial'}">${r.label}</span>
-          <h3>${r.title}</h3><p>${r.body}</p>
-          <a href="${r.link}" target="_blank" rel="noopener" class="trial-link">Find out more →</a>
-        </div>`).join('')}
-        <div class="wb"><strong>Labels explained:</strong> "Available now" means approved or in active use. "Pipeline" means in clinical trials. "Horizon" means early-stage research. Always discuss any research with your ophthalmologist before contacting a trial.</div>
-      </div>
-    </div>
-
-    <div class="acc-item" id="acc-guides-${key}">
-      <button class="acc-btn" onclick="toggleAcc('guides','${key}')" aria-expanded="false">
-        <span class="acc-left"><span class="acc-num">3</span><span class="acc-label">Practical How-To Guides</span></span>
-        <span class="acc-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="acc-body">
-        ${d.guides.map(g=>`
-        <div class="nc">
-          <div class="nc-num" aria-hidden="true">${g.n}</div>
-          <div><h3>${g.title}</h3><p>${g.body}</p></div>
-        </div>`).join('')}
-      </div>
-    </div>
-
-    <div class="acc-item" id="acc-tech-${key}">
-      <button class="acc-btn" onclick="toggleAcc('tech','${key}')" aria-expanded="false">
-        <span class="acc-left"><span class="acc-num">4</span><span class="acc-label">Assistive Technology</span></span>
-        <span class="acc-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="acc-body">
-        ${d.tech.map(t=>`
-        <div class="tc">
-          <div class="tc-cat">${t.cat}</div>
-          <h3>${t.title}</h3><p>${t.body}</p>
-          <div class="tc-price">${t.price}</div>
-        </div>`).join('')}
-        <div class="wb"><strong>Funding help:</strong> Many devices are part or fully funded. Ask your local authority sensory team, Access to Work, or Disabled Students Allowance before buying privately. To buy specialist equipment, the <a href="https://shop.rnib.org.uk" target="_blank" rel="noopener" style="color:var(--yellow);font-weight:700">RNIB Shop ↗</a> is the UK gold standard.</div>
-      </div>
-    </div>
-
-    <div class="acc-item" id="acc-support-${key}">
-      <button class="acc-btn" onclick="toggleAcc('support','${key}')" aria-expanded="false">
-        <span class="acc-left"><span class="acc-num">5</span><span class="acc-label">Support &amp; Community</span></span>
-        <span class="acc-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="acc-body">
-        ${d.helpline ? `<div style="background:var(--yellow);border-radius:14px;padding:16px 18px;margin-bottom:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-          <span style="font-size:1.4rem" aria-hidden="true">📞</span>
-          <div>
-            <div style="font-size:0.78rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#000;margin-bottom:2px">${d.helpline.org}</div>
-            <a href="tel:${d.helpline.number.replace(/\s/g,'')}" style="font-size:1.3rem;font-weight:900;color:#000;text-decoration:none">${d.helpline.number}</a>
-            <div style="font-size:0.75rem;color:#333;margin-top:2px">${d.helpline.hours}</div>
-          </div>
-        </div>` : ''}
-        ${d.support.map(s=>`
-        <div class="sc">
-          <h3>${s.title}</h3><p>${s.body}</p>
-          <a href="${s.link}" target="_blank" rel="noopener">${s.link.replace('https://','').replace('www.','')} ↗</a>
-        </div>`).join('')}
-        <div class="wb"><strong>Mental health:</strong> Sight loss significantly increases risk of depression. RNIB Sight Loss Counselling offers free sessions — 0303 123 9999. Samaritans: 116 123, 24/7.</div>
-      </div>
-    </div>
-
-    <div class="acc-item" id="acc-benefits-${key}">
-      <button class="acc-btn" onclick="toggleAcc('benefits','${key}')" aria-expanded="false">
-        <span class="acc-left"><span class="acc-num">6</span><span class="acc-label">Benefits &amp; Financial Help</span></span>
-        <span class="acc-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="acc-body">
-        <div class="wb"><strong>You are entitled to these benefits.</strong> An estimated £3.5 billion in disability benefits goes unclaimed every year. Call RNIB (0303 123 9999) for free help with forms.</div>
-        ${d.benefits.map(b=>`
-        <div class="nc">
-          <div class="nc-num" aria-hidden="true">${b.n}</div>
-          <div><h3>${b.title}</h3><p>${b.body}</p></div>
-        </div>`).join('')}
-        <div class="ic"><h3 id="benefits-advice-${key}">Free Benefits Advice</h3>
-          <p><strong>RNIB:</strong> 0303 123 9999 &nbsp;·&nbsp; <strong>Citizens Advice:</strong> citizensadvice.org.uk &nbsp;·&nbsp; <strong>Calculator:</strong> turn2us.org.uk</p>
-        </div>
-      </div>
-    </div>
-
-    ${d.livingWith ? `
-    <div class="acc-item" id="acc-living-${key}">
-      <button class="acc-btn" onclick="toggleAcc('living','${key}')" aria-expanded="false">
-        <span class="acc-left"><span class="acc-num">7</span><span class="acc-label">Living with ${d.name}</span></span>
-        <span class="acc-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="acc-body">
-        ${d.livingWith.map(l=>`
-        <div class="nc">
-          <div class="nc-num" aria-hidden="true" style="background:var(--blue)">💡</div>
-          <div><h3>${l.title}</h3><p>${l.body}</p></div>
-        </div>`).join('')}
-        <div class="wb"><strong>More daily life tips:</strong> Visit our <button onclick="showPage('livingwell')" style="background:none;border:none;color:var(--yellow);font-family:var(--font);font-size:inherit;font-weight:700;cursor:pointer;text-decoration:underline;padding:0">Everyday Guide →</button></div>
-      </div>
-    </div>` : ''}
-
-    ${d.forParents ? `
-    <div class="acc-item" id="acc-parents-${key}">
-      <button class="acc-btn" onclick="toggleAcc('parents','${key}')" aria-expanded="false">
-        <span class="acc-left"><span class="acc-num">👶</span><span class="acc-label">For Parents</span></span>
-        <span class="acc-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="acc-body">
-        <div class="wb"><strong>${d.forParents.intro}</strong></div>
-        ${d.forParents.tips.map(t=>`
-        <div class="nc">
-          <div class="nc-num" aria-hidden="true" style="background:var(--green);font-size:0.7rem">💛</div>
-          <div><h3>${t.title}</h3><p>${t.body}</p></div>
-        </div>`).join('')}
-        <div class="wb">For more detailed guidance, visit our <button onclick="showPage('children')" style="background:none;border:none;color:var(--yellow);font-family:var(--font);font-size:inherit;font-weight:700;cursor:pointer;text-decoration:underline;padding:0">For Parents page →</button></div>
-      </div>
-    </div>` : ''}
-
-    <button class="back-btn" onclick="showPage('home')" style="margin-top:8px" aria-label="Back to conditions list">← All Conditions</button>
-
-    <div class="share-bar" style="margin-top:8px">
-      <button class="share-btn" onclick="window.print()" aria-label="Print or save as PDF">🖨️ Print / Save PDF</button>
-      <button class="share-btn" onclick="shareCondition('${d.name}')" aria-label="Share this page">📤 Share</button>
-      <button class="share-btn" onclick="copyLink()" aria-label="Copy link to clipboard">🔗 Copy link</button>
-      <a class="share-btn" href="https://wa.me/?text=Vision%20Hub%20-%20${encodeURIComponent(d.name)}%20information%3A%20" target="_blank" rel="noopener" aria-label="Share on WhatsApp">💬 WhatsApp</a>
-    </div>
-
-    <div class="feedback-bar" id="fb-${key}">
-      <span class="feedback-q">Was this page helpful?</span>
-      <button class="fb-btn" onclick="submitFeedback('${key}','yes',this)" aria-label="Yes helpful">👍 Yes</button>
-      <button class="fb-btn" onclick="submitFeedback('${key}','no',this)" aria-label="No not helpful">👎 No</button>
-      <button class="fb-btn" onclick="showPage('contact')" aria-label="Something is missing" style="font-size:0.82rem">✉️ Something's missing</button>
-      <span class="feedback-thanks" id="fb-thanks-${key}">Thank you!</span>
-    </div>
-
-  </div>`;
-}
+  // UI labels — Welsh translations
+  const L = _isWelsh ? {
+    backAll: '← Pob Cyflwr',
+    eyebrow: 'Canllaw Cyflyrau\'r Llygad',
+    lastReviewed: 'Adolygwyd ddiwethaf:',
+    lastReviewedDate: 'Mai 2026',
+    howWeWrite: 'Sut rydyn ni\'n ysgrifennu ein cynnwys',
+    whatIs: (n) => `Beth yw ${n}?`,
+    aboutSr: (n) => `Am ${n}`,
+    howAffects: 'Sut Mae\'n Effeithio ar Olwg',
+    diagnosis: 'Diagnosis',
+    whoAffects: 'Pwy Mae\'n Effeithio Arnynt',
+    research: 'Ymchwil Diweddaraf a Threialon Clinigol',
+    findOutMore: 'Darganfod mwy →',
+    labelsExplained: '<strong>Esboniad o\'r labeli:</strong> Mae "Ar gael nawr" yn golygu wedi\'i gymeradwyo neu mewn defnydd gweithredol. Mae "Piblinell" yn golygu mewn treialon clinigol. Mae "Gorwel" yn golygu ymchwil cynnar. Trafodwch unrhyw ymchwil gyda\'ch offthalmolegydd cyn cysylltu â threial.',
+    guides: 'Canllawiau Sut-i-wneud Ymarferol',
+    tech: 'Technoleg Gynorthwyol',
+    funding: '<strong>Cymorth ariannu:</strong> Mae llawer o ddyfeisiau\'n cael eu hariannu\'n rhannol neu\'n llawn. Gofynnwch i dîm synhwyraidd eich awdurdod lleol, Mynediad i Waith, neu\'r Lwfans Myfyrwyr Anabl cyn prynu\'n breifat. I brynu offer arbenigol, <a href="https://shop.rnib.org.uk" target="_blank" rel="noopener" style="color:var(--yellow);font-weight:700">Siop yr RNIB ↗</a> yw\'r safon aur yn y DU.',
+    support: 'Cymorth a Chymuned',
+    mental: '<strong>Iechyd meddwl:</strong> Mae colli golwg yn cynyddu\'r risg o iselder yn sylweddol. Mae Cwnsela Colli Golwg yr RNIB yn cynnig sesiynau am ddim — 0303 123 9999. Samariaid: 116 123, 24/7.',
+    benefits: 'Budd-daliadau a Chymorth Ariannol',
+    benefitsCallout: '<strong>Mae gennych hawl i\'r budd-daliadau hyn.</strong> Amcangyfrifir bod £3.5 biliwn mewn budd-daliadau anabledd yn cael ei adael heb ei hawlio bob blwyddyn. Ffoniwch yr RNIB (0303 123 9999) am gymorth rhad ac am ddim gyda ffurflenni.',
+    freeAdvice: 'Cyngor Budd-daliadau Am Ddim',
+    livingWith: (n) => `Byw gyda ${n}`,
+    moreDailyTips: '<strong>Mwy o awgrymiadau bywyd bob dydd:</strong> Ewch i\'n',
+    everydayGuide: 'Canllaw Bob Dydd →',
+    forParents: 'I Rieni',
+    forParentsMore: 'Am ganllawiau mwy manwl, ewch i\'n',
+    forParentsPage: 'tudalen I Rieni →',
+    backAll2: '← Pob Cyflwr',
+    print: '🖨️ Argraffu / Cadw PDF',
+    share: '📤 Rhannu',
+    copyLink: '🔗 Copïo dolen',
+    whatsapp: '💬 WhatsApp',
+    helpful: 'A oedd y dudalen hon yn ddefnyddiol?',
+    yes: '👍 Ydy',
+    no: '👎 Nac ydy',
+    missing: '✉️ Mae rhywbeth ar goll'
+  } : {
+    backAll: '← All Conditions',
+    eyebrow: 'Eye Condition Guide',
+    lastReviewed: 'Last reviewed:',
+    lastReviewedDate: 'May 2026',
+    howWeWrite: 'How we write our content',
+    whatIs: (n) => `What is ${n}?`,
+    aboutSr: (n) => `About ${n}`,
+    howAffects: 'How It Affects Vision',
+    diagnosis: 'Diagnosis',
+    whoAffects: 'Who It Affects',
+    research: 'Latest Research & Clinical Trials',
+    findOutMore: 'Find out more →',
+    labelsExplained: '<strong>Labels explained:</strong> "Available now" means approved or in active use. "Pipeline" means in clinical trials. "Horizon" means early-stage research. Always discuss any research with your ophthalmologist before contacting a trial.',
+    guides: 'Practical How-To Guides',
+    tech: 'Assistive Technology',
+    funding: '<strong>Funding help:</strong> Many devices are part or fully funded. Ask your local authority sensory team, Access to Work, or Disabled Students Allowance before buying privately. To buy specialist equipment, the <a href="https://shop.rnib.org.uk" target="_blank" rel="noopener" style="color:var(--yellow);font-weight:700">RNIB Shop ↗</a> is the UK gold standard.',
+    support: 'Support & Community',
+    mental: '<strong>Mental health:</strong> Sight loss significantly increases risk of depression. RNIB Sight Loss Counselling offers free sessions — 0303 123 9999. Samaritans: 116 123, 24/7.',
+    benefits: 'Benefits & Financial Help',
+    benefitsCallout: '<strong>You are entitled to these benefits.</strong> An estimated £3.5 billion in disability benefits goes unclaimed every year. Call RNIB (0303 123 9999) for free help with forms.',
+    freeAdvice: 'Free Benefits Advice',
+    livingWith: (n) => `Living with ${n}`,
+    moreDailyTips: '<strong>More daily life tips:</strong> Visit our',
+    everydayGuide: 'Everyday Guide →',
+    forParents: 'For Parents',
+    forParentsMore: 'For more detailed guidance, visit our',
+    forParentsPage: 'For Parents page →',
+    backAll2: '← All Conditions',
+    print: '🖨️ Print / Save PDF',
+    share: '📤 Share',
+    copyLink: '🔗 Copy link',
+    whatsapp: '💬 WhatsApp',
+    helpful: 'Was this page helpful?',
+    yes: '👍 Yes',
+    no: '👎 No',
+    missing: "✉️ Something's missing"
+  };
+  return `
+  <div class="cond-hero">
+    <button class="back-btn" onclick="showPage('home')" aria-label="Back to conditions list">${L.backAll}</button>
+    <span class="cond-hero-eyebrow">${L.eyebrow}</span>
+    <h1>${d.name}</h1>
+    <p style="font-size:0.75rem;color:var(--text2);margin-bottom:16px">${L.lastReviewed} <time datetime="2026-05">${L.lastReviewedDate}</time> &nbsp;·&nbsp; <button onclick="showPage('disclaimer')" style="background:none;border:none;color:var(--text2);font-family:var(--font);font-size:inherit;cursor:pointer;text-decoration:underline;padding:0">${L.howWeWrite}</button></p>
+  </div>
+  <div class="cond-page-inner">
+
+    <div class="acc-item" id="acc-about-${key}">
+      <button class="acc-btn" onclick="toggleAcc('about','${key}')" aria-expanded="false">
+        <span class="acc-left"><span class="acc-num">1</span><span class="acc-label">${L.whatIs(d.name)}</span></span>
+        <span class="acc-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="acc-body">
+        <h2 class="sr" id="about-heading-${key}">${L.aboutSr(d.name)}</h2>
+        <div class="ic"><p>${d.what}</p></div>
+        <div class="ic"><span class="ic-icon" aria-hidden="true">👁️</span><h3>${L.howAffects}</h3><p>${d.howAffects}</p></div>
+        <div class="ic"><h3>${L.diagnosis}</h3><p>${d.diagnosis}</p></div>
+        <div class="ic"><h3>${L.whoAffects}</h3><p>${d.whoAffects}</p></div>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc-research-${key}">
+      <button class="acc-btn" onclick="toggleAcc('research','${key}')" aria-expanded="false">
+        <span class="acc-left"><span class="acc-num">2</span><span class="acc-label">${L.research}</span></span>
+        <span class="acc-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="acc-body">
+        ${_isWelsh && d.cy && d.cy.researchSummary ? `<div class="wb" style="border-left:4px solid #00b140;margin-bottom:16px"><strong>🏴󠁧󠁢󠁷󠁬󠁳󠁥󠁳󠁿 Crynodeb Ymchwil:</strong> ${d.cy.researchSummary}</div>` : ''}
+        ${d.research.map(r=>`
+        <div class="rc">
+          <span class="rtag ${tc[r.tag]||'trial'}">${r.label}</span>
+          <h3>${r.title}</h3><p>${r.body}</p>
+          <a href="${r.link}" target="_blank" rel="noopener" class="trial-link">${L.findOutMore}</a>
+        </div>`).join('')}
+        <div class="wb">${L.labelsExplained}</div>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc-guides-${key}">
+      <button class="acc-btn" onclick="toggleAcc('guides','${key}')" aria-expanded="false">
+        <span class="acc-left"><span class="acc-num">3</span><span class="acc-label">${L.guides}</span></span>
+        <span class="acc-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="acc-body">
+        ${d.guides.map(g=>`
+        <div class="nc">
+          <div class="nc-num" aria-hidden="true">${g.n}</div>
+          <div><h3>${g.title}</h3><p>${g.body}</p></div>
+        </div>`).join('')}
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc-tech-${key}">
+      <button class="acc-btn" onclick="toggleAcc('tech','${key}')" aria-expanded="false">
+        <span class="acc-left"><span class="acc-num">4</span><span class="acc-label">${L.tech}</span></span>
+        <span class="acc-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="acc-body">
+        ${d.tech.map(t=>`
+        <div class="tc">
+          <div class="tc-cat">${t.cat}</div>
+          <h3>${t.title}</h3><p>${t.body}</p>
+          <div class="tc-price">${t.price}</div>
+        </div>`).join('')}
+        <div class="wb">${L.funding}</div>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc-support-${key}">
+      <button class="acc-btn" onclick="toggleAcc('support','${key}')" aria-expanded="false">
+        <span class="acc-left"><span class="acc-num">5</span><span class="acc-label">${L.support}</span></span>
+        <span class="acc-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="acc-body">
+        ${d.helpline ? `<div style="background:var(--yellow);border-radius:14px;padding:16px 18px;margin-bottom:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+          <span style="font-size:1.4rem" aria-hidden="true">📞</span>
+          <div>
+            <div style="font-size:0.78rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#000;margin-bottom:2px">${d.helpline.org}</div>
+            <a href="tel:${d.helpline.number.replace(/\s/g,'')}" style="font-size:1.3rem;font-weight:900;color:#000;text-decoration:none">${d.helpline.number}</a>
+            <div style="font-size:0.75rem;color:#333;margin-top:2px">${d.helpline.hours}</div>
+          </div>
+        </div>` : ''}
+        ${d.support.map(s=>`
+        <div class="sc">
+          <h3>${s.title}</h3><p>${s.body}</p>
+          <a href="${s.link}" target="_blank" rel="noopener">${s.link.replace('https://','').replace('www.','')} ↗</a>
+        </div>`).join('')}
+        <div class="wb">${L.mental}</div>
+      </div>
+    </div>
+
+    <div class="acc-item" id="acc-benefits-${key}">
+      <button class="acc-btn" onclick="toggleAcc('benefits','${key}')" aria-expanded="false">
+        <span class="acc-left"><span class="acc-num">6</span><span class="acc-label">${L.benefits}</span></span>
+        <span class="acc-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="acc-body">
+        <div class="wb">${L.benefitsCallout}</div>
+        ${d.benefits.map(b=>`
+        <div class="nc">
+          <div class="nc-num" aria-hidden="true">${b.n}</div>
+          <div><h3>${b.title}</h3><p>${b.body}</p></div>
+        </div>`).join('')}
+        <div class="ic"><h3 id="benefits-advice-${key}">${L.freeAdvice}</h3>
+          <p><strong>RNIB:</strong> 0303 123 9999 &nbsp;·&nbsp; <strong>Citizens Advice:</strong> citizensadvice.org.uk &nbsp;·&nbsp; <strong>Calculator:</strong> turn2us.org.uk</p>
+        </div>
+      </div>
+    </div>
+
+    ${d.livingWith ? `
+    <div class="acc-item" id="acc-living-${key}">
+      <button class="acc-btn" onclick="toggleAcc('living','${key}')" aria-expanded="false">
+        <span class="acc-left"><span class="acc-num">7</span><span class="acc-label">${L.livingWith(d.name)}</span></span>
+        <span class="acc-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="acc-body">
+        ${d.livingWith.map(l=>`
+        <div class="nc">
+          <div class="nc-num" aria-hidden="true" style="background:var(--blue)">💡</div>
+          <div><h3>${l.title}</h3><p>${l.body}</p></div>
+        </div>`).join('')}
+        <div class="wb">${L.moreDailyTips} <button onclick="showPage('livingwell')" style="background:none;border:none;color:var(--yellow);font-family:var(--font);font-size:inherit;font-weight:700;cursor:pointer;text-decoration:underline;padding:0">${L.everydayGuide}</button></div>
+      </div>
+    </div>` : ''}
+
+    ${d.forParents ? `
+    <div class="acc-item" id="acc-parents-${key}">
+      <button class="acc-btn" onclick="toggleAcc('parents','${key}')" aria-expanded="false">
+        <span class="acc-left"><span class="acc-num">👶</span><span class="acc-label">${L.forParents}</span></span>
+        <span class="acc-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="acc-body">
+        <div class="wb"><strong>${d.forParents.intro}</strong></div>
+        ${d.forParents.tips.map(t=>`
+        <div class="nc">
+          <div class="nc-num" aria-hidden="true" style="background:var(--green);font-size:0.7rem">💛</div>
+          <div><h3>${t.title}</h3><p>${t.body}</p></div>
+        </div>`).join('')}
+        <div class="wb">${L.forParentsMore} <button onclick="showPage('children')" style="background:none;border:none;color:var(--yellow);font-family:var(--font);font-size:inherit;font-weight:700;cursor:pointer;text-decoration:underline;padding:0">${L.forParentsPage}</button></div>
+      </div>
+    </div>` : ''}
+
+    <button class="back-btn" onclick="showPage('home')" style="margin-top:8px" aria-label="Back to conditions list">${L.backAll2}</button>
+
+    <div class="share-bar" style="margin-top:8px">
+      <button class="share-btn" onclick="window.print()" aria-label="Print or save as PDF">${L.print}</button>
+      <button class="share-btn" onclick="shareCondition('${d.name}')" aria-label="Share this page">${L.share}</button>
+      <button class="share-btn" onclick="copyLink()" aria-label="Copy link to clipboard">${L.copyLink}</button>
+      <a class="share-btn" href="https://wa.me/?text=Vision%20Hub%20-%20${encodeURIComponent(d.name)}%20information%3A%20" target="_blank" rel="noopener" aria-label="Share on WhatsApp">${L.whatsapp}</a>
+    </div>
+
+    <div class="feedback-bar" id="fb-${key}">
+      <span class="feedback-q">${L.helpful}</span>
+      <button class="fb-btn" onclick="submitFeedback('${key}','yes',this)" aria-label="Yes helpful">${L.yes}</button>
+      <button class="fb-btn" onclick="submitFeedback('${key}','no',this)" aria-label="No not helpful">${L.no}</button>
+      <button class="fb-btn" onclick="showPage('contact')" aria-label="Something is missing" style="font-size:0.82rem">${L.missing}</button>
+      <span class="feedback-thanks" id="fb-thanks-${key}">${_isWelsh ? 'Diolch!' : 'Thank you!'}</span>
+    </div>
+
+  </div>`;
+}
 
 /* ─────────────── TAB NAVIGATION + SCROLL SPY ─────────────── */
 function scrollToSection(id, btn) {

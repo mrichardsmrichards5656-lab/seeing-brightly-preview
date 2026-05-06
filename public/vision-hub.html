@@ -57,9 +57,40 @@ body.ll {
   --yellow:#e8a020; --yellow2:#f0b030;
   --green:#5dbf7a; --blue:#5aafe0; --purple:#b07ae8; --red:#e87070;
   --shadow:0 2px 12px rgba(0,0,0,0.4);
-}
-
-html { font-size: calc(17px * var(--scale)); scroll-behavior: smooth; overflow-x: hidden; }
+}
+/* Light Blue / Black text — Stargardt-friendly, low glare */
+body.lb {
+  --bg:#cfe4f5; --bg2:#bcd6ec; --card:#e8f2fb; --card2:#d6e7f5;
+  --text:#000000; --text2:#1a2b3c; --border:rgba(0,0,0,0.18);
+  --yellow:#0a4a78; --yellow2:#0d5a92;
+  --green:#0d5a2e; --blue:#0a4a78; --purple:#5b2a9c; --red:#9c1010;
+  --shadow:0 2px 12px rgba(0,0,0,0.10);
+}
+/* Cream / Black text — warm, low-glare for macular conditions */
+body.cr {
+  --bg:#f5ecd7; --bg2:#ecdfc0; --card:#fff5db; --card2:#f0e3c2;
+  --text:#1a1306; --text2:#3d2f15; --border:rgba(0,0,0,0.18);
+  --yellow:#7a4a0a; --yellow2:#92590d;
+  --green:#1a5a2c; --blue:#1a5078; --purple:#5b2a9c; --red:#9c1010;
+  --shadow:0 2px 12px rgba(0,0,0,0.10);
+}
+/* High Contrast — pure black on yellow (RNIB recommended) */
+body.by {
+  --bg:#ffeb00; --bg2:#ffe000; --card:#fff5a8; --card2:#ffe87a;
+  --text:#000; --text2:#1a1a00; --border:rgba(0,0,0,0.6);
+  --yellow:#000; --yellow2:#1a1a00; --shadow:none;
+  --green:#000; --blue:#000; --purple:#000; --red:#8a0000;
+}
+/* Soft Dark — easier than pure black/white */
+body.sd {
+  --bg:#262a35; --bg2:#2e3340; --card:#363b48; --card2:#3e4452;
+  --text:#ece6d6; --text2:#b8b0a0; --border:rgba(255,255,255,0.12);
+  --yellow:#ffc94d; --yellow2:#ffd76b;
+  --green:#7fd99a; --blue:#7ac6e8; --purple:#c9a3ed; --red:#f08a8a;
+  --shadow:0 2px 12px rgba(0,0,0,0.35);
+}
+
+html { font-size: calc(17px * var(--scale)); scroll-behavior: smooth; overflow-x: hidden; }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: var(--font);

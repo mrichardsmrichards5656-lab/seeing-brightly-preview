@@ -3,6 +3,16 @@ import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/r
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
+  if (globalThis.location?.pathname === "/index") {
+    return (
+      <iframe
+        src="/vision-hub.html"
+        title="Vision Hub UK"
+        style={{ position: "fixed", inset: 0, width: "100%", height: "100%", border: "none" }}
+      />
+    );
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">

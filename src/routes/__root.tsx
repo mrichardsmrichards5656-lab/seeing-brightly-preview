@@ -1,9 +1,11 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute, HeadContent, Scripts, useLocation } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
-  if (globalThis.location?.pathname === "/index") {
+  const location = useLocation();
+
+  if (location.pathname === "/index") {
     return (
       <iframe
         src="/vision-hub.html"

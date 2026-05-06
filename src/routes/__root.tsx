@@ -1,8 +1,20 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute, HeadContent, Scripts, useLocation } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
+  const location = useLocation();
+
+  if (location.pathname === "/index") {
+    return (
+      <iframe
+        src="/vision-hub.html"
+        title="Vision Hub UK"
+        style={{ position: "fixed", inset: 0, width: "100%", height: "100%", border: "none" }}
+      />
+    );
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">

@@ -3927,7 +3927,7 @@ function setSize(scale) {
 
 /* ─────────────── COLOUR SCHEME ─────────────── */
 function setColour(mode) {
-  document.body.classList.remove('dark','ll','hc','yb');
+  document.body.classList.remove('dark','ll','hc','yb','lb','cr','by','sd');
   if (mode) document.body.classList.add(mode);
   try { localStorage.setItem('vh-colour', mode); } catch(e){}
   const sel = document.getElementById('col-select');

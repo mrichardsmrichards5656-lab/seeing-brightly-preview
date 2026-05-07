@@ -1,4 +1,5 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts, useLocation } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute, HeadContent, Scripts, useLocation, redirect } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 import appCss from "../styles.css?url";
 
@@ -6,13 +7,7 @@ function NotFoundComponent() {
   const location = useLocation();
 
   if (location.pathname === "/index") {
-    return (
-      <iframe
-        src="/vision-hub.html"
-        title="Vision Hub UK"
-        style={{ position: "fixed", inset: 0, width: "100%", height: "100%", border: "none" }}
-      />
-    );
+    return <RedirectToVisionHub />;
   }
 
   return (
@@ -36,7 +31,24 @@ function NotFoundComponent() {
   );
 }
 
+function RedirectToVisionHub() {
+  useEffect(() => {
+    window.location.replace("/vision-hub.html");
+  }, []);
+
+  return (
+    <main className="flex min-h-screen items-center justify-center bg-background px-6 text-center text-foreground">
+      <p className="text-lg font-semibold">Opening Vision Hub…</p>
+    </main>
+  );
+}
+
 export const Route = createRootRoute({
+  beforeLoad: ({ location }) => {
+    if (location.pathname === "/index") {
+      throw redirect({ href: "/vision-hub.html" });
+    }
+  },
   head: () => ({
     meta: [
       { charSet: "utf-8" },

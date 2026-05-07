@@ -3785,17 +3785,18 @@ function toggleJD() {
 var _scrollPos = {};
 
 function showPage(name) {
-  // If Welsh active and going home, show Welsh home
-  if (_isWelsh && name === 'home') {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.welsh-page').forEach(function(p) { p.style.display = 'none'; });
-    var welshHome = document.getElementById('page-home-welsh');
-    if (welshHome) welshHome.style.display = '';
-    var videoWrap = document.getElementById('video-resources-wrap');
-    if (videoWrap) videoWrap.style.display = 'none';
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    return;
-  }
+  // If Welsh active and going home, show Welsh home
+  if (_isWelsh && name === 'home') {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.welsh-page').forEach(function(p) { p.style.display = 'none'; });
+    var welshHome = document.getElementById('page-home-welsh');
+    if (welshHome) welshHome.style.display = '';
+    // Keep video resources visible on Welsh home too
+    var videoWrap = document.getElementById('video-resources-wrap');
+    if (videoWrap) videoWrap.style.display = '';
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    return;
+  }
 
   // Save scroll position of current page
   var currentActive = document.querySelector('.page.active');

@@ -1,4 +1,4 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts, useLocation, redirect } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute, HeadContent, Scripts, useLocation } from "@tanstack/react-router";
 import { useEffect } from "react";
 
 import appCss from "../styles.css?url";
@@ -44,11 +44,6 @@ function RedirectToVisionHub() {
 }
 
 export const Route = createRootRoute({
-  beforeLoad: ({ location }) => {
-    if (location.pathname === "/index") {
-      return;
-    }
-  },
   head: () => ({
     meta: [
       { charSet: "utf-8" },

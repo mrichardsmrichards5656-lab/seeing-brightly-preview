@@ -46,7 +46,7 @@ function RedirectToVisionHub() {
 export const Route = createRootRoute({
   beforeLoad: ({ location }) => {
     if (location.pathname === "/index") {
-      throw redirect({ href: `/vision-hub.html${location.searchStr}${location.hash}` });
+      return;
     }
   },
   head: () => ({

@@ -33,7 +33,7 @@ function NotFoundComponent() {
 
 function RedirectToVisionHub() {
   useEffect(() => {
-    window.location.replace("/vision-hub.html");
+    window.location.replace(`/vision-hub.html${window.location.search}${window.location.hash}`);
   }, []);
 
   return (
@@ -46,7 +46,7 @@ function RedirectToVisionHub() {
 export const Route = createRootRoute({
   beforeLoad: ({ location }) => {
     if (location.pathname === "/index") {
-      throw redirect({ href: "/vision-hub.html" });
+      throw redirect({ href: `/vision-hub.html${location.searchStr}${location.hash}` });
     }
   },
   head: () => ({

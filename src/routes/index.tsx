@@ -1,8 +1,8 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
-  beforeLoad: () => {
-    throw redirect({ href: "/vision-hub.html" });
+  beforeLoad: ({ location }) => {
+    throw redirect({ href: `/vision-hub.html${location.searchStr}${location.hash}` });
   },
   component: Index,
 });

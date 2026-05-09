@@ -883,15 +883,17 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
         <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('blepharitis') : showCondition('blepharitis')">👁 Blepharaidd <span class="cond-arrow" aria-hidden="true">→</span></button></div>
       </div>
 
-      <!-- Canllaw Beunyddiol -->
-      <div style="margin:28px 0 20px">
-        <button onclick="showPage('livingwell')" class="lw-hero-btn" aria-label="Agor Canllaw Beunyddiol">
-          <span style="font-size:1.4rem" aria-hidden="true">🌟</span>
-          <span>
-            <span style="display:block;font-size:1rem;font-weight:900">Canllaw Beunyddiol</span>
-            <span style="display:block;font-size:0.8rem;color:var(--text2);margin-top:3px">Cymorth ymarferol ar gyfer bywyd bob dydd gyda cholled golwg</span>
-          </span>
-        </button>
+      <!-- Canllaw Beunyddiol -->
+      <div style="margin-top:28px;padding-top:24px;border-top:2px solid var(--border)">
+        <span class="section-label">Bywyd bob dydd</span>
+        <button class="cond-btn" onclick="showPage('livingwell')" aria-label="Agor Canllaw Beunyddiol" style="height:auto;flex-direction:column;align-items:flex-start;gap:8px;padding:20px 26px">
+          <span style="display:flex;align-items:center;justify-content:space-between;width:100%;gap:12px">
+            <span style="font-size:1.05rem;font-weight:800">🌟 Canllaw Beunyddiol</span>
+            <span class="cond-arrow" aria-hidden="true" style="flex-shrink:0">→</span>
+          </span>
+          <span style="font-size:0.85rem;font-weight:600;color:var(--text2);line-height:1.5">Awgrymiadau ymarferol i wneud bywyd bob dydd yn haws</span>
+          <span style="font-size:0.78rem;font-weight:700;color:var(--yellow);line-height:1.7">Coginio &nbsp;·&nbsp; Magu Plant &nbsp;·&nbsp; Chwaraeon a Ffitrwydd &nbsp;·&nbsp; Colur a Glanweithdra &nbsp;·&nbsp; Gwrando a Llyfrau Sain &nbsp;·&nbsp; Teithio &nbsp;·&nbsp; Gwaith &nbsp;·&nbsp; Iechyd Meddwl</span>
+        </button>
       </div>
 
       <!-- Diweddariadau Diweddar -->

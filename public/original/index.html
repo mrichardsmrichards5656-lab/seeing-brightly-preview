@@ -1480,6 +1480,42 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
 }
 
+
+/* ─── A11Y ENHANCEMENTS ─── */
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:0.001ms!important;animation-iteration-count:1!important;transition-duration:0.001ms!important;scroll-behavior:auto!important}
+}
+@media (prefers-contrast: more){
+  :root{--border:rgba(0,0,0,0.6)!important}
+  body{--text:#000;--bg:#fff}
+  body.dark{--text:#fff;--bg:#000}
+  a,button{text-decoration:underline}
+}
+body.dyslexic, body.dyslexic *{
+  font-family:'Atkinson Hyperlegible','OpenDyslexic',Verdana,sans-serif!important;
+  letter-spacing:0.03em;word-spacing:0.08em;line-height:1.7!important;
+}
+body.wide-spacing, body.wide-spacing *{letter-spacing:0.08em!important;word-spacing:0.16em!important;line-height:1.8!important}
+body.reading-ruler{cursor:none}
+.reading-ruler-bar{
+  position:fixed;left:0;right:0;height:48px;background:rgba(245,184,0,0.18);
+  border-top:2px solid var(--yellow);border-bottom:2px solid var(--yellow);
+  pointer-events:none;z-index:99998;display:none;
+}
+body.reading-ruler .reading-ruler-bar{display:block}
+@media print{
+  body{background:#fff!important;color:#000!important;font-size:14pt;line-height:1.6}
+  .a11y-bar,.sidebar,.back-top,.lang-btn,.theme-select,#ios-banner,nav,button{display:none!important}
+  a{color:#000;text-decoration:underline}
+  a[href^="http"]:after{content:" (" attr(href) ")";font-size:10pt}
+  h1,h2,h3{page-break-after:avoid}
+  p,li{orphans:3;widows:3}
+}
+/* Stronger focus ring across every theme */
+*:focus-visible{outline:3px solid var(--yellow)!important;outline-offset:3px!important;border-radius:4px}
+body.hc *:focus-visible,body.yb *:focus-visible{outline-color:#fff!important}
+
 </style>
 
 </head>
@@ -1534,6 +1570,11 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
   <button class="lang-btn" id="welsh-toggle" onclick="toggleWelsh()" aria-label="Switch to Welsh / Cymraeg">CY</button>
 
+  <div class="a11y-divider"></div>
+  <button class="ab" id="dys-toggle"  onclick="toggleDyslexic()"   aria-pressed="false" aria-label="Toggle dyslexia-friendly font" title="Dyslexia-friendly font">Dx</button>
+  <button class="ab" id="rule-toggle" onclick="toggleReadingRuler()" aria-pressed="false" aria-label="Toggle reading ruler" title="Reading ruler">▭</button>
+  <button class="ab" id="tts-toggle"  onclick="togglePageSpeech()"  aria-pressed="false" aria-label="Listen to this page" title="Listen to page">🔊</button>
+
 </div>
 
 
@@ -1553,6 +1594,13 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 </div>
 
 
+
+
+
+<!-- A11Y: live announcer + reading ruler bar -->
+<div id="sr-announcer" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
+<div id="sr-announcer-assertive" class="visually-hidden" aria-live="assertive" aria-atomic="true"></div>
+<div class="reading-ruler-bar" aria-hidden="true"></div>
 
 <!-- ══════════════════════════════════════
 
@@ -1588,33 +1636,33 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
       <span class="sidebar-section">Cyflyrau</span>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('stargardts')">✦ Clefyd Stargardt</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('stargardts')"><span aria-hidden="true">✦</span> Clefyd Stargardt</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('amd')">◉ Dirywiad Macular AMD</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('amd')"><span aria-hidden="true">◉</span> Dirywiad Macular AMD</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('glaucoma')">◎ Glawcoma</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('glaucoma')"><span aria-hidden="true">◎</span> Glawcoma</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('diabetic')">◇ Retinopathi Diabetig</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('diabetic')"><span aria-hidden="true">◇</span> Retinopathi Diabetig</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('rp')">◈ Retinitis Pigmentosa</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('rp')"><span aria-hidden="true">◈</span> Retinitis Pigmentosa</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('cvi')">◭ Nam Gweledol yr Ymennydd</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('cvi')"><span aria-hidden="true">◭</span> Nam Gweledol yr Ymennydd</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('nystagmus')">↔ Nystagmus</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('nystagmus')"><span aria-hidden="true">↔</span> Nystagmus</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('albinism')">☀ Albiniaeth</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('albinism')"><span aria-hidden="true">☀</span> Albiniaeth</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('usher')">◑ Syndrom Usher</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('usher')"><span aria-hidden="true">◑</span> Syndrom Usher</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('lca')">⬡ Amawrosis Cynhenid Leber</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('lca')"><span aria-hidden="true">⬡</span> Amawrosis Cynhenid Leber</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('cone')">🎯 Dystroffi Côn</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('cone')"><span aria-hidden="true">🎯</span> Dystroffi Côn</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('achromatopsia')">⬤ Achromatopsia</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('achromatopsia')"><span aria-hidden="true">⬤</span> Achromatopsia</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('dmo')">💧 Oedema Macular Diabetig</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('dmo')"><span aria-hidden="true">💧</span> Oedema Macular Diabetig</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('myopic')">👓 Dirywiad Macular Myopig</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('myopic')"><span aria-hidden="true">👓</span> Dirywiad Macular Myopig</button>
 
       <button class="sidebar-link" onclick="showConditionWelsh('charlesbonnet')">🧠 Syndrom Charles Bonnet</button>
 
@@ -1730,33 +1778,33 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
       <div role="list" aria-label="Cyflyrau llygaid">
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('stargardts') : showCondition('stargardts')">✦ Clefyd Stargardt <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('stargardts') : showCondition('stargardts')"><span aria-hidden="true">✦</span> Clefyd Stargardt <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('amd') : showCondition('amd')">◉ Dirywiad Macular AMD <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('amd') : showCondition('amd')"><span aria-hidden="true">◉</span> Dirywiad Macular AMD <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('glaucoma') : showCondition('glaucoma')">◎ Glawcoma <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('glaucoma') : showCondition('glaucoma')"><span aria-hidden="true">◎</span> Glawcoma <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('diabetic') : showCondition('diabetic')">◇ Retinopathi Diabetig <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('diabetic') : showCondition('diabetic')"><span aria-hidden="true">◇</span> Retinopathi Diabetig <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('rp') : showCondition('rp')">◈ Retinitis Pigmentosa <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('rp') : showCondition('rp')"><span aria-hidden="true">◈</span> Retinitis Pigmentosa <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('cvi') : showCondition('cvi')">◭ Nam Gweledol yr Ymennydd <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('cvi') : showCondition('cvi')"><span aria-hidden="true">◭</span> Nam Gweledol yr Ymennydd <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('nystagmus') : showCondition('nystagmus')">↔ Nystagmus <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('nystagmus') : showCondition('nystagmus')"><span aria-hidden="true">↔</span> Nystagmus <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('albinism') : showCondition('albinism')">☀ Albiniaeth <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('albinism') : showCondition('albinism')"><span aria-hidden="true">☀</span> Albiniaeth <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('usher') : showCondition('usher')">◑ Syndrom Usher <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('usher') : showCondition('usher')"><span aria-hidden="true">◑</span> Syndrom Usher <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('lca') : showCondition('lca')">⬡ Amawrosis Cynhenid Leber <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('lca') : showCondition('lca')"><span aria-hidden="true">⬡</span> Amawrosis Cynhenid Leber <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('cone') : showCondition('cone')">🎯 Dystroffi Côn <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('cone') : showCondition('cone')"><span aria-hidden="true">🎯</span> Dystroffi Côn <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('achromatopsia') : showCondition('achromatopsia')">⬤ Achromatopsia <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('achromatopsia') : showCondition('achromatopsia')"><span aria-hidden="true">⬤</span> Achromatopsia <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('dmo') : showCondition('dmo')">💧 Oedema Macular Diabetig <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('dmo') : showCondition('dmo')"><span aria-hidden="true">💧</span> Oedema Macular Diabetig <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('myopic') : showCondition('myopic')">👓 Dirywiad Macular Myopig <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('myopic') : showCondition('myopic')"><span aria-hidden="true">👓</span> Dirywiad Macular Myopig <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
         <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('charlesbonnet') : showCondition('charlesbonnet')">🧠 Syndrom Charles Bonnet <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
@@ -1849,33 +1897,33 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
       <span class="sidebar-section">Conditions</span>
 
-      <button class="sidebar-link" onclick="showCondition('stargardts')">✦ Stargardt Disease</button>
+      <button class="sidebar-link" onclick="showCondition('stargardts')"><span aria-hidden="true">✦</span> Stargardt Disease</button>
 
-      <button class="sidebar-link" onclick="showCondition('amd')">◉ Age-related MD</button>
+      <button class="sidebar-link" onclick="showCondition('amd')"><span aria-hidden="true">◉</span> Age-related MD</button>
 
-      <button class="sidebar-link" onclick="showCondition('glaucoma')">◎ Glaucoma</button>
+      <button class="sidebar-link" onclick="showCondition('glaucoma')"><span aria-hidden="true">◎</span> Glaucoma</button>
 
-      <button class="sidebar-link" onclick="showCondition('diabetic')">◇ Diabetic Retinopathy</button>
+      <button class="sidebar-link" onclick="showCondition('diabetic')"><span aria-hidden="true">◇</span> Diabetic Retinopathy</button>
 
-      <button class="sidebar-link" onclick="showCondition('rp')">◈ Retinitis Pigmentosa</button>
+      <button class="sidebar-link" onclick="showCondition('rp')"><span aria-hidden="true">◈</span> Retinitis Pigmentosa</button>
 
-      <button class="sidebar-link" onclick="showCondition('cvi')">◭ Cerebral Visual Impairment</button>
+      <button class="sidebar-link" onclick="showCondition('cvi')"><span aria-hidden="true">◭</span> Cerebral Visual Impairment</button>
 
-      <button class="sidebar-link" onclick="showCondition('nystagmus')">↔ Nystagmus</button>
+      <button class="sidebar-link" onclick="showCondition('nystagmus')"><span aria-hidden="true">↔</span> Nystagmus</button>
 
-      <button class="sidebar-link" onclick="showCondition('albinism')">☀ Albinism</button>
+      <button class="sidebar-link" onclick="showCondition('albinism')"><span aria-hidden="true">☀</span> Albinism</button>
 
-      <button class="sidebar-link" onclick="showCondition('usher')">◑ Usher Syndrome</button>
+      <button class="sidebar-link" onclick="showCondition('usher')"><span aria-hidden="true">◑</span> Usher Syndrome</button>
 
-      <button class="sidebar-link" onclick="showCondition('lca')">⬡ Leber Congenital Amaurosis</button>
+      <button class="sidebar-link" onclick="showCondition('lca')"><span aria-hidden="true">⬡</span> Leber Congenital Amaurosis</button>
 
-      <button class="sidebar-link" onclick="showCondition('cone')">🎯 Cone Dystrophy</button>
+      <button class="sidebar-link" onclick="showCondition('cone')"><span aria-hidden="true">🎯</span> Cone Dystrophy</button>
 
-      <button class="sidebar-link" onclick="showCondition('achromatopsia')">⬤ Achromatopsia</button>
+      <button class="sidebar-link" onclick="showCondition('achromatopsia')"><span aria-hidden="true">⬤</span> Achromatopsia</button>
 
-      <button class="sidebar-link" onclick="showCondition('dmo')">💧 Diabetic Macular Oedema</button>
+      <button class="sidebar-link" onclick="showCondition('dmo')"><span aria-hidden="true">💧</span> Diabetic Macular Oedema</button>
 
-      <button class="sidebar-link" onclick="showCondition('myopic')">👓 Myopic MD</button>
+      <button class="sidebar-link" onclick="showCondition('myopic')"><span aria-hidden="true">👓</span> Myopic MD</button>
 
       <button class="sidebar-link" onclick="showCondition('charlesbonnet')">🧠 Charles Bonnet Syndrome</button>
 
@@ -2177,7 +2225,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('stargardts')" aria-label="Open Stargardt Disease information">
 
-            ✦ Stargardt Disease <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">✦</span> Stargardt Disease <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2187,7 +2235,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('amd')" aria-label="Open Age-related Macular Degeneration information">
 
-            ◉ Age-related Macular Degeneration <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">◉</span> Age-related Macular Degeneration <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2197,7 +2245,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('glaucoma')" aria-label="Open Glaucoma information">
 
-            ◎ Glaucoma <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">◎</span> Glaucoma <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2207,7 +2255,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('diabetic')" aria-label="Open Diabetic Retinopathy information">
 
-            ◇ Diabetic Retinopathy <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">◇</span> Diabetic Retinopathy <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2217,7 +2265,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('rp')" aria-label="Open Retinitis Pigmentosa information">
 
-            ◈ Retinitis Pigmentosa <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">◈</span> Retinitis Pigmentosa <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2227,7 +2275,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('cvi')" aria-label="Open Cerebral Visual Impairment information">
 
-            ◭ Cerebral Visual Impairment <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">◭</span> Cerebral Visual Impairment <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2237,7 +2285,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('nystagmus')" aria-label="Open Nystagmus information">
 
-            ↔ Nystagmus <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">↔</span> Nystagmus <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2247,7 +2295,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('albinism')" aria-label="Open Albinism information">
 
-            ☀ Albinism <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">☀</span> Albinism <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2257,7 +2305,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('usher')" aria-label="Open Usher Syndrome information">
 
-            ◑ Usher Syndrome <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">◑</span> Usher Syndrome <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2267,7 +2315,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('lca')" aria-label="Open Leber Congenital Amaurosis information">
 
-            ⬡ Leber Congenital Amaurosis <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">⬡</span> Leber Congenital Amaurosis <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2277,7 +2325,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('cone')" aria-label="Open Cone Dystrophy information">
 
-            🎯 Cone Dystrophy <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">🎯</span> Cone Dystrophy <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2287,7 +2335,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('dmo')" aria-label="Open Diabetic Macular Oedema information">
 
-            💧 Diabetic Macular Oedema <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">💧</span> Diabetic Macular Oedema <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2297,7 +2345,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('myopic')" aria-label="Open Myopic Macular Degeneration information">
 
-            👓 Myopic Macular Degeneration <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">👓</span> Myopic Macular Degeneration <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2337,7 +2385,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('achromatopsia')" aria-label="Open Achromatopsia information">
 
-            ⬤ Achromatopsia <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">⬤</span> Achromatopsia <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2497,33 +2545,33 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
       <span class="sidebar-section">Conditions</span>
 
-      <button class="sidebar-link" onclick="showCondition('stargardts')">✦ Stargardt Disease</button>
+      <button class="sidebar-link" onclick="showCondition('stargardts')"><span aria-hidden="true">✦</span> Stargardt Disease</button>
 
-      <button class="sidebar-link" onclick="showCondition('amd')">◉ Age-related MD</button>
+      <button class="sidebar-link" onclick="showCondition('amd')"><span aria-hidden="true">◉</span> Age-related MD</button>
 
-      <button class="sidebar-link" onclick="showCondition('glaucoma')">◎ Glaucoma</button>
+      <button class="sidebar-link" onclick="showCondition('glaucoma')"><span aria-hidden="true">◎</span> Glaucoma</button>
 
-      <button class="sidebar-link" onclick="showCondition('diabetic')">◇ Diabetic Retinopathy</button>
+      <button class="sidebar-link" onclick="showCondition('diabetic')"><span aria-hidden="true">◇</span> Diabetic Retinopathy</button>
 
-      <button class="sidebar-link" onclick="showCondition('rp')">◈ Retinitis Pigmentosa</button>
+      <button class="sidebar-link" onclick="showCondition('rp')"><span aria-hidden="true">◈</span> Retinitis Pigmentosa</button>
 
-      <button class="sidebar-link" onclick="showCondition('cvi')">◭ Cerebral Visual Impairment</button>
+      <button class="sidebar-link" onclick="showCondition('cvi')"><span aria-hidden="true">◭</span> Cerebral Visual Impairment</button>
 
-      <button class="sidebar-link" onclick="showCondition('nystagmus')">↔ Nystagmus</button>
+      <button class="sidebar-link" onclick="showCondition('nystagmus')"><span aria-hidden="true">↔</span> Nystagmus</button>
 
-      <button class="sidebar-link" onclick="showCondition('albinism')">☀ Albinism</button>
+      <button class="sidebar-link" onclick="showCondition('albinism')"><span aria-hidden="true">☀</span> Albinism</button>
 
-      <button class="sidebar-link" onclick="showCondition('usher')">◑ Usher Syndrome</button>
+      <button class="sidebar-link" onclick="showCondition('usher')"><span aria-hidden="true">◑</span> Usher Syndrome</button>
 
-      <button class="sidebar-link" onclick="showCondition('lca')">⬡ Leber Congenital Amaurosis</button>
+      <button class="sidebar-link" onclick="showCondition('lca')"><span aria-hidden="true">⬡</span> Leber Congenital Amaurosis</button>
 
-      <button class="sidebar-link" onclick="showCondition('cone')">🎯 Cone Dystrophy</button>
+      <button class="sidebar-link" onclick="showCondition('cone')"><span aria-hidden="true">🎯</span> Cone Dystrophy</button>
 
-      <button class="sidebar-link" onclick="showCondition('achromatopsia')">⬤ Achromatopsia</button>
+      <button class="sidebar-link" onclick="showCondition('achromatopsia')"><span aria-hidden="true">⬤</span> Achromatopsia</button>
 
-      <button class="sidebar-link" onclick="showCondition('dmo')">💧 Diabetic Macular Oedema</button>
+      <button class="sidebar-link" onclick="showCondition('dmo')"><span aria-hidden="true">💧</span> Diabetic Macular Oedema</button>
 
-      <button class="sidebar-link" onclick="showCondition('myopic')">👓 Myopic MD</button>
+      <button class="sidebar-link" onclick="showCondition('myopic')"><span aria-hidden="true">👓</span> Myopic MD</button>
 
       <button class="sidebar-link" onclick="showCondition('charlesbonnet')">🧠 Charles Bonnet Syndrome</button>
 
@@ -8036,6 +8084,94 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register(swUrl).catch(err => console.log('SW failed:', err));
 
 }
+
+
+/* ─── A11Y ENHANCEMENTS ─── */
+(function(){
+  // Live region announcer
+  window.srAnnounce = function(msg, assertive){
+    var id = assertive ? 'sr-announcer-assertive' : 'sr-announcer';
+    var el = document.getElementById(id);
+    if(!el) return;
+    el.textContent = '';
+    setTimeout(function(){ el.textContent = msg; }, 50);
+  };
+
+  // Dyslexia-friendly font
+  window.toggleDyslexic = function(){
+    var on = document.body.classList.toggle('dyslexic');
+    try{ localStorage.setItem('dyslexic', on?'1':'0'); }catch(e){}
+    var b = document.getElementById('dys-toggle');
+    if(b) b.setAttribute('aria-pressed', on?'true':'false');
+    srAnnounce(on ? 'Dyslexia-friendly font on' : 'Dyslexia-friendly font off');
+  };
+  if(localStorage.getItem('dyslexic')==='1'){
+    document.body.classList.add('dyslexic');
+    var b=document.getElementById('dys-toggle'); if(b) b.setAttribute('aria-pressed','true');
+  }
+
+  // Reading ruler — follows cursor / focus
+  window.toggleReadingRuler = function(){
+    var on = document.body.classList.toggle('reading-ruler');
+    try{ localStorage.setItem('rule', on?'1':'0'); }catch(e){}
+    var b = document.getElementById('rule-toggle');
+    if(b) b.setAttribute('aria-pressed', on?'true':'false');
+    srAnnounce(on ? 'Reading ruler on' : 'Reading ruler off');
+  };
+  document.addEventListener('mousemove', function(e){
+    if(!document.body.classList.contains('reading-ruler')) return;
+    var bar = document.querySelector('.reading-ruler-bar');
+    if(bar) bar.style.top = (e.clientY - 24) + 'px';
+  });
+  if(localStorage.getItem('rule')==='1'){ document.body.classList.add('reading-ruler'); }
+
+  // Listen to this page (Web Speech API)
+  var _utter = null;
+  window.togglePageSpeech = function(){
+    if(!('speechSynthesis' in window)){ alert('Your browser does not support speech.'); return; }
+    var b = document.getElementById('tts-toggle');
+    if(window.speechSynthesis.speaking){
+      window.speechSynthesis.cancel();
+      if(b) b.setAttribute('aria-pressed','false');
+      srAnnounce('Stopped reading');
+      return;
+    }
+    var main = document.getElementById('main') || document.body;
+    // Pick visible page section
+    var visible = main.querySelector('.page:not([style*="display: none"]):not([style*="display:none"])') || main;
+    var text = visible.innerText.replace(/\s+/g,' ').trim().slice(0, 8000);
+    _utter = new SpeechSynthesisUtterance(text);
+    _utter.rate = 0.95; _utter.lang = document.documentElement.lang || 'en-GB';
+    _utter.onend = function(){ if(b) b.setAttribute('aria-pressed','false'); };
+    window.speechSynthesis.speak(_utter);
+    if(b) b.setAttribute('aria-pressed','true');
+    srAnnounce('Reading page aloud. Press the button again to stop.');
+  };
+
+  // Esc to close any open modal/page overlay (heuristic: hides element with class .open or aria-modal)
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      var modals = document.querySelectorAll('[aria-modal="true"], .modal.open, .overlay.open');
+      modals.forEach(function(m){ m.style.display='none'; m.classList.remove('open'); });
+    }
+  });
+
+  // Announce page / condition changes by hooking into showCondition/showPage if present
+  ['showCondition','showConditionWelsh','showPage'].forEach(function(fnName){
+    var orig = window[fnName];
+    if(typeof orig === 'function'){
+      window[fnName] = function(){
+        var r = orig.apply(this, arguments);
+        var label = arguments[0];
+        if(label) srAnnounce(String(label).replace(/[-_]/g,' ') + ' opened');
+        // refocus to top of main for keyboard users
+        var m = document.getElementById('main');
+        if(m){ m.setAttribute('tabindex','-1'); m.focus({preventScroll:false}); }
+        return r;
+      };
+    }
+  });
+})();
 
 </script>
 

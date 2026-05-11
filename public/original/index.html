@@ -104,6 +104,13 @@ body.yb {
 
 }
 
+
+body.bb {
+  --bg:#000; --bg2:#000; --card:#0a1228; --card2:#0f1a3a;
+  --text:#7ec8ff; --text2:#5aa8e8; --border:rgba(126,200,255,0.35);
+  --yellow:#7ec8ff; --yellow2:#a8d8ff; --shadow:none;
+}
+
 body.ll {
 
   --bg:#1a1a1a; --bg2:#222222; --card:#2a2a2a; --card2:#333333;
@@ -582,7 +589,9 @@ p, h1, h2, h3, h4, li, span, a, button { overflow-wrap: break-word; word-wrap: b
 
 .cond-btn:focus-visible{ outline: 3px solid var(--yellow); outline-offset: 3px; }
 
-.cond-arrow { font-size: 1.1rem; flex-shrink: 0; }
+.cond-arrow { font-size: 1.1rem; flex-shrink: 0; margin-left: auto; }
+.cond-btn > span[aria-hidden="true"]:first-child { flex-shrink: 0; width: 1.6em; text-align: center; }
+.cond-btn { justify-content: flex-start; }
 
 
 
@@ -1514,7 +1523,7 @@ body.reading-ruler .reading-ruler-bar{display:block}
 }
 /* Stronger focus ring across every theme */
 *:focus-visible{outline:3px solid var(--yellow)!important;outline-offset:3px!important;border-radius:4px}
-body.hc *:focus-visible,body.yb *:focus-visible{outline-color:#fff!important}
+body.hc *:focus-visible,body.yb *:focus-visible,body.bb *:focus-visible{outline-color:#fff!important}
 
 </style>
 
@@ -1563,6 +1572,8 @@ body.hc *:focus-visible,body.yb *:focus-visible{outline-color:#fff!important}
     <option value="hc">⬛ Hi-Con</option>
 
     <option value="yb">🟡 Yel/Blk</option>
+
+    <option value="bb">🔵 Blue/Blk</option>
 
   </select>
 
@@ -1712,7 +1723,18 @@ body.hc *:focus-visible,body.yb *:focus-visible{outline-color:#fff!important}
 
 
 
-    <div class="cond-section" style="max-width:680px;margin:0 auto;padding:0 20px">
+    <aside id="latest-research-may26" aria-labelledby="lr-may26-h" style="max-width:720px;margin:0 auto 24px;padding:18px 22px;background:var(--card);border:2px solid var(--yellow);border-radius:14px;box-shadow:var(--shadow)">
+<h2 id="lr-may26-h" style="font-size:0.78rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--yellow);margin-bottom:10px">Latest research · May 2026</h2>
+<ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px;font-size:0.95rem;line-height:1.55">
+<li><strong>Stargardt:</strong> SpliceBio's <a href="https://splice.bio/splicebio-initiates-dose-expansion-portion-of-phase-1-2-astra-for-sb-007/" target="_blank" rel="noopener">SB-007 ASTRA dual-AAV gene therapy</a> began dose-expansion at Oxford (UK site). <span lang="cy">Mae treial ASTRA SpliceBio yn Rhydychen wedi cychwyn cam ehangu dos.</span></li>
+<li><strong>AMD / Geographic atrophy:</strong> <a href="https://europe.ophthalmologytimes.com/view/intravitreal-complement-inhibitor-treatment-for-geographic-atrophy-ga-viewed-favorably-by-patients" target="_blank" rel="noopener">UK study</a> reports patients view intravitreal complement inhibitors (pegcetacoplan / avacincaptad) favourably for quality of life.</li>
+<li><strong>Diabetic retinopathy:</strong> 2026 systematic review and meta-analysis on <a href="https://www.frontiersin.org/journals/medicine/articles/10.3389/fmed.2026.1778742/full" target="_blank" rel="noopener">GLP-1 receptor agonists (Ozempic/Wegovy class) and DR risk</a> — discuss with your diabetes team before stopping.</li>
+<li><strong>Retinal disease (general):</strong> NIH/NEI <a href="https://www.newswise.com/articles/nih-research-points-to-new-therapeutic-opportunities-for-retinal-diseases" target="_blank" rel="noopener">May 2026 study</a> links glucose metabolism to epigenetic changes in photoreceptors — opens new drug targets for inherited retinal disease.</li>
+</ul>
+<p style="font-size:0.8rem;color:var(--text2);margin-top:10px">Always check with your ophthalmologist or RNIB (0303 123 9999) before acting on research news.</p>
+</aside>
+
+<div class="cond-section" style="max-width:680px;margin:0 auto;padding:0 20px">
 
 
 
@@ -5100,7 +5122,7 @@ body.hc *:focus-visible,body.yb *:focus-visible{outline-color:#fff!important}
 
 /* ─────────────── CONDITION DATA ─────────────── */
 
-const DATA = {
+const DATA = window.DATA = {
 
 stargardts:{
 
@@ -7834,7 +7856,7 @@ function setSize(scale) {
 
 function setColour(mode) {
 
-  document.body.classList.remove('dark','ll','hc','yb');
+  document.body.classList.remove('dark','ll','hc','yb','bb');
 
   if (mode) document.body.classList.add(mode);
 
@@ -8253,7 +8275,12 @@ if ('serviceWorker' in navigator) {
   // Listen to this page (Web Speech API)
   var _utter = null;
   window.togglePageSpeech = function(){
-    if(!('speechSynthesis' in window)){ alert('Your browser does not support speech.'); return; }
+    var synth = window.speechSynthesis || window.webkitSpeechSynthesis;
+    if(!synth || typeof SpeechSynthesisUtterance === 'undefined'){
+      alert('Sorry — your browser cannot read pages aloud. Try opening Vision Hub in Safari, Chrome or Edge, or use VoiceOver / TalkBack on your phone.');
+      return;
+    }
+    window.speechSynthesis = synth;
     var b = document.getElementById('tts-toggle');
     if(window.speechSynthesis.speaking){
       window.speechSynthesis.cancel();
@@ -8288,6 +8315,13 @@ if ('serviceWorker' in navigator) {
       window[fnName] = function(){
         var r = orig.apply(this, arguments);
         var label = arguments[0];
+        try {
+          if(label && fnName.indexOf('Condition') !== -1 && window.DATA && window.DATA[label]){
+            label = window.DATA[label].name;
+          } else if (label === 'home') {
+            label = 'Home';
+          }
+        } catch(e) {}
         if(label) srAnnounce(String(label).replace(/[-_]/g,' ') + ' opened');
         // refocus to top of main for keyboard users
         var m = document.getElementById('main');

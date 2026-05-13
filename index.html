@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en-GB">
 
 <head>
 
@@ -50,7 +50,7 @@
 
   --text:   #1a1a2e;
 
-  --text2:  #5a5a7a;
+  --text2:  #4a4a6a;
 
   --border: rgba(0,0,0,0.10);
 
@@ -104,6 +104,22 @@ body.yb {
 
 }
 
+
+body.bb {
+  --bg:#000; --bg2:#000; --card:#0a1228; --card2:#0f1a3a;
+  --text:#7ec8ff; --text2:#5aa8e8; --border:rgba(126,200,255,0.35);
+  --yellow:#7ec8ff; --yellow2:#a8d8ff; --shadow:none;
+}
+/* Light Blue / Black — Stargardt-friendly, reduces glare, high contrast */
+body.lb {
+  --bg:#d6eaf8; --bg2:#bee3f8; --card:#ffffff; --card2:#eaf4fc;
+  --text:#0a0a0a; --text2:#1a3a52; --border:rgba(0,80,140,0.20);
+  --yellow:#0055a5; --yellow2:#0066cc; --shadow:0 2px 12px rgba(0,80,140,0.12);
+  --green:#005c29; --blue:#003d7a; --red:#8b0000;
+  background-color:#d6eaf8 !important;
+  color:#0a0a0a !important;
+}
+
 body.ll {
 
   --bg:#1a1a1a; --bg2:#222222; --card:#2a2a2a; --card2:#333333;
@@ -117,39 +133,11 @@ body.ll {
   --shadow:0 2px 12px rgba(0,0,0,0.4);
 
 }
-/* Light Blue / Black text — Stargardt-friendly, low glare */
-body.lb {
-  --bg:#cfe4f5; --bg2:#bcd6ec; --card:#e8f2fb; --card2:#d6e7f5;
-  --text:#000000; --text2:#1a2b3c; --border:rgba(0,0,0,0.18);
-  --yellow:#0a4a78; --yellow2:#0d5a92;
-  --green:#0d5a2e; --blue:#0a4a78; --purple:#5b2a9c; --red:#9c1010;
-  --shadow:0 2px 12px rgba(0,0,0,0.10);
-}
-/* Cream / Black text — warm, low-glare for macular conditions */
-body.cr {
-  --bg:#f5ecd7; --bg2:#ecdfc0; --card:#fff5db; --card2:#f0e3c2;
-  --text:#1a1306; --text2:#3d2f15; --border:rgba(0,0,0,0.18);
-  --yellow:#7a4a0a; --yellow2:#92590d;
-  --green:#1a5a2c; --blue:#1a5078; --purple:#5b2a9c; --red:#9c1010;
-  --shadow:0 2px 12px rgba(0,0,0,0.10);
-}
-/* High Contrast — pure black on yellow (RNIB recommended) */
-body.by {
-  --bg:#ffeb00; --bg2:#ffe000; --card:#fff5a8; --card2:#ffe87a;
-  --text:#000; --text2:#1a1a00; --border:rgba(0,0,0,0.6);
-  --yellow:#000; --yellow2:#1a1a00; --shadow:none;
-  --green:#000; --blue:#000; --purple:#000; --red:#8a0000;
-}
-/* Soft Dark — easier than pure black/white */
-body.sd {
-  --bg:#262a35; --bg2:#2e3340; --card:#363b48; --card2:#3e4452;
-  --text:#ece6d6; --text2:#b8b0a0; --border:rgba(255,255,255,0.12);
-  --yellow:#ffc94d; --yellow2:#ffd76b;
-  --green:#7fd99a; --blue:#7ac6e8; --purple:#c9a3ed; --red:#f08a8a;
-  --shadow:0 2px 12px rgba(0,0,0,0.35);
-}
+
+
 
 html { font-size: calc(17px * var(--scale)); scroll-behavior: smooth; overflow-x: hidden; }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -276,7 +264,17 @@ p, h1, h2, h3, h4, li, span, a, button { overflow-wrap: break-word; word-wrap: b
 
   .sidebar-link:hover { background: var(--card); color: var(--yellow); }
 
-  .sidebar-link:focus-visible { outline: 3px solid var(--yellow); }
+  .sidebar-link:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+body.hc :focus-visible, body.hc a:focus-visible, body.hc button:focus-visible { outline-color: #fff; }
+body.yb :focus-visible, body.yb a:focus-visible, body.yb button:focus-visible { outline-color: #ff0; }
+body.bb :focus-visible, body.bb a:focus-visible, body.bb button:focus-visible { outline-color: #7ec8ff; }
+body.lb :focus-visible, body.lb a:focus-visible, body.lb button:focus-visible { outline-color: #0055a5; }
 
   .sidebar-divider { height: 1px; background: var(--border); margin: 12px 0; }
 
@@ -360,6 +358,10 @@ p, h1, h2, h3, h4, li, span, a, button { overflow-wrap: break-word; word-wrap: b
 
   min-height: 50px;
 
+  /* Magnifier: ensure bar scrolls rather than wraps or clips at 400% zoom */
+
+  white-space: nowrap;
+
 }
 
 .a11y-bar::-webkit-scrollbar { display: none; }
@@ -386,7 +388,7 @@ p, h1, h2, h3, h4, li, span, a, button { overflow-wrap: break-word; word-wrap: b
 
 .ab {
 
-  width: 32px; height: 32px;
+  width: 44px; height: 44px;
 
   background: var(--card2); border: 2px solid var(--border);
 
@@ -418,7 +420,7 @@ p, h1, h2, h3, h4, li, span, a, button { overflow-wrap: break-word; word-wrap: b
 
 .theme-select {
 
-  height: 36px; padding: 0 12px; border-radius: 50px;
+  height: 44px; padding: 0 12px; border-radius: 50px;
 
   border: 2px solid var(--yellow); background: var(--card2);
 
@@ -436,7 +438,7 @@ p, h1, h2, h3, h4, li, span, a, button { overflow-wrap: break-word; word-wrap: b
 
 .lang-btn {
 
-  height: 36px; padding: 0 12px; border-radius: 50px;
+  height: 44px; padding: 0 12px; border-radius: 50px;
 
   border: 2px solid #00b140; background: var(--card2);
 
@@ -610,7 +612,9 @@ p, h1, h2, h3, h4, li, span, a, button { overflow-wrap: break-word; word-wrap: b
 
 .cond-btn:focus-visible{ outline: 3px solid var(--yellow); outline-offset: 3px; }
 
-.cond-arrow { font-size: 1.1rem; flex-shrink: 0; }
+.cond-arrow { font-size: 1.1rem; flex-shrink: 0; margin-left: auto; }
+.cond-btn > span[aria-hidden="true"]:first-child { flex-shrink: 0; width: 1.6em; text-align: center; }
+.cond-btn { justify-content: flex-start; }
 
 
 
@@ -1167,6 +1171,12 @@ body.welsh-active .trial-link::after { content: " (Saesneg yn unig)"; font-size:
 .news-tag.benefits { background: #dbeafe; color: #1e40af; }
 
 .news-tag.tech     { background: #f3e8ff; color: #6b21a8; }
+body.lb .news-tag.research { background: #bbf7d0; color: #14532d; }
+body.lb .news-tag.benefits { background: #bfdbfe; color: #1e3a8a; }
+body.lb .news-tag.tech     { background: #e9d5ff; color: #581c87; }
+body.bb .news-tag.research, body.bb .news-tag.benefits,
+body.bb .news-tag.tech, body.bb .news-tag.general { background: #000; color: #7ec8ff; border: 1px solid #7ec8ff; }
+
 
 .news-tag.general  { background: #fef9c3; color: #854d0e; }
 
@@ -1508,20 +1518,85 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
 }
 
+
+/* ─── A11Y ENHANCEMENTS ─── */
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:0.001ms!important;animation-iteration-count:1!important;transition-duration:0.001ms!important;scroll-behavior:auto!important}
+}
+@media (prefers-contrast: more){
+  :root{--border:rgba(0,0,0,0.6)!important}
+  body:not(.lb):not(.hc):not(.yb):not(.bb):not(.ll):not(.dark){--text:#000;--bg:#fff}
+  body.dark{--text:#fff;--bg:#000}
+  a,button{text-decoration:underline}
+}
+body.dyslexic, body.dyslexic *{
+  font-family:'Atkinson Hyperlegible','OpenDyslexic',Verdana,sans-serif!important;
+  letter-spacing:0.03em;word-spacing:0.08em;line-height:1.7!important;
+}
+body.wide-spacing, body.wide-spacing *{letter-spacing:0.08em!important;word-spacing:0.16em!important;line-height:1.8!important}
+body.reading-ruler{cursor:none}
+.reading-ruler-bar{
+  position:fixed;left:0;right:0;height:48px;background:rgba(245,184,0,0.18);
+  border-top:2px solid var(--yellow);border-bottom:2px solid var(--yellow);
+  pointer-events:none;z-index:99998;display:none;
+}
+body.reading-ruler .reading-ruler-bar{display:block}
+@media print{
+  body{background:#fff!important;color:#000!important;font-size:14pt;line-height:1.6}
+  .a11y-bar,.sidebar,.back-top,.lang-btn,.theme-select,#ios-banner,nav,button{display:none!important}
+  a{color:#000;text-decoration:underline}
+  a[href^="http"]:after{content:" (" attr(href) ")";font-size:10pt}
+  h1,h2,h3{page-break-after:avoid}
+  p,li{orphans:3;widows:3}
+}
+/* Stronger focus ring across every theme */
+*:focus-visible{outline:3px solid var(--yellow)!important;outline-offset:3px!important;border-radius:4px}
+body.hc *:focus-visible,body.yb *:focus-visible,body.bb *:focus-visible{outline-color:#fff!important}
+
+
+/* NARROW READING MODE - 58ch max width for easier scanning */
+body.narrow-reading .hero,
+body.narrow-reading .cond-page-inner,
+body.narrow-reading .legal-wrap,
+body.narrow-reading .cond-section,
+body.narrow-reading .news-box,
+body.narrow-reading .desktop-main > * {
+  max-width: 58ch !important;
+}
+
 </style>
 
-  
-  
-  
-  
-  <meta property="og:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/cf7ffc0e-5440-40c9-87ff-2eaf325962c3/id-preview-6c1f996b--59b878a8-dbc1-408d-a992-6dd6cbdc4ae3.lovable.app-1778321458020.png">
-  <meta name="twitter:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/cf7ffc0e-5440-40c9-87ff-2eaf325962c3/id-preview-6c1f996b--59b878a8-dbc1-408d-a992-6dd6cbdc4ae3.lovable.app-1778321458020.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Vision Hub — Your Complete UK Sight Loss Resource">
-  <meta name="twitter:title" content="Vision Hub — Your Complete UK Sight Loss Resource">
-  <meta property="og:description" content="Vision Hub UK — Free UK resource for people living with sight conditions. Information on Stargardt, AMD, Glaucoma, Retinitis Pigmentosa and more. Benefits, assistive technology, research and support.">
-  <meta name="twitter:description" content="Vision Hub UK — Free UK resource for people living with sight conditions. Information on Stargardt, AMD, Glaucoma, Retinitis Pigmentosa and more. Benefits, assistive technology, research and support.">
+
+<style>
+/* LIGHT BLUE THEME - highest specificity, beats all other rules */
+html.theme-lb,
+html.theme-lb body {
+  background-color: #cce8f4 !important;
+  color: #000000 !important;
+}
+html.theme-lb .a11y-bar { background: #a8d5ea !important; }
+html.theme-lb .desktop-sidebar { background: #b8dff0 !important; }
+html.theme-lb .card, html.theme-lb [class*="card"] { background: #e8f5fb !important; }
+html.theme-lb .news-box { background: #dff0f8 !important; }
+html.theme-lb .cond-item { background: #dff0f8 !important; }
+html.theme-lb .hero { background: #b8dff0 !important; }
+html.theme-lb .acc-item { background: #daeef8 !important; border-color: rgba(0,100,180,0.3) !important; }
+html.theme-lb .acc-body { background: #daeef8 !important; }
+html.theme-lb .acc-btn { background: #daeef8 !important; }
+html.theme-lb .ic,
+html.theme-lb .nc,
+html.theme-lb .rc,
+html.theme-lb .tc,
+html.theme-lb .wb { background: #c8e6f5 !important; border-color: rgba(0,100,180,0.3) !important; }
+html.theme-lb .cond-item { background: #daeef8 !important; }
+html.theme-lb .card,
+html.theme-lb .founder-box,
+html.theme-lb [class*="card"] { background: #daeef8 !important; }
+html.theme-lb .news-box { background: #daeef8 !important; border-color: rgba(0,100,180,0.3) !important; }
+html.theme-lb .legal-wrap,
+html.theme-lb .cond-page-inner { background: transparent !important; }
+</style>
 </head>
 
 <body>
@@ -1529,6 +1604,8 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
 
 <a href="#main" class="skip">Skip to main content</a>
+
+<a href="#tts-toggle" class="skip" style="left:auto;right:12px">Skip to read aloud</a>
 
 
 
@@ -1559,19 +1636,76 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
   <select id="col-select" onchange="setColour(this.value)" aria-label="Choose colour theme" class="theme-select">
 
     <option value="">☀️ Light</option>
+
     <option value="dark">🌙 Dark</option>
+
+    <option value="lb">💙 Blue/Black</option>
+
     <option value="ll">👁️ Low Light</option>
+
     <option value="hc">⬛ Hi-Con</option>
+
     <option value="yb">🟡 Yel/Blk</option>
-    <option value="lb">🟦 Light Blue</option>
-    <option value="cr">📜 Cream</option>
-    <option value="by">⚡ Blk/Yel</option>
-    <option value="sd">🌑 Soft Dark</option>
+
   </select>
+
   <div class="a11y-divider"></div>
 
   <button class="lang-btn" id="welsh-toggle" onclick="toggleWelsh()" aria-label="Switch to Welsh / Cymraeg">CY</button>
 
+  <div class="a11y-divider"></div>
+  <button class="ab" id="dys-toggle"  onclick="toggleDyslexic()"   aria-pressed="false" aria-label="Toggle dyslexia-friendly font" title="Dyslexia-friendly font">Dx</button>
+  <button class="ab" id="rule-toggle" onclick="toggleReadingRuler()" aria-pressed="false" aria-label="Toggle reading ruler" title="Reading ruler">▭</button>
+
+  <button class="ab" id="narrow-toggle" onclick="toggleNarrowReading()" aria-pressed="false" aria-label="Toggle narrow reading mode" title="Narrow reading (easier to track lines)" style="font-size:0.7rem;font-weight:900">NR</button>
+  <button class="ab" id="tts-toggle"  onclick="togglePageSpeech()"  aria-pressed="false" aria-label="Listen to this page" title="Listen to page">🔊</button>
+
+</div>
+
+<!-- TTS PANEL -->
+<div id="tts-panel" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:10000;background:#1a1a2e;border-top:4px solid #f5b800;padding:20px;font-family:sans-serif">
+  <div style="max-width:600px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <strong style="color:#f5b800;font-size:1rem">🔊 Read Aloud</strong>
+      <button id="tts-close" style="background:#333;border:none;color:#fff;width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer" onclick="document.getElementById('tts-panel').style.display='none';window.speechSynthesis&&window.speechSynthesis.cancel()">✕</button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+      <div>
+        <label style="display:block;color:#ccc;font-size:0.85rem;margin-bottom:6px">What to read:</label>
+        <select id="tts-section" style="width:100%;height:44px;padding:0 10px;border-radius:8px;border:none;background:#333;color:#fff;font-size:0.9rem">
+          <option value="current">Current page</option>
+          <option value="news">Recent Updates</option>
+          <option value="benefits">Benefits &amp; PIP</option>
+          <option value="research">Research &amp; Trials</option>
+          <option value="lw">Everyday Guide</option>
+          <option value="questions">Questions for doctor</option>
+          <option value="employment">Employment rights</option>
+          <option value="glossary">Glossary</option>
+          <option value="eyehealth">Eye Health Basics</option>
+        </select>
+      </div>
+      <div>
+        <label style="display:block;color:#ccc;font-size:0.85rem;margin-bottom:6px">Speed:</label>
+        <select id="tts-speed" style="width:100%;height:44px;padding:0 10px;border-radius:8px;border:none;background:#333;color:#fff;font-size:0.9rem">
+          <option value="0.6">Slow</option>
+          <option value="0.85" selected>Normal</option>
+          <option value="1.2">Fast</option>
+          <option value="1.6">Very Fast</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-bottom:16px">
+      <label style="display:block;color:#ccc;font-size:0.85rem;margin-bottom:6px">Voice:</label>
+      <select id="tts-voice-sel" style="width:100%;height:44px;padding:0 10px;border-radius:8px;border:none;background:#333;color:#fff;font-size:0.9rem">
+        <option value="">Default English voice</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button id="tts-play-btn" style="flex:1;height:52px;background:#f5b800;color:#000;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer" onclick="ttsPlay()">▶ Play</button>
+      <button style="height:52px;padding:0 20px;background:#333;color:#fff;border:none;border-radius:10px;font-size:1rem;cursor:pointer" onclick="ttsStop()">⏹ Stop</button>
+    </div>
+    <p id="tts-status" style="color:#aaa;font-size:0.8rem;margin-top:10px;text-align:center">Select what to read and press Play</p>
+  </div>
 </div>
 
 
@@ -1591,6 +1725,13 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 </div>
 
 
+
+
+
+<!-- A11Y: live announcer + reading ruler bar -->
+<div id="sr-announcer" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
+<div id="sr-announcer-assertive" class="visually-hidden" aria-live="assertive" aria-atomic="true"></div>
+<div class="reading-ruler-bar" aria-hidden="true"></div>
 
 <!-- ══════════════════════════════════════
 
@@ -1626,57 +1767,57 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
       <span class="sidebar-section">Cyflyrau</span>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('stargardts')">✦ Clefyd Stargardt</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('stargardts')"><span aria-hidden="true">✦</span> Clefyd Stargardt</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('amd')">◉ Dirywiad Macular AMD</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('amd')"><span aria-hidden="true">◉</span> Dirywiad Macular AMD</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('glaucoma')">◎ Glawcoma</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('glaucoma')"><span aria-hidden="true">◎</span> Glawcoma</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('diabetic')">◇ Retinopathi Diabetig</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('diabetic')"><span aria-hidden="true">◇</span> Retinopathi Diabetig</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('rp')">◈ Retinitis Pigmentosa</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('rp')"><span aria-hidden="true">◈</span> Retinitis Pigmentosa</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('cvi')">◭ Nam Gweledol yr Ymennydd</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('cvi')"><span aria-hidden="true">◭</span> Nam Gweledol yr Ymennydd</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('nystagmus')">↔ Nystagmus</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('nystagmus')"><span aria-hidden="true">↔</span> Nystagmus</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('albinism')">☀ Albiniaeth</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('albinism')"><span aria-hidden="true">☀</span> Albiniaeth</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('usher')">◑ Syndrom Usher</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('usher')"><span aria-hidden="true">◑</span> Syndrom Usher</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('lca')">⬡ Amawrosis Cynhenid Leber</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('lca')"><span aria-hidden="true">⬡</span> Amawrosis Cynhenid Leber</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('cone')">🎯 Dystroffi Côn</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('cone')"><span aria-hidden="true">🎯</span> Dystroffi Côn</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('achromatopsia')">⬤ Achromatopsia</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('achromatopsia')"><span aria-hidden="true">⬤</span> Achromatopsia</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('dmo')">💧 Oedema Macular Diabetig</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('dmo')"><span aria-hidden="true">💧</span> Oedema Macular Diabetig</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('myopic')">👓 Dirywiad Macular Myopig</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('myopic')"><span aria-hidden="true">👓</span> Dirywiad Macular Myopig</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('charlesbonnet')">🧠 Syndrom Charles Bonnet</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('charlesbonnet')"><span aria-hidden="true">🧠</span> Syndrom Charles Bonnet</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('opticneuritis')">⚡ Niwritis Optig</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('opticneuritis')"><span aria-hidden="true">⚡</span> Niwritis Optig</button>
 
-      <button class="sidebar-link" onclick="showConditionWelsh('blepharitis')">👁 Blepharaidd</button>
+      <button class="sidebar-link" onclick="showConditionWelsh('blepharitis')"><span aria-hidden="true">👁</span> Bleffaritis</button>
 
       <div class="sidebar-divider"></div>
 
       <span class="sidebar-section">Canllawiau ac Adnoddau</span>
 
-      <button class="sidebar-link" onclick="showPage('livingwell')">🌟 Canllaw Beunyddiol</button>
+      <button class="sidebar-link" onclick="showPage('livingwell')"><span aria-hidden="true">🌟</span> Canllaw Beunyddiol</button>
 
       <button class="sidebar-link" onclick="showWelshPage('eyehealth')">👁️ Hanfodion Iechyd Llygaid</button>
 
-      <button class="sidebar-link" onclick="showWelshPage('employment')">💼 Cyflogaeth</button>
+      <button class="sidebar-link" onclick="showWelshPage('employment')"><span aria-hidden="true">💼</span> Cyflogaeth</button>
 
-      <button class="sidebar-link" onclick="showWelshPage('glossary')">📖 Geirfa</button>
+      <button class="sidebar-link" onclick="showWelshPage('glossary')"><span aria-hidden="true">📖</span> Geirfa</button>
 
-      <button class="sidebar-link" onclick="showWelshPage('questions')">❓ Cwestiynau i'w Gofyn</button>
+      <button class="sidebar-link" onclick="showWelshPage('questions')"><span aria-hidden="true">❓</span> Cwestiynau i'w Gofyn</button>
 
-      <button class="sidebar-link" onclick="showWelshPage('localsupport')">📍 Cymorth Lleol</button>
+      <button class="sidebar-link" onclick="showWelshPage('localsupport')"><span aria-hidden="true">📍</span> Cymorth Lleol</button>
 
-      <button class="sidebar-link" onclick="showWelshPage('children')">👶 I Rieni</button>
+      <button class="sidebar-link" onclick="showWelshPage('children')"><span aria-hidden="true">👶</span> I Rieni</button>
 
       <div class="sidebar-divider"></div>
 
@@ -1700,9 +1841,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
     </div>
 
-
-
-    <div class="cond-section" style="max-width:680px;margin:0 auto;padding:0 20px">
+<div class="cond-section" style="max-width:680px;margin:0 auto;padding:0 20px">
 
 
 
@@ -1726,19 +1865,19 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
 
-        <button onclick="showWelshPage('glossary')" class="share-btn" style="font-size:0.82rem;padding:0 8px;min-height:42px;justify-content:center;border-radius:12px">📖 Geirfa</button>
+        <button onclick="showWelshPage('glossary')" class="share-btn" style="font-size:0.82rem;padding:0 8px;min-height:44px;justify-content:center;border-radius:12px">📖 Geirfa</button>
 
-        <button onclick="showWelshPage('localsupport')" class="share-btn" style="font-size:0.82rem;padding:0 8px;min-height:42px;justify-content:center;border-radius:12px">📍 Cymorth Lleol</button>
+        <button onclick="showWelshPage('localsupport')" class="share-btn" style="font-size:0.82rem;padding:0 8px;min-height:44px;justify-content:center;border-radius:12px">📍 Cymorth Lleol</button>
 
       </div>
 
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:20px">
 
-        <button onclick="showWelshPage('eyehealth')" class="share-btn" style="font-size:0.78rem;padding:0 6px;min-height:42px;justify-content:center;border-radius:12px">👁️ Iechyd Llygaid</button>
+        <button onclick="showWelshPage('eyehealth')" class="share-btn" style="font-size:0.78rem;padding:0 6px;min-height:44px;justify-content:center;border-radius:12px">👁️ Iechyd Llygaid</button>
 
-        <button onclick="showWelshPage('employment')" class="share-btn" style="font-size:0.78rem;padding:0 6px;min-height:42px;justify-content:center;border-radius:12px">💼 Cyflogaeth</button>
+        <button onclick="showWelshPage('employment')" class="share-btn" style="font-size:0.78rem;padding:0 6px;min-height:44px;justify-content:center;border-radius:12px">💼 Cyflogaeth</button>
 
-        <button onclick="showWelshPage('children')" class="share-btn" style="font-size:0.78rem;padding:0 6px;min-height:42px;justify-content:center;border-radius:12px">👶 I Rieni</button>
+        <button onclick="showWelshPage('children')" class="share-btn" style="font-size:0.78rem;padding:0 6px;min-height:44px;justify-content:center;border-radius:12px">👶 I Rieni</button>
 
       </div>
 
@@ -1768,68 +1907,95 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
       <div role="list" aria-label="Cyflyrau llygaid">
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('stargardts') : showCondition('stargardts')">✦ Clefyd Stargardt <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('stargardts') : showCondition('stargardts')"><span aria-hidden="true">✦</span> Clefyd Stargardt <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('amd') : showCondition('amd')">◉ Dirywiad Macular AMD <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('amd') : showCondition('amd')"><span aria-hidden="true">◉</span> Dirywiad Macular AMD <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('glaucoma') : showCondition('glaucoma')">◎ Glawcoma <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('glaucoma') : showCondition('glaucoma')"><span aria-hidden="true">◎</span> Glawcoma <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('diabetic') : showCondition('diabetic')">◇ Retinopathi Diabetig <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('diabetic') : showCondition('diabetic')"><span aria-hidden="true">◇</span> Retinopathi Diabetig <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('rp') : showCondition('rp')">◈ Retinitis Pigmentosa <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('rp') : showCondition('rp')"><span aria-hidden="true">◈</span> Retinitis Pigmentosa <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('cvi') : showCondition('cvi')">◭ Nam Gweledol yr Ymennydd <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('cvi') : showCondition('cvi')"><span aria-hidden="true">◭</span> Nam Gweledol yr Ymennydd <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('nystagmus') : showCondition('nystagmus')">↔ Nystagmus <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('nystagmus') : showCondition('nystagmus')"><span aria-hidden="true">↔</span> Nystagmus <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('albinism') : showCondition('albinism')">☀ Albiniaeth <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('albinism') : showCondition('albinism')"><span aria-hidden="true">☀</span> Albiniaeth <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('usher') : showCondition('usher')">◑ Syndrom Usher <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('usher') : showCondition('usher')"><span aria-hidden="true">◑</span> Syndrom Usher <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('lca') : showCondition('lca')">⬡ Amawrosis Cynhenid Leber <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('lca') : showCondition('lca')"><span aria-hidden="true">⬡</span> Amawrosis Cynhenid Leber <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('cone') : showCondition('cone')">🎯 Dystroffi Côn <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('cone') : showCondition('cone')"><span aria-hidden="true">🎯</span> Dystroffi Côn <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('achromatopsia') : showCondition('achromatopsia')">⬤ Achromatopsia <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('achromatopsia') : showCondition('achromatopsia')"><span aria-hidden="true">⬤</span> Achromatopsia <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('dmo') : showCondition('dmo')">💧 Oedema Macular Diabetig <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('dmo') : showCondition('dmo')"><span aria-hidden="true">💧</span> Oedema Macular Diabetig <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('myopic') : showCondition('myopic')">👓 Dirywiad Macular Myopig <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('myopic') : showCondition('myopic')"><span aria-hidden="true">👓</span> Dirywiad Macular Myopig <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('charlesbonnet') : showCondition('charlesbonnet')">🧠 Syndrom Charles Bonnet <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('charlesbonnet') : showCondition('charlesbonnet')"><span aria-hidden="true">🧠</span> Syndrom Charles Bonnet <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('opticneuritis') : showCondition('opticneuritis')">⚡ Niwritis Optig <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('opticneuritis') : showCondition('opticneuritis')"><span aria-hidden="true">⚡</span> Niwritis Optig <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
-        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('blepharitis') : showCondition('blepharitis')">👁 Blepharaidd <span class="cond-arrow" aria-hidden="true">→</span></button></div>
+        <div role="listitem" class="cond-item"><button class="cond-btn" onclick="_isWelsh ? showConditionWelsh('blepharitis') : showCondition('blepharitis')"><span aria-hidden="true">👁</span> Bleffaritis <span class="cond-arrow" aria-hidden="true">→</span></button></div>
 
       </div>
 
 
 
       <!-- Canllaw Beunyddiol -->
-
-      <div style="margin:28px 0 20px">
-
-        <button onclick="showPage('livingwell')" class="lw-hero-btn" aria-label="Agor Canllaw Beunyddiol">
-
-          <span style="font-size:1.4rem" aria-hidden="true">🌟</span>
-
-          <span>
-
-            <span style="display:block;font-size:1rem;font-weight:900">Canllaw Beunyddiol</span>
-
-            <span style="display:block;font-size:0.8rem;color:var(--text2);margin-top:3px">Cymorth ymarferol ar gyfer bywyd bob dydd gyda cholled golwg</span>
-
+      <div style="margin-top:28px;padding-top:24px;border-top:2px solid var(--border)">
+        <span class="section-label">Bywyd bob dydd</span>
+        <button class="cond-btn" onclick="showPage('livingwell')" aria-label="Agor Canllaw Beunyddiol" style="height:auto;flex-direction:column;align-items:flex-start;gap:8px;padding:20px 26px">
+          <span style="display:flex;align-items:center;justify-content:space-between;width:100%;gap:12px">
+            <span style="font-size:1.05rem;font-weight:800"><span aria-hidden="true">🌟</span> Canllaw Beunyddiol</span>
+            <span class="cond-arrow" aria-hidden="true" style="flex-shrink:0">→</span>
           </span>
-
+          <span style="font-size:0.85rem;font-weight:600;color:var(--text2);line-height:1.5">Awgrymiadau ymarferol i wneud bywyd bob dydd yn haws</span>
+          <span style="font-size:0.78rem;font-weight:700;color:var(--yellow);line-height:1.7">Coginio &nbsp;·&nbsp; Magu Plant &nbsp;·&nbsp; Chwaraeon a Ffitrwydd &nbsp;·&nbsp; Colur a Glanweithdra &nbsp;·&nbsp; Gwrando a Llyfrau Sain &nbsp;·&nbsp; Teithio &nbsp;·&nbsp; Gwaith &nbsp;·&nbsp; Iechyd Meddwl</span>
         </button>
-
       </div>
 
-
+      <!-- Diweddariadau Diweddar -->
+      <div style="display:flex;align-items:center;gap:12px;margin:28px 0 24px;opacity:0.5" aria-hidden="true">
+        <div style="flex:1;height:1px;background:var(--yellow)"></div>
+        <div style="width:6px;height:6px;border-radius:50%;background:var(--yellow);flex-shrink:0"></div>
+        <div style="width:6px;height:6px;border-radius:50%;background:var(--yellow);flex-shrink:0"></div>
+        <div style="width:6px;height:6px;border-radius:50%;background:var(--yellow);flex-shrink:0"></div>
+        <div style="flex:1;height:1px;background:var(--yellow)"></div>
+      </div>
+      <section class="news-box" aria-labelledby="news-hd-cy">
+        <div class="news-box-header">
+          <span class="news-box-icon" aria-hidden="true">📰</span>
+          <span class="news-box-title" id="news-hd-cy">Diweddariadau Diweddar</span>
+          <span class="news-box-date">Mai 2026</span>
+        </div>
+        <div class="news-item">
+          <span class="news-tag research">Ymchwil</span>
+          <p class="news-text"><strong>Stargardt:</strong> Mae therapi genyn ABCA4 deuol-fector SpliceBio (SB-007) wedi trin ei gleifion cyntaf yn nhreial Cam 1/2 ASTRA yn Rhydychen. Mae treial CELESTE AAVantgarde Bio hefyd yn recriwtio oedolion â mwtaniadau ABCA4.</p>
+        </div>
+        <div class="news-item">
+          <span class="news-tag research">Ymchwil</span>
+          <p class="news-text"><strong>Retinitis Pigmentosa:</strong> Mae treial Cam 2/3 therapi genyn RPGR MeiraGTx yn adrodd cadw maes gweledol arwyddocaol mewn cleifion RP X-gysylltiedig ar ôl 12 mis.</p>
+        </div>
+        <div class="news-item">
+          <span class="news-tag research">Ymchwil</span>
+          <p class="news-text"><strong>Syndrom Usher:</strong> Mae therapi oligonucleotid gwrthsynhwyrol ProQR ar gyfer USH2A (QR-421a) yn dangos cadw swyddogaeth weledol parhaus ar 24 mis.</p>
+        </div>
+        <div class="news-item">
+          <span class="news-tag benefits">Budd-daliadau</span>
+          <p class="news-text"><strong>Cyfraddau PIP a DLA wedi'u diweddaru Mai 2026 (codiad 3.8%):</strong> Cyfradd uwch Bywyd Beunyddiol £114.60/wythnos. Cyfradd uwch Symudedd £80.00/wythnos. Lwfans Presenoldeb cyfradd uwch £114.60/wythnos. Lwfans Gofalwr £86.45/wythnos.</p>
+        </div>
+        <div class="news-item">
+          <span class="news-tag tech">Technoleg</span>
+          <p class="news-text"><strong>Pob cyflwr:</strong> Cyflwynodd Apple iOS 18 welliannau sylweddol i VoiceOver gan gynnwys disgrifiadau delwedd gwell a chymorth gwell i arddangosfeydd braille.</p>
+        </div>
+        <p class="news-footer">Caiff diweddariadau eu gwirio a'u hychwanegu bob mis. Mae'r wybodaeth at ddibenion canllaw yn unig — trafodwch opsiynau ymchwil a thriniaeth bob amser gyda'ch offthalmolegydd. <button onclick="showWelshPage('contact')" style="background:none;border:none;color:var(--yellow);font-family:var(--font);font-size:0.78rem;font-weight:700;cursor:pointer;text-decoration:underline;padding:0">Wedi sylwi ar rywbeth ar goll? Rhowch wybod i ni.</button></p>
+      </section>
 
     </div>
-
     </div><!-- end desktop-main -->
 
     </div><!-- end desktop-wrap -->
@@ -1860,39 +2026,39 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
       <span class="sidebar-section">Conditions</span>
 
-      <button class="sidebar-link" onclick="showCondition('stargardts')">✦ Stargardt Disease</button>
+      <button class="sidebar-link" onclick="showCondition('stargardts')"><span aria-hidden="true">✦</span> Stargardt Disease</button>
 
-      <button class="sidebar-link" onclick="showCondition('amd')">◉ Age-related MD</button>
+      <button class="sidebar-link" onclick="showCondition('amd')"><span aria-hidden="true">◉</span> Age-related MD</button>
 
-      <button class="sidebar-link" onclick="showCondition('glaucoma')">◎ Glaucoma</button>
+      <button class="sidebar-link" onclick="showCondition('glaucoma')"><span aria-hidden="true">◎</span> Glaucoma</button>
 
-      <button class="sidebar-link" onclick="showCondition('diabetic')">◇ Diabetic Retinopathy</button>
+      <button class="sidebar-link" onclick="showCondition('diabetic')"><span aria-hidden="true">◇</span> Diabetic Retinopathy</button>
 
-      <button class="sidebar-link" onclick="showCondition('rp')">◈ Retinitis Pigmentosa</button>
+      <button class="sidebar-link" onclick="showCondition('rp')"><span aria-hidden="true">◈</span> Retinitis Pigmentosa</button>
 
-      <button class="sidebar-link" onclick="showCondition('cvi')">◭ Cerebral Visual Impairment</button>
+      <button class="sidebar-link" onclick="showCondition('cvi')"><span aria-hidden="true">◭</span> Cerebral Visual Impairment</button>
 
-      <button class="sidebar-link" onclick="showCondition('nystagmus')">↔ Nystagmus</button>
+      <button class="sidebar-link" onclick="showCondition('nystagmus')"><span aria-hidden="true">↔</span> Nystagmus</button>
 
-      <button class="sidebar-link" onclick="showCondition('albinism')">☀ Albinism</button>
+      <button class="sidebar-link" onclick="showCondition('albinism')"><span aria-hidden="true">☀</span> Albinism</button>
 
-      <button class="sidebar-link" onclick="showCondition('usher')">◑ Usher Syndrome</button>
+      <button class="sidebar-link" onclick="showCondition('usher')"><span aria-hidden="true">◑</span> Usher Syndrome</button>
 
-      <button class="sidebar-link" onclick="showCondition('lca')">⬡ Leber Congenital Amaurosis</button>
+      <button class="sidebar-link" onclick="showCondition('lca')"><span aria-hidden="true">⬡</span> Leber Congenital Amaurosis</button>
 
-      <button class="sidebar-link" onclick="showCondition('cone')">🎯 Cone Dystrophy</button>
+      <button class="sidebar-link" onclick="showCondition('cone')"><span aria-hidden="true">🎯</span> Cone Dystrophy</button>
 
-      <button class="sidebar-link" onclick="showCondition('achromatopsia')">⬤ Achromatopsia</button>
+      <button class="sidebar-link" onclick="showCondition('achromatopsia')"><span aria-hidden="true">⬤</span> Achromatopsia</button>
 
-      <button class="sidebar-link" onclick="showCondition('dmo')">💧 Diabetic Macular Oedema</button>
+      <button class="sidebar-link" onclick="showCondition('dmo')"><span aria-hidden="true">💧</span> Diabetic Macular Oedema</button>
 
-      <button class="sidebar-link" onclick="showCondition('myopic')">👓 Myopic MD</button>
+      <button class="sidebar-link" onclick="showCondition('myopic')"><span aria-hidden="true">👓</span> Myopic MD</button>
 
-      <button class="sidebar-link" onclick="showCondition('charlesbonnet')">🧠 Charles Bonnet Syndrome</button>
+      <button class="sidebar-link" onclick="showCondition('charlesbonnet')"><span aria-hidden="true">🧠</span> Charles Bonnet Syndrome</button>
 
-      <button class="sidebar-link" onclick="showCondition('opticneuritis')">⚡ Optic Neuritis</button>
+      <button class="sidebar-link" onclick="showCondition('opticneuritis')"><span aria-hidden="true">⚡</span> Optic Neuritis</button>
 
-      <button class="sidebar-link" onclick="showCondition('blepharitis')">👁 Blepharitis</button>
+      <button class="sidebar-link" onclick="showCondition('blepharitis')"><span aria-hidden="true">👁</span> Blepharitis</button>
 
 
 
@@ -1900,25 +2066,26 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
       <span class="sidebar-section">Guides &amp; Resources</span>
 
-      <button class="sidebar-link" onclick="showPage('livingwell')">🌟 Everyday Guide</button>
+      <button class="sidebar-link" onclick="showPage('livingwell')"><span aria-hidden="true">🌟</span> Everyday Guide</button>
 
       <button class="sidebar-link" onclick="showPage('eyehealth')">👁️ Eye Health Basics</button>
 
-      <button class="sidebar-link" onclick="showPage('employment')">💼 Employment</button>
+      <button class="sidebar-link" onclick="showPage('employment')"><span aria-hidden="true">💼</span> Employment</button>
 
-      <button class="sidebar-link" onclick="showPage('glossary')">📖 Glossary</button>
+      <button class="sidebar-link" onclick="showPage('glossary')"><span aria-hidden="true">📖</span> Glossary</button>
 
-      <button class="sidebar-link" onclick="showPage('questions')">❓ Questions to Ask</button>
+      <button class="sidebar-link" onclick="showPage('questions')"><span aria-hidden="true">❓</span> Questions to Ask</button>
 
-      <button class="sidebar-link" onclick="showPage('localsupport')">📍 Local Support</button>
+      <button class="sidebar-link" onclick="showPage('localsupport')"><span aria-hidden="true">📍</span> Local Support</button>
 
-      <button class="sidebar-link" onclick="showPage('children')">👶 For Parents</button>
+      <button class="sidebar-link" onclick="showPage('children')"><span aria-hidden="true">👶</span> For Parents</button>
 
 
 
       <div class="sidebar-divider"></div>
 
-      <button class="sidebar-link" onclick="showPage('contact')">✉️ Contact</button>
+      <button class="sidebar-link" onclick="showPage('help')"><span aria-hidden="true">🆘</span> Help &amp; Support</button>
+      <button class="sidebar-link" onclick="showPage('contact')"><span aria-hidden="true">✉️</span> Contact</button>
 
     </aside>
 
@@ -1932,7 +2099,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
       <div aria-hidden="true" style="text-align:center;margin-bottom:28px;opacity:0.85">
 
-        <svg viewBox="0 0 320 180" width="100%" style="max-width:380px;display:inline-block" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 320 180" width="100%" aria-hidden="true" style="max-width:380px;display:inline-block" xmlns="http://www.w3.org/2000/svg">
 
           <circle cx="160" cy="90" r="85" fill="var(--yellow)" opacity="0.08"/>
 
@@ -1980,7 +2147,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
       <p class="hero-desc">Clear, accessible information for people living with sight conditions — and the people who support them.</p>
 
-      <p class="last-updated">Last updated: <time datetime="2026-04-25">April 2026</time> · Reviewed monthly · <button onclick="showPage('contact')" style="background:none;border:none;color:var(--yellow);font-family:var(--font);font-size:inherit;cursor:pointer;text-decoration:underline;padding:0">Contact us</button></p>
+      <p class="last-updated">Last updated: <time datetime="2026-05-15">May 2026</time> · Reviewed monthly · <button onclick="showPage('contact')" style="background:none;border:none;color:var(--yellow);font-family:var(--font);font-size:inherit;cursor:pointer;text-decoration:underline;padding:0">Contact us</button></p>
 
 
 
@@ -2034,7 +2201,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button id="jd-toggle" onclick="toggleJD()" aria-expanded="false" aria-controls="jd-steps"
 
-            style="background:none;border:2px solid var(--border);color:var(--text2);border-radius:50px;padding:6px 14px;font-family:var(--font);font-size:0.78rem;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;min-height:36px;transition:border-color .15s,color .15s"
+            style="background:none;border:2px solid var(--border);color:var(--text2);border-radius:50px;padding:6px 14px;font-family:var(--font);font-size:0.78rem;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;min-height:44px;transition:border-color .15s,color .15s"
 
             onmouseover="this.style.borderColor='var(--yellow)';this.style.color='var(--yellow)'"
 
@@ -2066,7 +2233,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
                 <p style="font-size:0.88rem;color:var(--text2);margin-top:3px;line-height:1.7">Ask your ophthalmologist what your diagnosis means for your vision long term. Write your questions down beforehand — you will forget them in the room.</p>
 
-                <button onclick="showPage('questions')" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:var(--yellow);color:#000;border:none;padding:9px 18px;border-radius:50px;font-family:var(--font);font-size:0.82rem;font-weight:800;cursor:pointer;min-height:40px">❓ Questions to ask your doctor →</button>
+                <button onclick="showPage('questions')" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:var(--yellow);color:#000;border:none;padding:9px 18px;border-radius:50px;font-family:var(--font);font-size:0.82rem;font-weight:800;cursor:pointer;min-height:44px">❓ Questions to ask your doctor →</button>
 
               </div>
 
@@ -2154,19 +2321,19 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px" role="group" aria-label="Useful resources">
 
-        <button onclick="showPage('glossary')" class="share-btn" style="font-size:0.82rem;padding:0 8px;min-height:42px;justify-content:center;border-radius:12px" aria-label="Open Glossary">📖 Glossary</button>
+        <button onclick="showPage('glossary')" class="share-btn" style="font-size:0.82rem;padding:0 8px;min-height:44px;justify-content:center;border-radius:12px" aria-label="Open Glossary">📖 Glossary</button>
 
-        <button onclick="showPage('localsupport')" class="share-btn" style="font-size:0.82rem;padding:0 8px;min-height:42px;justify-content:center;border-radius:12px" aria-label="Open Local Support">📍 Local Support</button>
+        <button onclick="showPage('localsupport')" class="share-btn" style="font-size:0.82rem;padding:0 8px;min-height:44px;justify-content:center;border-radius:12px" aria-label="Open Local Support">📍 Local Support</button>
 
       </div>
 
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:20px" role="group" aria-label="More resources">
 
-        <button onclick="showPage('eyehealth')" class="share-btn" style="font-size:0.78rem;padding:0 6px;min-height:42px;justify-content:center;border-radius:12px" aria-label="Open Eye Health Basics">👁️ Eye Health</button>
+        <button onclick="showPage('eyehealth')" class="share-btn" style="font-size:0.78rem;padding:0 6px;min-height:44px;justify-content:center;border-radius:12px" aria-label="Open Eye Health Basics">👁️ Eye Health</button>
 
-        <button onclick="showPage('employment')" class="share-btn" style="font-size:0.78rem;padding:0 6px;min-height:42px;justify-content:center;border-radius:12px" aria-label="Open Employment guide">💼 Employment</button>
+        <button onclick="showPage('employment')" class="share-btn" style="font-size:0.78rem;padding:0 6px;min-height:44px;justify-content:center;border-radius:12px" aria-label="Open Employment guide">💼 Employment</button>
 
-        <button onclick="showPage('children')" class="share-btn" style="font-size:0.78rem;padding:0 6px;min-height:42px;justify-content:center;border-radius:12px" aria-label="Open For Parents guide">👶 For Parents</button>
+        <button onclick="showPage('children')" class="share-btn" style="font-size:0.78rem;padding:0 6px;min-height:44px;justify-content:center;border-radius:12px" aria-label="Open For Parents guide">👶 For Parents</button>
 
       </div>
 
@@ -2188,7 +2355,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('stargardts')" aria-label="Open Stargardt Disease information">
 
-            ✦ Stargardt Disease <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">✦</span> Stargardt Disease <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2198,7 +2365,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('amd')" aria-label="Open Age-related Macular Degeneration information">
 
-            ◉ Age-related Macular Degeneration <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">◉</span> Age-related Macular Degeneration <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2208,7 +2375,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('glaucoma')" aria-label="Open Glaucoma information">
 
-            ◎ Glaucoma <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">◎</span> Glaucoma <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2218,7 +2385,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('diabetic')" aria-label="Open Diabetic Retinopathy information">
 
-            ◇ Diabetic Retinopathy <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">◇</span> Diabetic Retinopathy <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2228,7 +2395,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('rp')" aria-label="Open Retinitis Pigmentosa information">
 
-            ◈ Retinitis Pigmentosa <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">◈</span> Retinitis Pigmentosa <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2238,7 +2405,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('cvi')" aria-label="Open Cerebral Visual Impairment information">
 
-            ◭ Cerebral Visual Impairment <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">◭</span> Cerebral Visual Impairment <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2248,7 +2415,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('nystagmus')" aria-label="Open Nystagmus information">
 
-            ↔ Nystagmus <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">↔</span> Nystagmus <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2258,7 +2425,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('albinism')" aria-label="Open Albinism information">
 
-            ☀ Albinism <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">☀</span> Albinism <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2268,7 +2435,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('usher')" aria-label="Open Usher Syndrome information">
 
-            ◑ Usher Syndrome <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">◑</span> Usher Syndrome <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2278,7 +2445,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('lca')" aria-label="Open Leber Congenital Amaurosis information">
 
-            ⬡ Leber Congenital Amaurosis <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">⬡</span> Leber Congenital Amaurosis <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2288,7 +2455,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('cone')" aria-label="Open Cone Dystrophy information">
 
-            🎯 Cone Dystrophy <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">🎯</span> Cone Dystrophy <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2298,7 +2465,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('dmo')" aria-label="Open Diabetic Macular Oedema information">
 
-            💧 Diabetic Macular Oedema <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">💧</span> Diabetic Macular Oedema <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2308,7 +2475,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('myopic')" aria-label="Open Myopic Macular Degeneration information">
 
-            👓 Myopic Macular Degeneration <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">👓</span> Myopic Macular Degeneration <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2348,7 +2515,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <button class="cond-btn" onclick="showCondition('achromatopsia')" aria-label="Open Achromatopsia information">
 
-            ⬤ Achromatopsia <span class="cond-arrow" aria-hidden="true">→</span>
+            <span aria-hidden="true">⬤</span> Achromatopsia <span class="cond-arrow" aria-hidden="true">→</span>
 
           </button>
 
@@ -2368,7 +2535,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <span style="display:flex;align-items:center;justify-content:space-between;width:100%;gap:12px">
 
-            <span style="font-size:1.05rem;font-weight:800">🌟 Everyday Guide</span>
+            <span style="font-size:1.05rem;font-weight:800"><span aria-hidden="true">🌟</span> Everyday Guide</span>
 
             <span class="cond-arrow" aria-hidden="true" style="flex-shrink:0">→</span>
 
@@ -2424,7 +2591,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <span class="news-box-title" id="news-hd">Recent Updates</span>
 
-          <span class="news-box-date">April 2026</span>
+          <span class="news-box-date">May 2026</span>
 
         </div>
 
@@ -2456,7 +2623,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
           <span class="news-tag benefits">Benefits</span>
 
-          <p class="news-text"><strong>PIP &amp; DLA rates updated April 2026 (3.8% rise):</strong> Daily Living enhanced rate £114.60/week. Mobility enhanced rate £80.00/week. Attendance Allowance higher rate £114.60/week. Carer's Allowance £86.45/week.</p>
+          <p class="news-text"><strong>PIP &amp; DLA rates updated May 2026 (3.8% rise):</strong> Daily Living enhanced rate £114.60/week. Mobility enhanced rate £80.00/week. Attendance Allowance higher rate £114.60/week. Carer's Allowance £86.45/week.</p>
 
         </div>
 
@@ -2508,63 +2675,64 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
       <span class="sidebar-section">Conditions</span>
 
-      <button class="sidebar-link" onclick="showCondition('stargardts')">✦ Stargardt Disease</button>
+      <button class="sidebar-link" onclick="showCondition('stargardts')"><span aria-hidden="true">✦</span> Stargardt Disease</button>
 
-      <button class="sidebar-link" onclick="showCondition('amd')">◉ Age-related MD</button>
+      <button class="sidebar-link" onclick="showCondition('amd')"><span aria-hidden="true">◉</span> Age-related MD</button>
 
-      <button class="sidebar-link" onclick="showCondition('glaucoma')">◎ Glaucoma</button>
+      <button class="sidebar-link" onclick="showCondition('glaucoma')"><span aria-hidden="true">◎</span> Glaucoma</button>
 
-      <button class="sidebar-link" onclick="showCondition('diabetic')">◇ Diabetic Retinopathy</button>
+      <button class="sidebar-link" onclick="showCondition('diabetic')"><span aria-hidden="true">◇</span> Diabetic Retinopathy</button>
 
-      <button class="sidebar-link" onclick="showCondition('rp')">◈ Retinitis Pigmentosa</button>
+      <button class="sidebar-link" onclick="showCondition('rp')"><span aria-hidden="true">◈</span> Retinitis Pigmentosa</button>
 
-      <button class="sidebar-link" onclick="showCondition('cvi')">◭ Cerebral Visual Impairment</button>
+      <button class="sidebar-link" onclick="showCondition('cvi')"><span aria-hidden="true">◭</span> Cerebral Visual Impairment</button>
 
-      <button class="sidebar-link" onclick="showCondition('nystagmus')">↔ Nystagmus</button>
+      <button class="sidebar-link" onclick="showCondition('nystagmus')"><span aria-hidden="true">↔</span> Nystagmus</button>
 
-      <button class="sidebar-link" onclick="showCondition('albinism')">☀ Albinism</button>
+      <button class="sidebar-link" onclick="showCondition('albinism')"><span aria-hidden="true">☀</span> Albinism</button>
 
-      <button class="sidebar-link" onclick="showCondition('usher')">◑ Usher Syndrome</button>
+      <button class="sidebar-link" onclick="showCondition('usher')"><span aria-hidden="true">◑</span> Usher Syndrome</button>
 
-      <button class="sidebar-link" onclick="showCondition('lca')">⬡ Leber Congenital Amaurosis</button>
+      <button class="sidebar-link" onclick="showCondition('lca')"><span aria-hidden="true">⬡</span> Leber Congenital Amaurosis</button>
 
-      <button class="sidebar-link" onclick="showCondition('cone')">🎯 Cone Dystrophy</button>
+      <button class="sidebar-link" onclick="showCondition('cone')"><span aria-hidden="true">🎯</span> Cone Dystrophy</button>
 
-      <button class="sidebar-link" onclick="showCondition('achromatopsia')">⬤ Achromatopsia</button>
+      <button class="sidebar-link" onclick="showCondition('achromatopsia')"><span aria-hidden="true">⬤</span> Achromatopsia</button>
 
-      <button class="sidebar-link" onclick="showCondition('dmo')">💧 Diabetic Macular Oedema</button>
+      <button class="sidebar-link" onclick="showCondition('dmo')"><span aria-hidden="true">💧</span> Diabetic Macular Oedema</button>
 
-      <button class="sidebar-link" onclick="showCondition('myopic')">👓 Myopic MD</button>
+      <button class="sidebar-link" onclick="showCondition('myopic')"><span aria-hidden="true">👓</span> Myopic MD</button>
 
-      <button class="sidebar-link" onclick="showCondition('charlesbonnet')">🧠 Charles Bonnet Syndrome</button>
+      <button class="sidebar-link" onclick="showCondition('charlesbonnet')"><span aria-hidden="true">🧠</span> Charles Bonnet Syndrome</button>
 
-      <button class="sidebar-link" onclick="showCondition('opticneuritis')">⚡ Optic Neuritis</button>
+      <button class="sidebar-link" onclick="showCondition('opticneuritis')"><span aria-hidden="true">⚡</span> Optic Neuritis</button>
 
-      <button class="sidebar-link" onclick="showCondition('blepharitis')">👁 Blepharitis</button>
+      <button class="sidebar-link" onclick="showCondition('blepharitis')"><span aria-hidden="true">👁</span> Blepharitis</button>
 
       <div class="sidebar-divider"></div>
 
       <span class="sidebar-section">Guides &amp; Resources</span>
 
-      <button class="sidebar-link" onclick="showPage('livingwell')">🌟 Everyday Guide</button>
+      <button class="sidebar-link" onclick="showPage('livingwell')"><span aria-hidden="true">🌟</span> Everyday Guide</button>
 
       <button class="sidebar-link" onclick="showPage('eyehealth')">👁️ Eye Health Basics</button>
 
-      <button class="sidebar-link" onclick="showPage('employment')">💼 Employment</button>
+      <button class="sidebar-link" onclick="showPage('employment')"><span aria-hidden="true">💼</span> Employment</button>
 
-      <button class="sidebar-link" onclick="showPage('glossary')">📖 Glossary</button>
+      <button class="sidebar-link" onclick="showPage('glossary')"><span aria-hidden="true">📖</span> Glossary</button>
 
-      <button class="sidebar-link" onclick="showPage('questions')">❓ Questions to Ask</button>
+      <button class="sidebar-link" onclick="showPage('questions')"><span aria-hidden="true">❓</span> Questions to Ask</button>
 
-      <button class="sidebar-link" onclick="showPage('localsupport')">📍 Local Support</button>
+      <button class="sidebar-link" onclick="showPage('localsupport')"><span aria-hidden="true">📍</span> Local Support</button>
 
-      <button class="sidebar-link" onclick="showPage('children')">👶 For Parents</button>
+      <button class="sidebar-link" onclick="showPage('children')"><span aria-hidden="true">👶</span> For Parents</button>
 
       <div class="sidebar-divider"></div>
 
-      <button class="sidebar-link" onclick="showPage('home')">🏠 Home</button>
+      <button class="sidebar-link" onclick="showPage('home')" aria-label="Home"><span aria-hidden="true">🏠</span> Home</button>
 
-      <button class="sidebar-link" onclick="showPage('contact')">✉️ Contact</button>
+      <button class="sidebar-link" onclick="showPage('help')"><span aria-hidden="true">🆘</span> Help &amp; Support</button>
+      <button class="sidebar-link" onclick="showPage('contact')"><span aria-hidden="true">✉️</span> Contact</button>
 
     </aside>
 
@@ -2595,6 +2763,8 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
   <div class="legal-wrap">
 
     <button class="back-btn" onclick="showPage('home')" aria-label="Back to home">← Back to home</button>
+
+    <div id="lw-welsh-notice" style="display:none;background:#00b140;color:#fff;padding:12px 18px;border-radius:12px;margin-bottom:20px;font-size:0.88rem;font-weight:600;line-height:1.6" role="note" aria-live="polite">🏴󠁧󠁢󠁷󠁬󠁳󠁥󠁳󠁥 Mae'r dudalen hon ar gael yn Saesneg yn unig ar hyn o bryd. / This page is currently in English only.</div>
 
     <span class="legal-eyebrow">Daily Life</span>
 
@@ -3040,7 +3210,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
             <h3>RNIB Talking Books — free</h3>
 
-            <p>RNIB's Talking Books service is completely free for anyone with a sight condition and offers over 25,000 titles available for download or by post. This is specifically designed for people with sight loss and should be the first service you sign up for. <a href="https://www.rnib.org.uk/living-with-sight-loss/assistive-aids-and-technology/rnib-library-services/" target="_blank" rel="noopener">Sign up at rnib.org.uk ↗</a></p>
+            <p>RNIB's Talking Books service is completely free for anyone with a sight condition and offers over 25,000 titles available for download or by post. This is specifically designed for people with sight loss and should be the first service you sign up for. <a href="https://readingservices.rnib.org.uk/" target="_blank" rel="noopener">Sign up at rnib.org.uk ↗</a></p>
 
           </div>
 
@@ -3140,7 +3310,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
             <h3>Passenger Assist (trains)</h3>
 
-            <p>Passenger Assist is a free service allowing you to book assistance at train stations across the UK. You can book by phone or via the Passenger Assist app. Staff will meet you at the station, guide you to your platform, and ensure you board safely. Book at least 2 hours in advance where possible. <a href="https://www.nationalrail.co.uk/stations-destinations/passenger-assist/" target="_blank" rel="noopener">nationalrail.co.uk ↗</a></p>
+            <p>Passenger Assist is a free service allowing you to book assistance at train stations across the UK. You can book by phone or via the Passenger Assist app. Staff will meet you at the station, guide you to your platform, and ensure you board safely. Book at least 2 hours in advance where possible. <a href="https://www.nationalrail.co.uk/help-and-assistance/passenger-assist/" target="_blank" rel="noopener">nationalrail.co.uk ↗</a></p>
 
           </div>
 
@@ -3366,7 +3536,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
             <h3>Support for family members and carers</h3>
 
-            <p>Carers UK (carersuk.org) provides free support specifically for people caring for someone with a disability. Carers are entitled to their own needs assessment from the local authority. Carer's Allowance is £86.45/week (April 2026) if you provide 35+ hours of care per week.</p>
+            <p>Carers UK (carersuk.org) provides free support specifically for people caring for someone with a disability. Carers are entitled to their own needs assessment from the local authority. Carer's Allowance is £86.45/week (May 2026) if you provide 35+ hours of care per week.</p>
 
           </div>
 
@@ -3518,7 +3688,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
     <h1>Privacy Policy</h1>
 
-    <p class="legal-updated">Last updated: <time datetime="2026-04-25">April 2026</time></p>
+    <p class="legal-updated">Last updated: <time datetime="2026-05-15">May 2026</time></p>
 
     <div class="wb"><strong>Plain English summary:</strong> Vision Hub does not sell your data. We do not collect personal information unless you choose to contact us. We do not use advertising trackers.</div>
 
@@ -3552,11 +3722,13 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
     <button class="back-btn" onclick="showPage('home')" aria-label="Back to home">← Back to home</button>
 
+    <div id="a11y-welsh-notice" style="display:none;background:#00b140;color:#fff;padding:12px 18px;border-radius:12px;margin-bottom:20px;font-size:0.88rem;font-weight:600;line-height:1.6" role="note">🏴󠁧󠁢󠁷󠁬󠁳󠁥󠁳󠁥 Mae'r dudalen hon ar gael yn Saesneg yn unig. / This page is currently in English only.</div>
+
     <span class="legal-eyebrow">Legal</span>
 
     <h1>Accessibility Statement</h1>
 
-    <p class="legal-updated">Last updated: <time datetime="2026-04-25">April 2026</time></p>
+    <p class="legal-updated">Last updated: <time datetime="2026-05-15">May 2026</time></p>
 
     <div class="wb"><strong>Our commitment:</strong> Vision Hub exists to serve people living with sight loss. Accessibility is not an afterthought — it is the core purpose of this website.</div>
 
@@ -4050,7 +4222,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
       <p>RNIB's support finder lets you search by postcode for local sight loss groups, rehabilitation services, and specialist support in your area.</p>
 
-      <p style="margin-top:12px"><a href="https://www.rnib.org.uk/living-with-sight-loss/support-for-you/find-support-near-you/" target="_blank" rel="noopener" style="color:var(--yellow);font-weight:700;font-size:1rem">Find support near you at rnib.org.uk ↗</a></p>
+      <p style="margin-top:12px"><a href="https://www.rnib.org.uk/your-eyes/navigating-sight-loss/support-that-starts-with-you/" target="_blank" rel="noopener" style="color:var(--yellow);font-weight:700;font-size:1rem">Find support near you at rnib.org.uk ↗</a></p>
 
       <p style="margin-top:12px;font-size:0.85rem;color:var(--text2)">This link goes to RNIB's website. If the link has moved, go to rnib.org.uk and search "find support near you".</p>
 
@@ -4662,6 +4834,130 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
 ══════════════════════════════════════ -->
 
+
+<!-- ══════════════════════════════════════
+     HELP & SUPPORT PAGE (May 2026)
+══════════════════════════════════════ -->
+<div id="page-help" class="page" role="main" aria-label="Help and Support">
+  <div class="legal-wrap">
+    <button class="back-btn" onclick="showPage('home')" aria-label="Back to home">← Back to home</button>
+    <div id="help-welsh-notice" style="display:none;background:#00b140;color:#fff;padding:12px 18px;border-radius:12px;margin-bottom:20px;font-size:0.88rem;font-weight:600;line-height:1.6" role="note">🏴󠁧󠁢󠁷󠁬󠁳󠁥󠁳󠁥 Mae'r dudalen hon ar gael yn Saesneg yn unig. / This page is currently in English only.</div>
+    <span class="legal-eyebrow">Practical help</span>
+    <h1>Help &amp; Support</h1>
+    <p class="legal-updated">Last updated: <time datetime="2026-05-15">May 2026</time></p>
+
+    <h2 id="emergency">In a crisis right now</h2>
+    <ul>
+      <li><strong>Suicidal thoughts or in distress:</strong> Samaritans <a href="tel:116123">116 123</a> (free, 24/7) or text SHOUT to <a href="sms:85258">85258</a>.</li>
+      <li><strong>Sudden vision loss, flashes, floaters or curtain over vision:</strong> NHS 111 or attend your nearest Eye Casualty / A&amp;E. Don't wait.</li>
+      <li><strong>RNIB Sight Loss Counselling:</strong> <a href="tel:03031239999">0303 123 9999</a> — free emotional support, run by RNIB.</li>
+      <li><strong>Macular Society Counselling:</strong> <a href="tel:03003030111">0300 303 0111</a> — free counselling by phone or video.</li>
+    </ul>
+
+    <h2 id="cvi">Registering as Sight Impaired (CVI walkthrough)</h2>
+    <p>A <strong>Certificate of Vision Impairment (CVI)</strong> is the gateway to most UK sight-loss support. You cannot self-refer — only a consultant ophthalmologist can issue one.</p>
+    <ol>
+      <li><strong>Ask your eye consultant</strong> at your next hospital appointment whether your vision meets the CVI criteria. If it does, they complete the form (BP1 in Scotland, CVI in England/Wales, A655 in Northern Ireland).</li>
+      <li><strong>Two categories:</strong>
+        <ul>
+          <li><em>Sight Impaired (SI / partially sighted)</em> — visual acuity 3/60 to 6/60, or up to 6/24 with reduced field.</li>
+          <li><em>Severely Sight Impaired (SSI / blind)</em> — visual acuity below 3/60, or below 6/60 with very contracted field.</li>
+        </ul>
+      </li>
+      <li><strong>The hospital sends a copy</strong> to you, your GP, and your local council Adult Social Care team.</li>
+      <li><strong>Your council contacts you within ~28 days</strong> to add you to the Sight Impaired Register and offer a Vision Rehabilitation Assessment.</li>
+    </ol>
+
+    <h3>What registration unlocks (May 2026 figures)</h3>
+    <ul>
+      <li><strong>Blind Person's Allowance:</strong> £3,130 added to your Personal Allowance (SSI only). Tell HMRC.</li>
+      <li><strong>50% off TV Licence</strong> (SSI only) — apply via TV Licensing with your CVI.</li>
+      <li><strong>Disabled Persons Railcard</strong> — 1/3 off rail fares for you and a companion, £20/year.</li>
+      <li><strong>Free bus pass</strong> in England/Wales/Scotland (rules vary by council).</li>
+      <li><strong>Council Tax reduction</strong> — many councils offer 25% off if you live alone with a disability. Ask.</li>
+      <li><strong>Free NHS sight tests</strong> and help with glasses (NHS HC2/HC3 voucher).</li>
+      <li><strong>Free directory enquiries</strong> — register with BT 195 service.</li>
+      <li><strong>Access to Work</strong> grants if employed (see Employment page).</li>
+      <li><strong>Concessionary parking</strong> (Blue Badge, automatic for SSI).</li>
+      <li><strong>Postage concessions</strong> via Royal Mail Articles for the Blind (free large print and audio post).</li>
+    </ul>
+
+    <h2 id="ais">Accessible Information Standard letter (NHS legal right)</h2>
+    <p>Since 2016, the <strong>NHS Accessible Information Standard</strong> requires all NHS and adult social care services to ask you how you want information sent — large print, braille, email, audio, or BSL — and to record it on your patient record. Most patients don't know this. Use the form below to generate a letter to your GP and hospital.</p>
+    <div class="cf-form" style="margin-top:18px">
+      <div class="cf-field"><label for="ais-name">Your name</label><input type="text" id="ais-name" autocomplete="name"></div>
+      <div class="cf-field"><label for="ais-dob">Date of birth</label><input type="text" id="ais-dob" placeholder="DD/MM/YYYY"></div>
+      <div class="cf-field"><label for="ais-nhs">NHS number (if known)</label><input type="text" id="ais-nhs" inputmode="numeric"></div>
+      <div class="cf-field"><label for="ais-format">Preferred format</label>
+        <select id="ais-format">
+          <option>Large print, minimum 18pt, Arial</option>
+          <option>Large print, minimum 24pt, Arial</option>
+          <option>Email (plain text)</option>
+          <option>Audio CD or MP3</option>
+          <option>Braille (Grade 2 / Unified English Braille)</option>
+          <option>British Sign Language (BSL) interpreter for appointments</option>
+          <option>Easy read</option>
+        </select>
+      </div>
+      <div class="cf-field"><label for="ais-extra">Anything else (optional)</label><textarea id="ais-extra" rows="3" placeholder="e.g. please ring the doorbell twice; please escort from waiting room"></textarea></div>
+      <button class="cf-submit" type="button" onclick="generateAISLetter()">Generate letter</button>
+      <div id="ais-output" style="margin-top:18px;display:none">
+        <h3>Your letter (copy &amp; send to GP and hospital)</h3>
+        <textarea id="ais-letter-text" rows="14" style="width:100%;font-family:var(--font);padding:14px;border-radius:10px;border:2px solid var(--border);background:var(--card)"></textarea>
+        <button class="cf-submit" type="button" onclick="copyAISLetter()" style="margin-top:10px">📋 Copy to clipboard</button>
+      </div>
+    </div>
+
+    <h2 id="pip">PIP descriptor wording for sight loss</h2>
+    <p>The Personal Independence Payment form (PIP2) is famously hard. These are example phrases written from a sight-loss perspective for the most common descriptors. <strong>Use them as a starting point — be honest about your own experience.</strong></p>
+    <h3>Activity 1 — Preparing food</h3>
+    <p>"I cannot identify use-by dates, oven dials or knife blades safely. I have burned myself on the hob twice this year. I rely on my partner to chop ingredients and to check raw chicken is cooked. On bad-light days I cannot prepare a hot meal at all."</p>
+    <h3>Activity 4 — Washing and bathing</h3>
+    <p>"I cannot tell shampoo from conditioner without an iPhone label, and I cannot judge water temperature reliably. I have slipped in the shower because I cannot see soap on the floor."</p>
+    <h3>Activity 8 — Reading and understanding signs, symbols and words</h3>
+    <p>"Standard print is unreadable. I need 24pt or larger and I still cannot read it for more than 5 minutes without eye strain and headache. I cannot read price tags, medication labels, bus numbers or street signs."</p>
+    <h3>Activity 11 — Planning and following journeys</h3>
+    <p>"I cannot follow the route of an unfamiliar journey. I cannot read station signs, bus numbers or platform indicators. I have boarded the wrong bus and got lost. I require another person to accompany me on any unfamiliar journey because of overwhelming psychological distress and the risk of harm."</p>
+    <p style="background:var(--card2);padding:14px;border-radius:10px;border-left:4px solid var(--yellow);margin-top:14px"><strong>Tip:</strong> Use the phrase <em>"reliably, safely, repeatedly and in a reasonable time"</em> in every answer — this is the legal test the assessor must apply.</p>
+
+    <h2 id="ad">Audio Description — turn it on</h2>
+    <ul>
+      <li><strong>BBC iPlayer:</strong> Settings → Accessibility → Audio Description on. Or look for the AD logo on each programme.</li>
+      <li><strong>ITVX:</strong> Profile → Accessibility → Audio Description.</li>
+      <li><strong>Channel 4 / All4:</strong> Settings → Audio Description.</li>
+      <li><strong>Netflix:</strong> While playing → Audio &amp; Subtitles → English [Audio Description].</li>
+      <li><strong>Disney+:</strong> Audio menu → English Audio Description.</li>
+      <li><strong>Sky / NOW:</strong> Press Help on the remote → Accessibility → Audio Description.</li>
+      <li><strong>Apple TV+ / Prime Video:</strong> Audio menu during playback.</li>
+      <li><strong>Cinemas:</strong> Most chains lend AD headsets at the box office — ask. Use the <a href="https://www.yourlocalcinema.com" rel="noopener">Your Local Cinema</a> site to find AD-compatible screenings.</li>
+    </ul>
+
+    <h2 id="apps">Sighted-help apps (all free)</h2>
+    <ul>
+      <li><strong>Be My Eyes</strong> — free live video to a sighted volunteer or to "Be My AI" (GPT-4o powered description).</li>
+      <li><strong>Seeing AI</strong> (Microsoft, iOS &amp; Android) — reads text, currency, faces, scenes.</li>
+      <li><strong>Lookout by Google</strong> (Android) — reads text and identifies objects.</li>
+      <li><strong>Envision AI</strong> — paid app with free tier; superb document reading.</li>
+      <li><strong>Aira</strong> — paid live agents; free 5-minute calls inside many supermarkets and stations.</li>
+      <li><strong>Voice Vista</strong> (iOS) and <strong>Soundscape</strong> alternatives — 3D audio navigation.</li>
+    </ul>
+
+    <h2 id="helpline">UK helplines &amp; charities</h2>
+    <ul>
+      <li>RNIB Helpline — <a href="tel:03031239999">0303 123 9999</a> · helpline@rnib.org.uk</li>
+      <li>Macular Society — <a href="tel:03003030111">0300 303 0111</a></li>
+      <li>Glaucoma UK — <a href="tel:01233648170">01233 648170</a></li>
+      <li>Guide Dogs — <a href="tel:08009530113">0800 953 0113</a></li>
+      <li>Sight Scotland — <a href="tel:08001214466">0800 121 4466</a></li>
+      <li>Vision Foundation — <a href="tel:02077084000">020 7708 4000</a></li>
+      <li>Retina UK — <a href="tel:03001110000">0300 111 0000</a></li>
+      <li>Diabetes UK — <a href="tel:03451232399">0345 123 2399</a></li>
+      <li>Samaritans — <a href="tel:116123">116 123</a> (free, 24/7)</li>
+      <li>Carers UK — <a href="tel:08088087777">0808 808 7777</a></li>
+    </ul>
+  </div>
+</div>
+
 <div id="page-disclaimer" class="page" role="main" aria-label="How we write our content">
 
   <div class="legal-wrap">
@@ -4672,7 +4968,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
     <h1>How We Write<br>Our Content</h1>
 
-    <p class="legal-updated">Last updated: <time datetime="2026-05">April 2026</time></p>
+    <p class="legal-updated">Last updated: <time datetime="2026-05">May 2026</time></p>
 
 
 
@@ -4786,7 +5082,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
 <div aria-hidden="true" style="max-width:680px;margin:0 auto;padding:0 20px;text-align:center;opacity:0.4">
 
-  <svg viewBox="0 0 400 40" width="100%" xmlns="http://www.w3.org/2000/svg">
+  <svg viewBox="0 0 400 40" width="100%" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
 
     <path d="M0,20 Q50,5 100,20 Q150,35 200,20 Q250,5 300,20 Q350,35 400,20" fill="none" stroke="var(--yellow)" stroke-width="2" stroke-linecap="round"/>
 
@@ -4836,7 +5132,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
       <li style="margin-bottom:10px"><a href="https://www.youtube.com/@DoubleTapVideo" target="_blank" rel="noopener" style="color:var(--yellow);font-weight:700">Double Tap ↗</a><span style="color:var(--text2);font-size:0.9rem;display:block">Weekly assistive technology show for blind and partially sighted people.</span></li>
 
-      <li style="margin-bottom:10px"><a href="https://www.youtube.com/@RNIBcharity" target="_blank" rel="noopener" style="color:var(--yellow);font-weight:700">RNIB on YouTube ↗</a><span style="color:var(--text2);font-size:0.9rem;display:block">Phone accessibility, wearable tech, screen readers, and more.</span></li>
+      <li style="margin-bottom:10px"><a href="https://www.youtube.com/@RNIB" target="_blank" rel="noopener" style="color:var(--yellow);font-weight:700">RNIB on YouTube ↗</a><span style="color:var(--text2);font-size:0.9rem;display:block">Phone accessibility, wearable tech, screen readers, and more.</span></li>
 
       <li><a href="https://www.youtube.com/watch?v=m184At7OkcA" target="_blank" rel="noopener" style="color:var(--yellow);font-weight:700">Daily Living Skills Series ↗</a><span style="color:var(--text2);font-size:0.9rem;display:block">Practical everyday skills from a vision rehabilitation therapist.</span></li>
 
@@ -4938,7 +5234,7 @@ footer { background: var(--bg2); border-top: 3px solid var(--yellow); padding: 3
 
 /* ─────────────── CONDITION DATA ─────────────── */
 
-const DATA = {
+const DATA = window.DATA = {
 
 stargardts:{
 
@@ -4952,7 +5248,7 @@ stargardts:{
 
     what:"Mae Clefyd Stargardt yn gyflwr etifeddol sy'n effeithio ar y macula — rhan ganolog y retina sy'n gyfrifol am weledigaeth fanwl, darllen, adnabod wynebau, a gweld lliw. Fe'i hachosir gan fwtaniadau yn y genyn ABCA4, sy'n achosi i brotein niweidiol gronni yn y retina ac yn dinistrio celloedd ffotodderbynnydd (celloedd côn) yn raddol. Mae'n effeithio ar tua 1 ym mhob 8,000-10,000 o bobl yn y DU.",
 
-    howAffects:"Mae golwg canolog yn pylu'n raddol, tra bod golwg ymylol fel arfer yn cael ei gadw. Mae pobl yn aml yn disgrifio smotyn dall canolog neu ardal niwlog. Mae darllen, adnabod wynebau, a gweld manylion mân yn dod yn anoddach cynyddol. Mae sensitifrwydd i olau (ffotsoffobia) yn gyffredin. Mae'r cynnydd yn amrywio o berson i berson — gall rai bobl gynnal lefelau golwg da am flynyddoedd lawer.",
+    howAffects:"Mae golwg canolog yn pylu'n raddol, tra bod golwg ymylol fel arfer yn cael ei gadw. Mae pobl yn aml yn disgrifio smotyn dall canolog neu ardal niwlog. Mae darllen, adnabod wynebau, a gweld manylion mân yn dod yn anoddach cynyddol. Mae sensitifrwydd i olau (ffotoffobia) yn gyffredin. Mae'r cynnydd yn amrywio o berson i berson — gall rai bobl gynnal lefelau golwg da am flynyddoedd lawer.",
 
     diagnosis:"Mae Clefyd Stargardt yn cael ei ddiagnosis fel arfer rhwng 6 a 20 oed, er y gall fersiwn oedolion ymddangos yn hwyrach. Mae offer arbenigol yn cael eu defnyddio gan offthalmolegwyr: sgan OCT (tomograffi cydlyniant optegol), angiograffi fflworescein, ac electrophysioleg. Mae profion geneteg DNA yn cadarnhau mwtaniadau ABCA4 — mae hyn yn bwysig iawn ar gyfer cymhwysedd treialon clinigol.",
 
@@ -5150,7 +5446,7 @@ amd:{
 
     {n:1,title:"Certificate of Vision Impairment (CVI)",body:"Request from your ophthalmologist. Free. Unlocks local authority rehabilitation and council tax reduction."},
 
-    {n:2,title:"Attendance Allowance",body:"If over state pension age, Attendance Allowance pays £114.60/week (higher rate) from April 2026. Age UK can help complete the form."},
+    {n:2,title:"Attendance Allowance",body:"If over state pension age, Attendance Allowance pays £114.60/week (higher rate) from May 2026. Age UK can help complete the form."},
 
     {n:3,title:"Blue Badge",body:"People with severe visual impairment automatically qualify for a Blue Badge. Apply via your local council."}
 
@@ -5710,7 +6006,7 @@ achromatopsia:{
 
     what:"Mae Achromatopsia yn gyflwr genetig prin sy'n achosi absenoldeb llwyr neu rannol o weledigaeth lliw, ynghyd â sensitifrwydd eithafol i olau a golwg gostyngol. Fe'i hachosir gan fwtaniadau mewn genynnau sy'n effeithio ar gelloedd côn y retina. Mae'n effeithio ar tua 1 ym mhob 30,000-50,000 o bobl.",
 
-    howAffects:"Mae'r byd yn ymddangos mewn lliwiau llwyd neu washed-out (nid bob amser yn hollol ddu a gwyn). Mae sensitifrwydd eithafol i olau llachar (ffotsoffobia) yn aml yn broblem fwy sylweddol na'r absenoldeb lliw. Mae golwg yn wan mewn goleuni da ond gall wella mewn golau isel. Mae nystagmus yn gyffredin.",
+    howAffects:"Mae'r byd yn ymddangos mewn lliwiau llwyd neu washed-out (nid bob amser yn hollol ddu a gwyn). Mae sensitifrwydd eithafol i olau llachar (ffotoffobia) yn aml yn broblem fwy sylweddol na'r absenoldeb lliw. Mae golwg yn wan mewn goleuni da ond gall wella mewn golau isel. Mae nystagmus yn gyffredin.",
 
     diagnosis:"Profion gweld lliw arbenigol. Electroretinogram (ERG) i fesur ymateb y côn. Sgan OCT. Profion geneteg i gadarnhau'r mwtaniad (CNGB3 neu CNGA3 yw'r mwyaf cyffredin).",
 
@@ -5946,7 +6242,7 @@ albinism:{
 
     what:"Mae Albiniaeth yn gyflwr genetig sy'n achosi diffyg pigment melanin yn y croen, gwallt, a llygaid. Yn ogystal ag effeithiau ar ymddangosiad, mae albiniaeth bob amser yn effeithio ar ddatblygiad y retina a'r llwybrau gweledol, gan achosi nam gweledol. Mae'n effeithio ar tua 1 ym mhob 17,000-20,000 o bobl yn y DU.",
 
-    howAffects:"Mae golwg wael o'r pellter fel arfer (gwelededd lleihau), nystagmus (symudiad llygaid afreolaidd), a sensitifrwydd eithriadol i olau (ffotsoffobia). Nid yw'r retina'n datblygu'n normal oherwydd diffyg melanin yn ystod datblygiad y ffetws. Nid yw sbectol yn gallu cywiro'r nam gweledol yn llawn.",
+    howAffects:"Mae golwg wael o'r pellter fel arfer (gwelededd lleihau), nystagmus (symudiad llygaid afreolaidd), a sensitifrwydd eithriadol i olau (ffotoffobia). Nid yw'r retina'n datblygu'n normal oherwydd diffyg melanin yn ystod datblygiad y ffetws. Nid yw sbectol yn gallu cywiro'r nam gweledol yn llawn.",
 
     diagnosis:"Diagnosis clinigol yn seiliedig ar ymddangosiad a phrofion llygaid arbenigol. Gall profion geneteg gadarnhau'r math o albiniaeth — mae hyn yn berthnasol i gymhwysedd treialon yn y dyfodol.",
 
@@ -6106,7 +6402,7 @@ cvi:{
 
     {n:2,title:"DLA for Children / PIP for Adults",body:"The visual and neurological impact of CVI supports a claim at higher rates. RNIB can help — 0303 123 9999."},
 
-    {n:3,title:"Carer's Allowance",body:"If you provide 35+ hours of care per week, you may be entitled to Carer's Allowance (£86.45/week from April 2026)."}
+    {n:3,title:"Carer's Allowance",body:"If you provide 35+ hours of care per week, you may be entitled to Carer's Allowance (£86.45/week from May 2026)."}
 
   ],
 
@@ -6160,7 +6456,7 @@ cone:{
 
     what:"Mae Dystroffi Côn yn gyflwr etifeddol sy'n effeithio'n benodol ar gelloedd côn y retina — y celloedd sy'n gyfrifol am weledigaeth fanwl, lliw, a golwg mewn goleuni da. Mae'n wahanol i Retinitis Pigmentosa, sy'n effeithio ar gelloedd rhodenni yn gyntaf. Mae Dystroffi Côn yn effeithio ar tua 1 ym mhob 30,000 o bobl yn y DU.",
 
-    howAffects:"Mae golwg canolog yn pylu'n raddol. Mae gweld lliw yn dirywio. Mae sensitifrwydd eithriadol i olau llachar (ffotsoffobia) yn gyffredin. Mae darllen, adnabod wynebau, a gweithgareddau mewn goleuni llachar yn dod yn anoddach. Gall golwg ymylol aros yn eithaf da am amser hir.",
+    howAffects:"Mae golwg canolog yn pylu'n raddol. Mae gweld lliw yn dirywio. Mae sensitifrwydd eithriadol i olau llachar (ffotoffobia) yn gyffredin. Mae darllen, adnabod wynebau, a gweithgareddau mewn goleuni llachar yn dod yn anoddach. Gall golwg ymylol aros yn eithaf da am amser hir.",
 
     diagnosis:"Diagnosis drwy electroretinogram (ERG) sy'n mesur ymateb celloedd côn i oleuni. Sgan OCT i asesu strwythur y retina. Profion geneteg i adnabod y mwtaniad penodol.",
 
@@ -6348,15 +6644,15 @@ myopic:{
 
     name:"Dirywiad Macular Myopig",
 
-    what:"Mae Dirywiad Macular Myopig (MMD) yn gymhlethdod difrifol o fypeia uchel (byrdra golwg difrifol, fel arfer -6 dioptri neu fwy). Mae'r llygad hirgul yn achosi niwed cynyddol i'r macula. Hwn yw achos blaenllaw nam gweledol mewn oedolion ifanc a chanol oed yn ne-ddwyrain Asia ac mae'n gynyddol gyffredin yn y DU.",
+    what:"Mae Dirywiad Macular Myopig (MMD) yn gymhlethdod difrifol o myopia uchel (byrdra golwg difrifol, fel arfer -6 dioptri neu fwy). Mae'r llygad hirgul yn achosi niwed cynyddol i'r macula. Hwn yw achos blaenllaw nam gweledol mewn oedolion ifanc a chanol oed yn ne-ddwyrain Asia ac mae'n gynyddol gyffredin yn y DU.",
 
     howAffects:"Mae golwg canolog yn dirywio'n raddol. Gall llinellau syth ymddangos yn ystumio neu'n gam. Gall smotyn dall ddatblygu. Mewn rhai achosion, mae pibellau gwaed annormal yn tyfu o dan y macula (CNV myopig), gan achosi colli golwg sydyn sy'n gofyn am driniaeth frys.",
 
-    diagnosis:"Sgan OCT yn adnabod newidiadau macular a theneuo coroidol. Angiograffi fflworescein yn canfod twf pibellau gwaed abnormal. Mae monitro rheolaidd gan arbenigwr retinal yn hanfodol ar gyfer pobl â mypeia uchel.",
+    diagnosis:"Sgan OCT yn adnabod newidiadau macular a theneuo coroidol. Angiograffi fflworescein yn canfod twf pibellau gwaed abnormal. Mae monitro rheolaidd gan arbenigwr retinal yn hanfodol ar gyfer pobl â myopia uchel.",
 
-    whoAffects:"Pobl â mypeia uchel (fel arfer -6 dioptri neu fwy). Mae poblogrwydd yn cynyddu yn fyd-eang oherwydd cyfraddau cynyddol o fypeia. Mae'n fwy cyffredin mewn pobl o dras Dwyrain Asia.",
+    whoAffects:"Pobl â myopia uchel (fel arfer -6 dioptri neu fwy). Mae poblogrwydd yn cynyddu yn fyd-eang oherwydd cyfraddau cynyddol o myopia. Mae'n fwy cyffredin mewn pobl o dras Dwyrain Asia.",
 
-    researchSummary:"Mae triniaethau gwrth-VEGF ar gael ar y GIG ar gyfer CNV myopig. Mae llawdriniaeth atgyfnerthu sgleraidd mewn ymchwil. Mae rheoli mypeia mewn plant (atropin, orthokeratology) yn atal MMD yn y dyfodol."
+    researchSummary:"Mae triniaethau gwrth-VEGF ar gael ar y GIG ar gyfer CNV myopig. Mae llawdriniaeth atgyfnerthu sgleraidd mewn ymchwil. Mae rheoli myopia mewn plant (atropin, orthokeratology) yn atal MMD yn y dyfodol."
 
   },
 
@@ -6500,7 +6796,7 @@ charlesbonnet:{
 
     {n:2,title:"Mental Health Support",body:"If CBS is causing significant anxiety or distress, you are entitled to mental health support via your GP. RNIB Sight Loss Counselling (0303 123 9999) also provides free sessions."},
 
-    {n:3,title:"Carer Support",body:"If CBS requires significant support from a family member or carer, they may be entitled to Carer's Allowance (£86.45/week from April 2026)."}
+    {n:3,title:"Carer Support",body:"If CBS requires significant support from a family member or carer, they may be entitled to Carer's Allowance (£86.45/week from May 2026)."}
 
   ]
 
@@ -6602,15 +6898,15 @@ blepharitis:{
 
   cy:{
 
-    name:"Blepharaidd",
+    name:"Bleffaritis",
 
-    what:"Mae Blepharaidd yn lid cronig cyffredin o ymylon y pilen, lle mae'r amrannau'n tyfu. Mae'n un o'r cyflyrau llygaid mwyaf cyffredin yn y DU, yn effeithio ar bobl o bob oedran. Mae dau brif fath: Blepharaidd blaen (yn effeithio ar ymyl allanol yr amrant, yn aml yn gysylltiedig â bacteria neu gyflyrau croen) a Blepharaidd ôl (yn effeithio ar ymyl mewnol yr amrant, a achosir gan ddiffyg yn chwarennau meibomaidd).",
+    what:"Mae Bleffaritis yn lid cronig cyffredin o ymylon yr amrannau, lle mae'r blew amrant yn tyfu. Mae'n un o'r cyflyrau llygaid mwyaf cyffredin yn y DU, yn effeithio ar bobl o bob oedran. Mae dau brif fath: Bleffaritis blaen (yn effeithio ar ymyl allanol yr amrant, yn aml yn gysylltiedig â bacteria neu gyflyrau croen) a Bleffaritis ôl (yn effeithio ar ymyl mewnol yr amrant, a achosir gan ddiffyg yn chwarennau meibomaidd).",
 
     howAffects:"Amrannau poenus, coch, coslyd, a chwyddedig. Llygaid cramennog neu ludiog, yn arbennig yn y bore. Teimlad llosgi neu graean yn y llygaid. Llygaid sych oherwydd aflonyddu ar ffilm dagrau. Sensitifrwydd i olau. Golwg aneglur sy'n gwella wrth blinco.",
 
     diagnosis:"Diagnosis gan optometrydd neu offthalmolegydd drwy archwilio ymylon yr amrannau o dan lamp hollt. Nid oes angen profion penodol.",
 
-    whoAffects:"Mae Blepharaidd yn hynod gyffredin — mae'n effeithio ar filiynau o bobl yn y DU. Mae'n fwy cyffredin gydag oedran. Mae'n gysylltiedig â chyflyrau croen gan gynnwys rosasea, dermatitis seborrhoeig, ac acne.",
+    whoAffects:"Mae Bleffaritis yn hynod gyffredin — mae'n effeithio ar filiynau o bobl yn y DU. Mae'n fwy cyffredin gydag oedran. Mae'n gysylltiedig â chyflyrau croen gan gynnwys rosasea, dermatitis seborrhoeig, ac acne.",
 
     researchSummary:"Mae therapi IPL ar gael mewn clinigau arbenigol yn y DU ar gyfer blepharaidd ôl. Mae Lotilaner (Xdemvy) wedi'i gymeradwyo yn yr UDA — disgwylir yn y DU cyn hir. Mae glendid amrantau dyddiol yn parhau i fod y driniaeth bwysicaf."
 
@@ -6728,245 +7024,336 @@ function renderCondition(key) {
 
   const tc = {gene:"gene",stem:"stem",trial:"trial",drug:"drug",tech:"tech"};
 
-  // UI labels — Welsh translations
-  const L = _isWelsh ? {
-    backAll: '← Pob Cyflwr',
-    eyebrow: 'Canllaw Cyflyrau\'r Llygad',
-    lastReviewed: 'Adolygwyd ddiwethaf:',
-    lastReviewedDate: 'Mai 2026',
-    howWeWrite: 'Sut rydyn ni\'n ysgrifennu ein cynnwys',
-    whatIs: (n) => `Beth yw ${n}?`,
-    aboutSr: (n) => `Am ${n}`,
-    howAffects: 'Sut Mae\'n Effeithio ar Olwg',
-    diagnosis: 'Diagnosis',
-    whoAffects: 'Pwy Mae\'n Effeithio Arnynt',
-    research: 'Ymchwil Diweddaraf a Threialon Clinigol',
-    findOutMore: 'Darganfod mwy →',
-    labelsExplained: '<strong>Esboniad o\'r labeli:</strong> Mae "Ar gael nawr" yn golygu wedi\'i gymeradwyo neu mewn defnydd gweithredol. Mae "Piblinell" yn golygu mewn treialon clinigol. Mae "Gorwel" yn golygu ymchwil cynnar. Trafodwch unrhyw ymchwil gyda\'ch offthalmolegydd cyn cysylltu â threial.',
-    guides: 'Canllawiau Sut-i-wneud Ymarferol',
-    tech: 'Technoleg Gynorthwyol',
-    funding: '<strong>Cymorth ariannu:</strong> Mae llawer o ddyfeisiau\'n cael eu hariannu\'n rhannol neu\'n llawn. Gofynnwch i dîm synhwyraidd eich awdurdod lleol, Mynediad i Waith, neu\'r Lwfans Myfyrwyr Anabl cyn prynu\'n breifat. I brynu offer arbenigol, <a href="https://shop.rnib.org.uk" target="_blank" rel="noopener" style="color:var(--yellow);font-weight:700">Siop yr RNIB ↗</a> yw\'r safon aur yn y DU.',
-    support: 'Cymorth a Chymuned',
-    mental: '<strong>Iechyd meddwl:</strong> Mae colli golwg yn cynyddu\'r risg o iselder yn sylweddol. Mae Cwnsela Colli Golwg yr RNIB yn cynnig sesiynau am ddim — 0303 123 9999. Samariaid: 116 123, 24/7.',
-    benefits: 'Budd-daliadau a Chymorth Ariannol',
-    benefitsCallout: '<strong>Mae gennych hawl i\'r budd-daliadau hyn.</strong> Amcangyfrifir bod £3.5 biliwn mewn budd-daliadau anabledd yn cael ei adael heb ei hawlio bob blwyddyn. Ffoniwch yr RNIB (0303 123 9999) am gymorth rhad ac am ddim gyda ffurflenni.',
-    freeAdvice: 'Cyngor Budd-daliadau Am Ddim',
-    livingWith: (n) => `Byw gyda ${n}`,
-    moreDailyTips: '<strong>Mwy o awgrymiadau bywyd bob dydd:</strong> Ewch i\'n',
-    everydayGuide: 'Canllaw Bob Dydd →',
-    forParents: 'I Rieni',
-    forParentsMore: 'Am ganllawiau mwy manwl, ewch i\'n',
-    forParentsPage: 'tudalen I Rieni →',
-    backAll2: '← Pob Cyflwr',
-    print: '🖨️ Argraffu / Cadw PDF',
-    share: '📤 Rhannu',
-    copyLink: '🔗 Copïo dolen',
-    whatsapp: '💬 WhatsApp',
-    helpful: 'A oedd y dudalen hon yn ddefnyddiol?',
-    yes: '👍 Ydy',
-    no: '👎 Nac ydy',
-    missing: '✉️ Mae rhywbeth ar goll'
-  } : {
-    backAll: '← All Conditions',
-    eyebrow: 'Eye Condition Guide',
-    lastReviewed: 'Last reviewed:',
-    lastReviewedDate: 'May 2026',
-    howWeWrite: 'How we write our content',
-    whatIs: (n) => `What is ${n}?`,
-    aboutSr: (n) => `About ${n}`,
-    howAffects: 'How It Affects Vision',
-    diagnosis: 'Diagnosis',
-    whoAffects: 'Who It Affects',
-    research: 'Latest Research & Clinical Trials',
-    findOutMore: 'Find out more →',
-    labelsExplained: '<strong>Labels explained:</strong> "Available now" means approved or in active use. "Pipeline" means in clinical trials. "Horizon" means early-stage research. Always discuss any research with your ophthalmologist before contacting a trial.',
-    guides: 'Practical How-To Guides',
-    tech: 'Assistive Technology',
-    funding: '<strong>Funding help:</strong> Many devices are part or fully funded. Ask your local authority sensory team, Access to Work, or Disabled Students Allowance before buying privately. To buy specialist equipment, the <a href="https://shop.rnib.org.uk" target="_blank" rel="noopener" style="color:var(--yellow);font-weight:700">RNIB Shop ↗</a> is the UK gold standard.',
-    support: 'Support & Community',
-    mental: '<strong>Mental health:</strong> Sight loss significantly increases risk of depression. RNIB Sight Loss Counselling offers free sessions — 0303 123 9999. Samaritans: 116 123, 24/7.',
-    benefits: 'Benefits & Financial Help',
-    benefitsCallout: '<strong>You are entitled to these benefits.</strong> An estimated £3.5 billion in disability benefits goes unclaimed every year. Call RNIB (0303 123 9999) for free help with forms.',
-    freeAdvice: 'Free Benefits Advice',
-    livingWith: (n) => `Living with ${n}`,
-    moreDailyTips: '<strong>More daily life tips:</strong> Visit our',
-    everydayGuide: 'Everyday Guide →',
-    forParents: 'For Parents',
-    forParentsMore: 'For more detailed guidance, visit our',
-    forParentsPage: 'For Parents page →',
-    backAll2: '← All Conditions',
-    print: '🖨️ Print / Save PDF',
-    share: '📤 Share',
-    copyLink: '🔗 Copy link',
-    whatsapp: '💬 WhatsApp',
-    helpful: 'Was this page helpful?',
-    yes: '👍 Yes',
-    no: '👎 No',
-    missing: "✉️ Something's missing"
-  };
   return `
+
   <div class="cond-hero">
-    <button class="back-btn" onclick="showPage('home')" aria-label="Back to conditions list">${L.backAll}</button>
-    <span class="cond-hero-eyebrow">${L.eyebrow}</span>
+
+    <button class="back-btn" onclick="showPage('home')" aria-label="Back to conditions list">${_isWelsh ? '← Pob Cyflwr' : '← All Conditions'}</button>
+
+
+
+        <div id="stargardt-theme-tip" role="note" style="display:none;background:#d6eaf8;color:#0a3a5a;border:2px solid #7ec8ff;border-radius:12px;padding:10px 16px;margin-bottom:14px;font-size:0.85rem;font-weight:600;line-height:1.6">💙 ${_isWelsh ? "Mae llawer o bobl â Chlefyd Stargardt yn ei chael hi'n haws ar gefndir glas golau." : "Many people with Stargardt Disease find a light blue background easier to read."} <button onclick="setColour('lb')" style="background:none;border:none;color:#0055a5;font-family:var(--font);font-size:inherit;font-weight:800;cursor:pointer;text-decoration:underline;padding:0">${_isWelsh ? "Newid i thema Glas/Du →" : "Switch to Blue/Black theme →"}</button></div>
+
+    <span class="cond-hero-eyebrow">${_isWelsh ? 'Canllaw Cyflyrau\'r Llygad' : 'Eye Condition Guide'}</span>
+
     <h1>${d.name}</h1>
-    <p style="font-size:0.75rem;color:var(--text2);margin-bottom:16px">${L.lastReviewed} <time datetime="2026-05">${L.lastReviewedDate}</time> &nbsp;·&nbsp; <button onclick="showPage('disclaimer')" style="background:none;border:none;color:var(--text2);font-family:var(--font);font-size:inherit;cursor:pointer;text-decoration:underline;padding:0">${L.howWeWrite}</button></p>
+
+    <p style="font-size:0.75rem;color:var(--text2);margin-bottom:16px">Last reviewed: <time datetime="2026-05">May 2026</time> &nbsp;·&nbsp; <button onclick="showPage('disclaimer')" style="background:none;border:none;color:var(--text2);font-family:var(--font);font-size:inherit;cursor:pointer;text-decoration:underline;padding:0">How we write our content</button></p>
+
   </div>
+
   <div class="cond-page-inner">
 
+
+
     <div class="acc-item" id="acc-about-${key}">
+
       <button class="acc-btn" onclick="toggleAcc('about','${key}')" aria-expanded="false">
-        <span class="acc-left"><span class="acc-num">1</span><span class="acc-label">${L.whatIs(d.name)}</span></span>
+
+        <span class="acc-left"><span class="acc-num">1</span><span class="acc-label">What is ${d.name}?</span></span>
+
         <span class="acc-arrow" aria-hidden="true">▾</span>
+
       </button>
+
       <div class="acc-body">
-        <h2 class="sr" id="about-heading-${key}">${L.aboutSr(d.name)}</h2>
+
+        <h2 class="sr" id="about-heading-${key}">About ${d.name}</h2>
+
         <div class="ic"><p>${d.what}</p></div>
-        <div class="ic"><span class="ic-icon" aria-hidden="true">👁️</span><h3>${L.howAffects}</h3><p>${d.howAffects}</p></div>
-        <div class="ic"><h3>${L.diagnosis}</h3><p>${d.diagnosis}</p></div>
-        <div class="ic"><h3>${L.whoAffects}</h3><p>${d.whoAffects}</p></div>
+
+        <div class="ic"><span class="ic-icon" aria-hidden="true">👁️</span><h3>How It Affects Vision</h3><p>${d.howAffects}</p></div>
+
+        <div class="ic"><h3>Diagnosis</h3><p>${d.diagnosis}</p></div>
+
+        <div class="ic"><h3>Who It Affects</h3><p>${d.whoAffects}</p></div>
+
       </div>
+
     </div>
+
+
 
     <div class="acc-item" id="acc-research-${key}">
+
       <button class="acc-btn" onclick="toggleAcc('research','${key}')" aria-expanded="false">
-        <span class="acc-left"><span class="acc-num">2</span><span class="acc-label">${L.research}</span></span>
+
+        <span class="acc-left"><span class="acc-num">2</span><span class="acc-label">Latest Research &amp; Clinical Trials</span></span>
+
         <span class="acc-arrow" aria-hidden="true">▾</span>
+
       </button>
+
       <div class="acc-body">
+
         ${_isWelsh && d.cy && d.cy.researchSummary ? `<div class="wb" style="border-left:4px solid #00b140;margin-bottom:16px"><strong>🏴󠁧󠁢󠁷󠁬󠁳󠁥󠁳󠁿 Crynodeb Ymchwil:</strong> ${d.cy.researchSummary}</div>` : ''}
+
         ${d.research.map(r=>`
+
         <div class="rc">
+
           <span class="rtag ${tc[r.tag]||'trial'}">${r.label}</span>
+
           <h3>${r.title}</h3><p>${r.body}</p>
-          <a href="${r.link}" target="_blank" rel="noopener" class="trial-link">${L.findOutMore}</a>
+
+          <a href="${r.link}" target="_blank" rel="noopener" class="trial-link">Find out more →</a>
+
         </div>`).join('')}
-        <div class="wb">${L.labelsExplained}</div>
+
+        <div class="wb"><strong>Labels explained:</strong> "Available now" means approved or in active use. "Pipeline" means in clinical trials. "Horizon" means early-stage research. Always discuss any research with your ophthalmologist before contacting a trial.</div>
+
       </div>
+
     </div>
+
+
 
     <div class="acc-item" id="acc-guides-${key}">
+
       <button class="acc-btn" onclick="toggleAcc('guides','${key}')" aria-expanded="false">
-        <span class="acc-left"><span class="acc-num">3</span><span class="acc-label">${L.guides}</span></span>
+
+        <span class="acc-left"><span class="acc-num">3</span><span class="acc-label">Practical How-To Guides</span></span>
+
         <span class="acc-arrow" aria-hidden="true">▾</span>
+
       </button>
+
       <div class="acc-body">
+
         ${d.guides.map(g=>`
+
         <div class="nc">
+
           <div class="nc-num" aria-hidden="true">${g.n}</div>
+
           <div><h3>${g.title}</h3><p>${g.body}</p></div>
+
         </div>`).join('')}
+
       </div>
+
     </div>
+
+
 
     <div class="acc-item" id="acc-tech-${key}">
+
       <button class="acc-btn" onclick="toggleAcc('tech','${key}')" aria-expanded="false">
-        <span class="acc-left"><span class="acc-num">4</span><span class="acc-label">${L.tech}</span></span>
+
+        <span class="acc-left"><span class="acc-num">4</span><span class="acc-label">Assistive Technology</span></span>
+
         <span class="acc-arrow" aria-hidden="true">▾</span>
+
       </button>
+
       <div class="acc-body">
+
         ${d.tech.map(t=>`
+
         <div class="tc">
+
           <div class="tc-cat">${t.cat}</div>
+
           <h3>${t.title}</h3><p>${t.body}</p>
+
           <div class="tc-price">${t.price}</div>
+
         </div>`).join('')}
-        <div class="wb">${L.funding}</div>
+
+        <div class="wb"><strong>Funding help:</strong> Many devices are part or fully funded. Ask your local authority sensory team, Access to Work, or Disabled Students Allowance before buying privately. To buy specialist equipment, the <a href="https://shop.rnib.org.uk" target="_blank" rel="noopener" style="color:var(--yellow);font-weight:700">RNIB Shop ↗</a> is the UK gold standard.</div>
+
       </div>
+
     </div>
+
+
 
     <div class="acc-item" id="acc-support-${key}">
+
       <button class="acc-btn" onclick="toggleAcc('support','${key}')" aria-expanded="false">
-        <span class="acc-left"><span class="acc-num">5</span><span class="acc-label">${L.support}</span></span>
+
+        <span class="acc-left"><span class="acc-num">5</span><span class="acc-label">Support &amp; Community</span></span>
+
         <span class="acc-arrow" aria-hidden="true">▾</span>
+
       </button>
+
       <div class="acc-body">
+
         ${d.helpline ? `<div style="background:var(--yellow);border-radius:14px;padding:16px 18px;margin-bottom:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+
           <span style="font-size:1.4rem" aria-hidden="true">📞</span>
+
           <div>
+
             <div style="font-size:0.78rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#000;margin-bottom:2px">${d.helpline.org}</div>
+
             <a href="tel:${d.helpline.number.replace(/\s/g,'')}" style="font-size:1.3rem;font-weight:900;color:#000;text-decoration:none">${d.helpline.number}</a>
+
             <div style="font-size:0.75rem;color:#333;margin-top:2px">${d.helpline.hours}</div>
+
           </div>
+
         </div>` : ''}
+
         ${d.support.map(s=>`
+
         <div class="sc">
+
           <h3>${s.title}</h3><p>${s.body}</p>
+
           <a href="${s.link}" target="_blank" rel="noopener">${s.link.replace('https://','').replace('www.','')} ↗</a>
+
         </div>`).join('')}
-        <div class="wb">${L.mental}</div>
+
+        <div class="wb"><strong>Mental health:</strong> Sight loss significantly increases risk of depression. RNIB Sight Loss Counselling offers free sessions — 0303 123 9999. Samaritans: 116 123, 24/7.</div>
+
       </div>
+
     </div>
+
+
 
     <div class="acc-item" id="acc-benefits-${key}">
+
       <button class="acc-btn" onclick="toggleAcc('benefits','${key}')" aria-expanded="false">
-        <span class="acc-left"><span class="acc-num">6</span><span class="acc-label">${L.benefits}</span></span>
+
+        <span class="acc-left"><span class="acc-num">6</span><span class="acc-label">Benefits &amp; Financial Help</span></span>
+
         <span class="acc-arrow" aria-hidden="true">▾</span>
+
       </button>
+
       <div class="acc-body">
-        <div class="wb">${L.benefitsCallout}</div>
+
+        <div class="wb"><strong>You are entitled to these benefits.</strong> An estimated £3.5 billion in disability benefits goes unclaimed every year. Call RNIB (0303 123 9999) for free help with forms.</div>
+
         ${d.benefits.map(b=>`
+
         <div class="nc">
+
           <div class="nc-num" aria-hidden="true">${b.n}</div>
+
           <div><h3>${b.title}</h3><p>${b.body}</p></div>
+
         </div>`).join('')}
-        <div class="ic"><h3 id="benefits-advice-${key}">${L.freeAdvice}</h3>
+
+        <div class="ic"><h3 id="benefits-advice-${key}">Free Benefits Advice</h3>
+
           <p><strong>RNIB:</strong> 0303 123 9999 &nbsp;·&nbsp; <strong>Citizens Advice:</strong> citizensadvice.org.uk &nbsp;·&nbsp; <strong>Calculator:</strong> turn2us.org.uk</p>
+
         </div>
+
       </div>
+
     </div>
+
+
 
     ${d.livingWith ? `
+
     <div class="acc-item" id="acc-living-${key}">
+
       <button class="acc-btn" onclick="toggleAcc('living','${key}')" aria-expanded="false">
-        <span class="acc-left"><span class="acc-num">7</span><span class="acc-label">${L.livingWith(d.name)}</span></span>
+
+        <span class="acc-left"><span class="acc-num">7</span><span class="acc-label">Living with ${d.name}</span></span>
+
         <span class="acc-arrow" aria-hidden="true">▾</span>
+
       </button>
+
       <div class="acc-body">
+
         ${d.livingWith.map(l=>`
+
         <div class="nc">
+
           <div class="nc-num" aria-hidden="true" style="background:var(--blue)">💡</div>
+
           <div><h3>${l.title}</h3><p>${l.body}</p></div>
+
         </div>`).join('')}
-        <div class="wb">${L.moreDailyTips} <button onclick="showPage('livingwell')" style="background:none;border:none;color:var(--yellow);font-family:var(--font);font-size:inherit;font-weight:700;cursor:pointer;text-decoration:underline;padding:0">${L.everydayGuide}</button></div>
+
+        <div class="wb"><strong>More daily life tips:</strong> Visit our <button onclick="showPage('livingwell')" style="background:none;border:none;color:var(--yellow);font-family:var(--font);font-size:inherit;font-weight:700;cursor:pointer;text-decoration:underline;padding:0">Everyday Guide →</button></div>
+
       </div>
+
     </div>` : ''}
+
+
 
     ${d.forParents ? `
+
     <div class="acc-item" id="acc-parents-${key}">
+
       <button class="acc-btn" onclick="toggleAcc('parents','${key}')" aria-expanded="false">
-        <span class="acc-left"><span class="acc-num">👶</span><span class="acc-label">${L.forParents}</span></span>
+
+        <span class="acc-left"><span class="acc-num">👶</span><span class="acc-label">For Parents</span></span>
+
         <span class="acc-arrow" aria-hidden="true">▾</span>
+
       </button>
+
       <div class="acc-body">
+
         <div class="wb"><strong>${d.forParents.intro}</strong></div>
+
         ${d.forParents.tips.map(t=>`
+
         <div class="nc">
+
           <div class="nc-num" aria-hidden="true" style="background:var(--green);font-size:0.7rem">💛</div>
+
           <div><h3>${t.title}</h3><p>${t.body}</p></div>
+
         </div>`).join('')}
-        <div class="wb">${L.forParentsMore} <button onclick="showPage('children')" style="background:none;border:none;color:var(--yellow);font-family:var(--font);font-size:inherit;font-weight:700;cursor:pointer;text-decoration:underline;padding:0">${L.forParentsPage}</button></div>
+
+        <div class="wb">For more detailed guidance, visit our <button onclick="showPage('children')" style="background:none;border:none;color:var(--yellow);font-family:var(--font);font-size:inherit;font-weight:700;cursor:pointer;text-decoration:underline;padding:0">For Parents page →</button></div>
+
       </div>
+
     </div>` : ''}
 
-    <button class="back-btn" onclick="showPage('home')" style="margin-top:8px" aria-label="Back to conditions list">${L.backAll2}</button>
+
+
+    <button class="back-btn" onclick="showPage('home')" style="margin-top:8px" aria-label="Back to conditions list">← All Conditions</button>
+
+
 
     <div class="share-bar" style="margin-top:8px">
-      <button class="share-btn" onclick="window.print()" aria-label="Print or save as PDF">${L.print}</button>
-      <button class="share-btn" onclick="shareCondition('${d.name}')" aria-label="Share this page">${L.share}</button>
-      <button class="share-btn" onclick="copyLink()" aria-label="Copy link to clipboard">${L.copyLink}</button>
-      <a class="share-btn" href="https://wa.me/?text=Vision%20Hub%20-%20${encodeURIComponent(d.name)}%20information%3A%20" target="_blank" rel="noopener" aria-label="Share on WhatsApp">${L.whatsapp}</a>
+
+      <button class="share-btn" onclick="window.print()" aria-label="Print or save as PDF">🖨️ Print / Save PDF</button>
+
+      <button class="share-btn" onclick="shareCondition('${d.name}')" aria-label="Share this page">📤 Share</button>
+
+      <button class="share-btn" onclick="copyLink()" aria-label="Copy link to clipboard">🔗 Copy link</button>
+
+      <a class="share-btn" href="https://wa.me/?text=Vision%20Hub%20-%20${encodeURIComponent(d.name)}%20information%3A%20" target="_blank" rel="noopener" aria-label="Share on WhatsApp">💬 WhatsApp</a>
+
     </div>
+
+
 
     <div class="feedback-bar" id="fb-${key}">
-      <span class="feedback-q">${L.helpful}</span>
-      <button class="fb-btn" onclick="submitFeedback('${key}','yes',this)" aria-label="Yes helpful">${L.yes}</button>
-      <button class="fb-btn" onclick="submitFeedback('${key}','no',this)" aria-label="No not helpful">${L.no}</button>
-      <button class="fb-btn" onclick="showPage('contact')" aria-label="Something is missing" style="font-size:0.82rem">${L.missing}</button>
-      <span class="feedback-thanks" id="fb-thanks-${key}">${_isWelsh ? 'Diolch!' : 'Thank you!'}</span>
+
+      <span class="feedback-q">Was this page helpful?</span>
+
+      <button class="fb-btn" onclick="submitFeedback('${key}','yes',this)" aria-label="Yes helpful">👍 Yes</button>
+
+      <button class="fb-btn" onclick="submitFeedback('${key}','no',this)" aria-label="No not helpful">👎 No</button>
+
+      <button class="fb-btn" onclick="showPage('contact')" aria-label="Something is missing" style="font-size:0.82rem">✉️ Something's missing</button>
+
+      <span class="feedback-thanks" id="fb-thanks-${key}">Thank you!</span>
+
     </div>
 
+
+
   </div>`;
+
 }
+
 
 
 /* ─────────────── TAB NAVIGATION + SCROLL SPY ─────────────── */
@@ -7247,11 +7634,49 @@ function toggleWelsh() {
 
 
 
-  document.documentElement.setAttribute('lang', _isWelsh ? 'cy' : 'en');
+  document.documentElement.setAttribute('lang', _isWelsh ? 'cy' : 'en-GB');
 
   document.body.classList.toggle('welsh-active', _isWelsh);
 
   localStorage.setItem('vh-lang', _isWelsh ? 'cy' : 'en');
+
+  // Translate a11y toolbar aria-labels
+
+  var cy = _isWelsh;
+
+  var dysBtn = document.getElementById('dys-toggle');
+
+  var ruleBtn = document.getElementById('rule-toggle');
+
+  var ttsBtn = document.getElementById('tts-toggle');
+
+  var szS = document.getElementById('sz-s');
+
+  var szM = document.getElementById('sz-m');
+
+  var szL = document.getElementById('sz-l');
+
+  var szXL = document.getElementById('sz-xl');
+
+  var colSel = document.getElementById('col-select');
+
+  if(dysBtn) dysBtn.setAttribute('aria-label', cy ? 'Toglo ffont dislecsia' : 'Toggle dyslexia-friendly font');
+
+  if(ruleBtn) ruleBtn.setAttribute('aria-label', cy ? 'Toglo rheolwr darllen' : 'Toggle reading ruler');
+
+  if(ttsBtn) ttsBtn.setAttribute('aria-label', cy ? 'Gwrando ar y dudalen hon' : 'Listen to this page');
+
+  if(szS) szS.setAttribute('aria-label', cy ? 'Testun bach' : 'Small text');
+
+  if(szM) szM.setAttribute('aria-label', cy ? 'Testun canolig' : 'Medium text');
+
+  if(szL) szL.setAttribute('aria-label', cy ? 'Testun mawr' : 'Large text');
+
+  if(szXL) szXL.setAttribute('aria-label', cy ? 'Testun mwy fawr' : 'Extra large text');
+
+  if(colSel) colSel.setAttribute('aria-label', cy ? 'Dewis thema lliw' : 'Choose colour theme');
+
+  if(typeof _updateTTSLabels === 'function') _updateTTSLabels();
 
   window.scrollTo({ top: 0, behavior: 'instant' });
 
@@ -7259,17 +7684,8 @@ function toggleWelsh() {
 
 
 
-// Restore preference
-
-(function() {
-
-  if (localStorage.getItem('vh-lang') === 'cy') {
-
-    setTimeout(toggleWelsh, 300);
-
-  }
-
-})();
+// Welsh language is NOT auto-restored - user must choose each session
+// This ensures English is always the default on every page load
 
 
 
@@ -7301,18 +7717,39 @@ var _scrollPos = {};
 
 function showPage(name) {
 
+  // Preserve Narrow Reading mode across navigation
+  var _nrOn = document.body.classList.contains('narrow-reading');
+
   // If Welsh active and going home, show Welsh home
+
   if (_isWelsh && name === 'home') {
+
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+
     document.querySelectorAll('.welsh-page').forEach(function(p) { p.style.display = 'none'; });
+
     var welshHome = document.getElementById('page-home-welsh');
+
     if (welshHome) welshHome.style.display = '';
-    // Keep video resources visible on Welsh home too
+
     var videoWrap = document.getElementById('video-resources-wrap');
-    if (videoWrap) videoWrap.style.display = '';
+
+    if (videoWrap) videoWrap.style.display = 'none';
+
     window.scrollTo({ top: 0, behavior: 'instant' });
+
     return;
+
   }
+
+
+
+  // Hide Welsh home when navigating to any non-home page
+
+  var welshHomeEl = document.getElementById('page-home-welsh');
+
+  if (welshHomeEl) welshHomeEl.style.display = 'none';
+
 
 
   // Save scroll position of current page
@@ -7328,6 +7765,15 @@ function showPage(name) {
   var target = document.getElementById('page-' + name);
 
   if (target) target.classList.add('active');
+
+  // Show Welsh notice on English-only pages when in Welsh mode
+
+  var lwNotice = document.getElementById('lw-welsh-notice');
+  if (lwNotice) lwNotice.style.display = (_isWelsh && name === 'livingwell') ? '' : 'none';
+  var helpNotice = document.getElementById('help-welsh-notice');
+  if (helpNotice) helpNotice.style.display = (_isWelsh && name === 'help') ? '' : 'none';
+  var a11yNotice = document.getElementById('a11y-welsh-notice');
+  if (a11yNotice) a11yNotice.style.display = (_isWelsh && name === 'a11y') ? '' : 'none';
 
 
 
@@ -7345,11 +7791,18 @@ function showPage(name) {
 
   window.scrollTo({ top: savedPos, behavior: 'instant' });
 
+  // Keep Narrow Reading mode active after navigation
+  if (_nrOn) document.body.classList.add('narrow-reading');
+
 }
 
 
 
 function showCondition(key) {
+
+  window._currentCondKey = key;
+
+  var _nrOn = document.body.classList.contains('narrow-reading');
 
   // Save home scroll position
 
@@ -7359,7 +7812,16 @@ function showCondition(key) {
 
   var condContent = document.getElementById('condition-content');
 
-  if (condContent) condContent.innerHTML = renderCondition(key);
+  if (condContent) {
+    condContent.innerHTML = renderCondition(key);
+    // Show Stargardt theme suggestion if needed
+    var stargBanner = document.getElementById('stargardt-theme-tip');
+    if (stargBanner) {
+      stargBanner.style.display = (key === 'stargardts' && !document.body.classList.contains('lb')) ? '' : 'none';
+    }
+  }
+  // Keep NR mode active
+  if (_nrOn) document.body.classList.add('narrow-reading');
 
 
 
@@ -7575,9 +8037,23 @@ function setSize(scale) {
 
 function setColour(mode) {
 
-  document.body.classList.remove('dark','ll','hc','yb','lb','cr','by','sd');
+  document.body.classList.remove('dark','ll','hc','yb','bb','lb');
+
+  // Reset any inline style overrides
+  document.body.style.backgroundColor = '';
+  document.body.style.color = '';
 
   if (mode) document.body.classList.add(mode);
+
+  // Light blue theme: use html class for maximum CSS specificity
+  document.documentElement.classList.remove('theme-lb');
+  document.body.style.backgroundColor = '';
+  document.body.style.color = '';
+  if (mode === 'lb') {
+    document.documentElement.classList.add('theme-lb');
+    document.body.style.setProperty('background-color', '#cce8f4', 'important');
+    document.body.style.setProperty('color', '#000000', 'important');
+  }
 
   try { localStorage.setItem('vh-colour', mode); } catch(e){}
 
@@ -7590,6 +8066,10 @@ function setColour(mode) {
 
 
 /* ─────────────── SHARE / COPY ─────────────── */
+
+function printPage() {
+  window.print();
+}
 
 function sharePage() {
 
@@ -7801,21 +8281,40 @@ function filterConds(q) {
 
   try {
 
-    const saved  = localStorage.getItem('vh-size');
+    // DEFAULT: English, Light theme, small text (scale 1)
+    // Only restore saved prefs if the user has explicitly set them
 
-    const size   = saved ? parseFloat(saved) : 1;
+    var savedSize   = localStorage.getItem('vh-size');
+    var savedColour = localStorage.getItem('vh-colour');
+    // NEVER restore Welsh as a default - always start in English
+    // User must actively choose Welsh each session
+    localStorage.removeItem('vh-lang');
 
-    const colour = localStorage.getItem('vh-colour') ?? '';
-
+    // Size: default 1 (small)
+    var size = savedSize ? parseFloat(savedSize) : 1;
     setSize(size);
 
+    // Colour: default light (empty string = light theme)
+    var colour = (savedColour !== null) ? savedColour : '';
     if (colour !== '') setColour(colour);
 
-    const sel = document.getElementById('col-select');
-
-    if (sel) sel.value = colour;
+    var sel = document.getElementById('col-select');
+    if (sel) sel.value = colour || '';
 
   } catch(e) {}
+
+  // Restore narrow reading mode
+  if(localStorage.getItem('vh-narrow')==='1'){ document.body.classList.add('narrow-reading'); var nb=document.getElementById('narrow-toggle'); if(nb) nb.setAttribute('aria-pressed','true'); }
+
+  // Preload TTS voices so they're ready when panel opens
+
+  if (window.speechSynthesis) {
+
+    window.speechSynthesis.getVoices();
+
+    window.speechSynthesis.onvoiceschanged = function() { window.speechSynthesis.getVoices(); };
+
+  }
 
 })();
 
@@ -7951,6 +8450,327 @@ if ('serviceWorker' in navigator) {
 
 }
 
+
+/* ─── A11Y ENHANCEMENTS ─── */
+(function(){
+  // Live region announcer
+  window.srAnnounce = function(msg, assertive){
+    var id = assertive ? 'sr-announcer-assertive' : 'sr-announcer';
+    var el = document.getElementById(id);
+    if(!el) return;
+    el.textContent = '';
+    setTimeout(function(){ el.textContent = msg; }, 50);
+  };
+
+  // Dyslexia-friendly font
+  window.toggleDyslexic = function(){
+    var on = document.body.classList.toggle('dyslexic');
+    try{ localStorage.setItem('dyslexic', on?'1':'0'); }catch(e){}
+    var b = document.getElementById('dys-toggle');
+    if(b) b.setAttribute('aria-pressed', on?'true':'false');
+    srAnnounce(on ? 'Dyslexia-friendly font on' : 'Dyslexia-friendly font off');
+  };
+  if(localStorage.getItem('dyslexic')==='1'){
+    document.body.classList.add('dyslexic');
+    var b=document.getElementById('dys-toggle'); if(b) b.setAttribute('aria-pressed','true');
+  }
+
+  // Reading ruler — follows cursor / focus
+  window.toggleNarrowReading = function(){
+    var on = document.body.classList.toggle('narrow-reading');
+    try{ localStorage.setItem('vh-narrow', on?'1':'0'); }catch(e){}
+    var b = document.getElementById('narrow-toggle');
+    if(b) b.setAttribute('aria-pressed', on?'true':'false');
+    srAnnounce(on ? 'Narrow reading on' : 'Narrow reading off');
+  };
+
+  window.toggleReadingRuler = function(){
+    var on = document.body.classList.toggle('reading-ruler');
+    try{ localStorage.setItem('rule', on?'1':'0'); }catch(e){}
+    var b = document.getElementById('rule-toggle');
+    if(b) b.setAttribute('aria-pressed', on?'true':'false');
+    srAnnounce(on ? 'Reading ruler on' : 'Reading ruler off');
+  };
+  document.addEventListener('mousemove', function(e){
+    if(!document.body.classList.contains('reading-ruler')) return;
+    var bar = document.querySelector('.reading-ruler-bar');
+    if(bar) bar.style.top = (e.clientY - 24) + 'px';
+  });
+  if(localStorage.getItem('rule')==='1'){ document.body.classList.add('reading-ruler'); }
+
+  // ─── TEXT TO SPEECH ───────────────────────────────────────────
+  var _ttsUtter = null;
+
+  function ttsGetText() {
+    var section = (document.getElementById('tts-section')||{}).value || 'current';
+
+    function cleanText(el) {
+      if (!el) return '';
+      var clone = el.cloneNode(true);
+      // Remove UI chrome elements entirely
+      clone.querySelectorAll(
+        '.desktop-sidebar, aside, .back-btn, .share-bar, .a11y-bar, ' +
+        '.cond-list, .search-wrap, .back-top, .sidebar-logo, ' +
+        '.sidebar-tagline, .sidebar-divider, .sidebar-section, ' +
+        '.acc-btn, .cond-arrow, .share-btn, script, style, #tts-panel, ' +
+        '.news-footer, .hero-eyebrow, .legal-updated, .trial-link, ' +
+        '[aria-hidden="true"]'
+      ).forEach(function(j){ j.remove(); });
+      var raw = clone.innerText;
+      // Clean up symbols and UI artifacts
+      // Remove UI symbols and arrows
+      raw = raw.replace(/[▼▲▾▴←→◀▶‹›»«↑↓⬆⬇◉◎◈◭↔☀◑⬡◇◆]/g, '');
+      // Remove standalone numbers (accordion section numbers)
+      raw = raw.replace(/^\s*\d+\s*$/gm, '');
+      // Remove very short UI-only lines (NR, Dx, A etc)
+      raw = raw.replace(/^\s*[A-Z]{1,3}\+?\s*$/gm, '');
+      // Remove lines that are just dashes or bullets
+      raw = raw.replace(/^\s*[•·–—\-]+\s*$/gm, '');
+      // Collapse excess whitespace
+      raw = raw.replace(/\n{3,}/g, '\n\n');
+      raw = raw.replace(/[ \t]{2,}/g, ' ');
+      // Natural pause after headings - add period so speech engine pauses
+      raw = raw.replace(/^([A-Z][A-Za-z &]{4,40})\n([A-Za-z])/gm, '$1. $2');
+      return raw.trim();
+    }
+
+    var pages = {
+      news:       '.news-box',
+      lw:         '#page-livingwell',
+      questions:  '#page-questions',
+      employment: '#page-employment',
+      glossary:   '#page-glossary',
+      eyehealth:  '#page-eyehealth',
+      benefits:   '#page-employment',
+      research:   '.news-tag.research'
+    };
+
+    if (section === 'research') {
+      // Collect all research news items text
+      var items = document.querySelectorAll('.news-tag.research');
+      var txt = '';
+      items.forEach(function(tag) {
+        var item = tag.closest('.news-item');
+        if (item) txt += item.innerText + ' ';
+      });
+      return txt.trim();
+    }
+
+    if (section !== 'current' && pages[section]) {
+      var el = document.querySelector(pages[section]);
+      if (el) return cleanText(el);
+    }
+
+    // Current: read active visible page, stripped of UI chrome
+    var active = document.querySelector('.welsh-page[style*="block"]') ||
+                 document.querySelector('.page.active') ||
+                 document.body;
+    return cleanText(active);
+  }
+
+  window.ttsPlay = function() {
+    var synth = window.speechSynthesis;
+    if (!synth || typeof SpeechSynthesisUtterance === 'undefined') {
+      alert('Text to speech is not supported in this browser.');
+      return;
+    }
+
+    synth.cancel();
+
+    var rawText = ttsGetText().replace(/\s+/g, ' ').trim();
+    if (!rawText) { alert('No text found to read.'); return; }
+
+    var speed = parseFloat((document.getElementById('tts-speed')||{}).value || '0.85');
+    var vname = (document.getElementById('tts-voice-sel')||{}).value || '';
+
+    // Split into 180-char chunks at word boundaries - fixes Android stopping
+    var chunks = rawText.match(/.{1,180}(\s|$)/g) || [rawText];
+    var chunkIndex = 0;
+
+    function speakChunk(voiceList) {
+      if (chunkIndex >= chunks.length) {
+        var pb = document.getElementById('tts-play-btn');
+        var st = document.getElementById('tts-status');
+        if (pb) pb.textContent = '\u25b6 Play';
+        if (st) st.textContent = 'Finished.';
+        return;
+      }
+      var utt = new SpeechSynthesisUtterance(chunks[chunkIndex]);
+      utt.lang = 'en-GB';
+      utt.rate = speed;
+      utt.volume = 1;
+      if (vname && voiceList && voiceList.length) {
+        var match = voiceList.find(function(v) { return v.name === vname; });
+        if (match) utt.voice = match;
+      }
+      utt.onend = function() { chunkIndex++; speakChunk(voiceList); };
+      utt.onerror = function(e) {
+        if (e.error === 'interrupted') return;
+        var st = document.getElementById('tts-status');
+        if (st) st.textContent = 'Error: ' + e.error + '. Please try again.';
+        var pb = document.getElementById('tts-play-btn');
+        if (pb) pb.textContent = '\u25b6 Play';
+      };
+      synth.speak(utt);
+    }
+
+    var pb = document.getElementById('tts-play-btn');
+    var st = document.getElementById('tts-status');
+    if (pb) pb.textContent = '\u23f8 Speaking...';
+    if (st) st.textContent = 'Reading ' + chunks.length + ' part' + (chunks.length > 1 ? 's' : '') + '...';
+
+    var voices = synth.getVoices();
+    if (voices.length) {
+      speakChunk(voices);
+    } else {
+      // Voices not loaded yet - wait for them (Android Chrome)
+      if (st) st.textContent = 'Loading voice, please wait...';
+      synth.onvoiceschanged = function() {
+        synth.onvoiceschanged = null;
+        speakChunk(synth.getVoices());
+      };
+    }
+  }
+
+  window.ttsStop = function() {
+    window.speechSynthesis && window.speechSynthesis.cancel();
+    var pb = document.getElementById('tts-play-btn');
+    var st = document.getElementById('tts-status');
+    if (pb) pb.textContent = '▶ Play';
+    if (st) st.textContent = 'Stopped.';
+  };
+
+  window.togglePageSpeech = function() {
+    var panel = document.getElementById('tts-panel');
+    if (!panel) return;
+    var open = panel.style.display === 'none' || panel.style.display === '';
+    panel.style.display = open ? 'block' : 'none';
+    if (open) {
+      // Load voices into selector
+      var sel = document.getElementById('tts-voice-sel');
+      if (sel && window.speechSynthesis) {
+        var loadVoicesIntoPanel = function() {
+          var voices = window.speechSynthesis.getVoices();
+          if (voices.length > 1) {
+            sel.innerHTML = '<option value="">Default English voice</option>';
+            voices.forEach(function(v) {
+              if (v.lang.indexOf('en') === 0 || v.lang.indexOf('cy') === 0) {
+                var o = document.createElement('option');
+                o.value = v.name;
+                o.textContent = v.name + ' (' + v.lang + ')';
+                sel.appendChild(o);
+              }
+            });
+            // Auto-select Welsh voice if CY mode active
+            if (_isWelsh) {
+              var wv = voices.find(function(v){
+                return v.lang.indexOf('cy') === 0 || v.name.toLowerCase().indexOf('gwyneth') !== -1 || v.name.toLowerCase().indexOf('welsh') !== -1;
+              });
+              if (wv) sel.value = wv.name;
+            }
+          }
+        };
+        var vv = window.speechSynthesis.getVoices();
+        if (vv.length) { loadVoicesIntoPanel(); }
+        else { window.speechSynthesis.onvoiceschanged = function(){ loadVoicesIntoPanel(); window.speechSynthesis.onvoiceschanged = null; }; }
+      }
+      var pb = document.getElementById('tts-play-btn');
+      if (pb) pb.focus();
+    } else {
+      ttsStop();
+    }
+  };
+
+  // Load voices when available
+  if (window.speechSynthesis && window.speechSynthesis.onvoiceschanged !== undefined) {
+    window.speechSynthesis.onvoiceschanged = function() { window.speechSynthesis.getVoices(); };
+  }
+
+  // Focus trap for TTS panel
+  document.addEventListener('keydown', function(e) {
+    var panel = document.getElementById('tts-panel');
+    if (!panel || panel.style.display === 'none') return;
+    if (e.key === 'Escape') { _stopSpeech(); panel.style.display = 'none'; document.getElementById('tts-toggle').focus(); return; }
+    if (e.key !== 'Tab') return;
+    var focusable = panel.querySelectorAll('button, select, [tabindex]:not([tabindex="-1"])');
+    if (!focusable.length) return;
+    var first = focusable[0], last = focusable[focusable.length - 1];
+    if (e.shiftKey) { if (document.activeElement === first) { e.preventDefault(); last.focus(); } }
+    else { if (document.activeElement === last) { e.preventDefault(); first.focus(); } }
+  });
+
+  // Esc to close any open modal/page overlay (heuristic: hides element with class .open or aria-modal)
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      var modals = document.querySelectorAll('[aria-modal="true"], .modal.open, .overlay.open');
+      modals.forEach(function(m){ m.style.display='none'; m.classList.remove('open'); });
+    }
+  });
+
+  // Announce page / condition changes by hooking into showCondition/showPage if present
+  ['showCondition','showConditionWelsh','showPage'].forEach(function(fnName){
+    var orig = window[fnName];
+    if(typeof orig === 'function'){
+      window[fnName] = function(){
+        var r = orig.apply(this, arguments);
+        var label = arguments[0];
+        try {
+          if(label && fnName.indexOf('Condition') !== -1 && window.DATA && window.DATA[label]){
+            label = window.DATA[label].name;
+          } else if (label === 'home') {
+            label = 'Home';
+          }
+        } catch(e) {}
+        if(label) srAnnounce(String(label).replace(/[-_]/g,' ') + ' opened');
+        // refocus to top of main for keyboard users
+        var m = document.getElementById('main');
+        if(m){ m.setAttribute('tabindex','-1'); m.focus({preventScroll:false}); }
+        return r;
+      };
+    }
+  });
+})();
+
+
+function generateAISLetter(){
+  var name = (document.getElementById('ais-name')||{}).value || '[your name]';
+  var dob  = (document.getElementById('ais-dob')||{}).value  || '[date of birth]';
+  var nhs  = (document.getElementById('ais-nhs')||{}).value  || '[NHS number]';
+  var fmt  = (document.getElementById('ais-format')||{}).value || '';
+  var extra= (document.getElementById('ais-extra')||{}).value || '';
+  var today= new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  var t = ''
+    + 'To: My GP Practice / Hospital Patient Records team\n'
+    + 'From: ' + name + '\n'
+    + 'Date of birth: ' + dob + '\n'
+    + 'NHS number: ' + nhs + '\n'
+    + 'Date: ' + today + '\n\n'
+    + 'Re: NHS Accessible Information Standard (DCB1605, 2016) — communication needs\n\n'
+    + 'I am writing to notify you of my communication and information needs under '
+    + 'the NHS Accessible Information Standard, which I understand is a legal '
+    + 'requirement for all NHS and adult social care providers in England.\n\n'
+    + 'Please record on my patient record that I require all letters, results, '
+    + 'appointment reminders and patient information to be sent to me in the '
+    + 'following format:\n\n'
+    + '    ' + fmt + '\n\n'
+    + (extra ? 'Additional reasonable adjustments:\n    ' + extra + '\n\n' : '')
+    + 'Please confirm in writing that this has been added to my record and '
+    + 'that the flag will be visible to every department I am referred to.\n\n'
+    + 'Yours faithfully,\n' + name;
+  var out = document.getElementById('ais-output');
+  var ta  = document.getElementById('ais-letter-text');
+  if(ta) ta.value = t;
+  if(out) out.style.display = 'block';
+  if(window.srAnnounce) srAnnounce('Letter generated below');
+}
+function copyAISLetter(){
+  var ta = document.getElementById('ais-letter-text');
+  if(!ta) return;
+  ta.select();
+  try{ document.execCommand('copy'); if(window.srAnnounce) srAnnounce('Letter copied to clipboard'); }
+  catch(e){ alert('Press Ctrl+C / Cmd+C to copy.'); }
+}
+
 </script>
 
 
@@ -7981,7 +8801,7 @@ if ('serviceWorker' in navigator) {
 
     <div class="lc"><h2>A</h2>
 
-      <p><strong>Acuedd Gweledol</strong> — Pa mor glir yw eich golwg. Fel arfer wedi'i fesur fel ffracsiwn e.e. 6/6 (normal) neu 6/60.</p>
+      <p><strong>Craffter Gweledol</strong> — Pa mor glir yw eich golwg. Fel arfer wedi'i fesur fel ffracsiwn e.e. 6/6 (normal) neu 6/60.</p>
 
       <p style="margin-top:10px"><strong>AMD</strong> — Dirywiad Macular yn Gysylltiedig ag Oedran. Y cyflwr llygad sy'n effeithio ar y macula a'r achos mwyaf cyffredin o golli golwg difrifol mewn pobl dros 50 oed.</p>
 
@@ -8135,7 +8955,7 @@ if ('serviceWorker' in navigator) {
 
       <h2>📊 Deall Eich Canlyniadau Prawf Golwg</h2>
 
-      <p><strong>Acuedd Gweledol</strong> — wedi'i fesur fel ffracsiwn. 6/6 yw normal. Mae 6/60 yn golygu eich bod yn gweld ar 6 metr yr hyn mae rhywun â golwg normal yn ei weld ar 60 metr. Y safon gyfreithiol ar gyfer gyrru yw 6/12.</p>
+      <p><strong>Craffter Gweledol</strong> — wedi'i fesur fel ffracsiwn. 6/6 yw normal. Mae 6/60 yn golygu eich bod yn gweld ar 6 metr yr hyn mae rhywun â golwg normal yn ei weld ar 60 metr. Y safon gyfreithiol ar gyfer gyrru yw 6/12.</p>
 
       <p style="margin-top:10px"><strong>Maes Gweledol</strong> — yr ardal lawn y gallwch ei gweld heb symud eich llygaid, gan gynnwys golwg ymylol. Wedi'i fesur ar beiriant perimedr.</p>
 
@@ -8185,7 +9005,7 @@ if ('serviceWorker' in navigator) {
 
     <p style="font-size:0.95rem;color:var(--text2);margin-bottom:28px;line-height:1.8">Mae darganfod bod gan eich plentyn gyflwr golwg yn un o'r pethau anoddaf y gall rhiant ei wynebu. Mae'r dudalen hon ar eich cyfer chi — ymarferol, gonest, ac wedi'i hysgrifennu gyda'r ddealltwriaeth eich bod chi'n gwneud gwaith ardderchog.</p>
 
-    <div class="wb"><strong>Nid ydych chi ar eich pen eich hun.</strong> Mae miloedd o deuluoedd yn y DU yn byw bywydau cyflawn, hapus gyda phlentyn sydd â chyflwr golwg. Dechrau taith yw hyn, nid diwedd un.</div>
+    <div class="wb"><strong>Nid ydych chi ar eich pen eich hun.</strong> Mae miloedd o deuluoedd yn y DU yn byw bywydau cyflawn a hapus gyda phlentyn sydd â chyflwr golwg. Dechrau taith yw hyn, nid diwedd un.</div>
 
     <div class="lc">
 
@@ -8335,7 +9155,7 @@ if ('serviceWorker' in navigator) {
 
   <div class="legal-wrap">
 
-    <button class="back-btn" onclick="showPage('home')" aria-label="Yn ôl i'r hafan">← Yn ôl</button>
+    <button class="back-btn" onclick="showPage('home');if(_isWelsh){var wh=document.getElementById('page-home-welsh');if(wh)wh.style.display='';}" aria-label="Yn ôl i'r hafan">← Yn ôl</button>
 
     <span class="legal-eyebrow">Gwaith</span>
 
@@ -8371,9 +9191,9 @@ if ('serviceWorker' in navigator) {
 
       <h2>🗣️ Dweud wrth Eich Cyflogwr</h2>
 
-      <p>Nid oes rhaid i chi yn gyfreithiol ddatgelu cyflwr golwg i'ch cyflogwr, ond mae gwneud hynny yn galluogi chi i ofyn am addasiadau rhesymol. Ystyriwch ddatgelu pan fo: eich cyflwr yn effeithio ar eich gallu i wneud eich gwaith, angen addasiadau arnoch i'ch gweithle, rydych chi'n gwneud cais am rôl ac angen addasiadau yn y cyfweliad.</p>
+      <p>Nid oes rhaid i chi yn gyfreithiol ddatgelu cyflwr golwg i'ch cyflogwr, ond mae gwneud hynny yn eich galluogi i ofyn am addasiadau rhesymol. Ystyriwch ddatgelu pan fo: eich cyflwr yn effeithio ar eich gallu i wneud eich gwaith, angen addasiadau arnoch i'ch gweithle, rydych chi'n gwneud cais am rôl ac angen addasiadau yn y cyfweliad.</p>
 
-      <p style="margin-top:10px">Mae Llinell Cyflogaeth RNIB (0303 123 9999) yn darparu cyngor cyfrinachol am ddim ar sut i fynd ati at sgyrsiau datgelu.</p>
+      <p style="margin-top:10px">Mae Llinell Cyflogaeth RNIB (0303 123 9999) yn darparu cyngor cyfrinachol am ddim ar sut i ddechrau sgyrsiau datgelu.</p>
 
     </div>
 
@@ -8509,7 +9329,7 @@ if ('serviceWorker' in navigator) {
 
       <h2>🛒 Siop RNIB — Offer Arbenigol</h2>
 
-      <p>Siop RNIB yw manwerthwr blaenllaw'r DU ar gyfer offer arbenigol i bobl â cholli golwg — clociau siarad, mwysogion gwybodol, eitemau print mawr, a llawer mwy.</p>
+      <p>Siop RNIB yw manwerthwr blaenllaw'r DU ar gyfer offer arbenigol i bobl â cholli golwg — clociau siarad, clorianau siarad, eitemau print mawr, a llawer mwy.</p>
 
       <p style="margin-top:12px"><a href="https://shop.rnib.org.uk" target="_blank" rel="noopener" style="color:var(--yellow);font-weight:700;font-size:1rem">Ewch i Siop RNIB ↗ (Saesneg yn unig)</a></p>
 
@@ -8547,7 +9367,7 @@ if ('serviceWorker' in navigator) {
 
       <p><strong>RNIB Cymru</strong> — yn darparu gwasanaethau cymorth penodol i Gymru gan gynnwys cyngor, eiriolaeth, a chymorth cyflogaeth. <a href="https://www.rnib.org.uk/cymru" target="_blank" rel="noopener" style="color:var(--yellow);font-weight:700">rnib.org.uk/cymru ↗</a></p>
 
-      <p style="margin-top:10px"><strong>Gweld Cymru</strong> — prif elusen golwg Cymru. <a href="https://www.sight.cymru" target="_blank" rel="noopener" style="color:var(--yellow);font-weight:700">sight.cymru ↗</a></p>
+      <p style="margin-top:10px"><strong>Gweld Cymru</strong> — prif elusen golwg Cymru. <a href="https://www.sightcymru.org.uk" target="_blank" rel="noopener" style="color:var(--yellow);font-weight:700">sight.cymru ↗</a></p>
 
       <p style="margin-top:10px"><strong>GIG 111 Cymru</strong> — ar gyfer cymorth iechyd nad yw'n argyfwng: <a href="https://111.wales.nhs.uk" target="_blank" rel="noopener" style="color:var(--yellow);font-weight:700" class="no-en-label">111.wales.nhs.uk ↗</a></p>
 
@@ -8625,7 +9445,7 @@ if ('serviceWorker' in navigator) {
 
         <li>A ddylwn i gael asesiad golwg isel?</li>
 
-        <li>Sut alla i fynegi gwasanaethau adsefydlu golwg?</li>
+        <li>Sut alla i gael mynediad at wasanaethau adsefydlu golwg?</li>
 
       </ul>
 
